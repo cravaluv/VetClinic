@@ -1,0 +1,14 @@
+.login {
+    background: grey;
+    width: 400px;
+    height: 250px;
+    top: 30%;
+    position: absolute;
+    box-shadow: 10px 10px 5px rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)
+}
+
+.container {
+    width: 100vh;
+    height: 100vh;
+    display:  block;
+}

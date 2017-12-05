@@ -1,0 +1,25 @@
+<div class="modal-header">
+    <h4 class="modal-title">DODAJ WŁAŚCICIELA</h4>
+    <button type="button" class="close" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+
+    <form #ownerForm="ngForm">
+
+            <div class="col">
+                <label>Imię</label>
+                <input type="text" class="form-control" id="name" required [(ngModel)]="modelCopy.name" name="name" #name="ngModel">
+            </div>
+
+            <div class="col">
+                <label>Nazwisko</label>
+                <input type="text" class="form-control" id="surname" required [(ngModel)]="modelCopy.surname" name="surname" #surname="ngModel">
+            </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-success">Zatwierdź</button>
+    <button type="button" class="btn btn-outline-dark">Zamknij</button>
+</div>

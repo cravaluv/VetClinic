@@ -1,0 +1,26 @@
+<h1>Owner section</h1>
+<div class="m-5">
+  <button class="btn btn-success" (click)="add()">Dodaj</button>
+  <table class="table mt-3">
+    <thead>
+      <tr>
+        <th scope="col">id</th>
+        <th scope="col">First Name</th>
+        <th scope="col">Last Name</th>
+        <th scope="col">Username</th>
+        <th scope="col">Phone</th>
+        <th scope="col">Address</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let owner of owners">
+        <th>{{owner.idOwner}}</th>
+        <td>{{owner.name}}</td>
+        <td>{{owner.surname}}</td>
+        <td>{{owner.login}}</td>
+        <td>{{owner.tel}}</td>
+        <td>{{owner.address.address}}, {{owner.address.postalCode}} {{owner.address.city}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
