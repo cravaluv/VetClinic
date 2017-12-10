@@ -28,5 +28,20 @@ export class OwnerComponent implements OnInit {
   add() {
     const modal = this.modalService.open(OwnerEditComponent, { size: 'lg' });
     modal.componentInstance.model = new Owner();
+
+    modal.result.then((result) => {
+      this.ownerService.addOwner(result);
+    }, (reason) => {
+    });
+  }
+
+  update(owner: Owner) {
+    const modal = this.modalService.open(OwnerEditComponent, { size: 'lg' });
+    modal.componentInstance.model = owner;
+
+    modal.result.then((result) => {
+      this.ownerService.update(result);
+    }, (reason) => {
+    });
   }
 }

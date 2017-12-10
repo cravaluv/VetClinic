@@ -1,7 +1,7 @@
 <h1>Owner section</h1>
 <div class="m-5">
   <button class="btn btn-success" (click)="add()">Dodaj</button>
-  <table class="table mt-3">
+  <table class="table mt-3 table-striped table-hover">
     <thead>
       <tr>
         <th scope="col">id</th>
@@ -13,7 +13,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let owner of owners">
+      <tr *ngFor="let owner of owners" (dblclick)="update(owner)">
         <th>{{owner.idOwner}}</th>
         <td>{{owner.name}}</td>
         <td>{{owner.surname}}</td>

@@ -18,5 +18,29 @@ export class OwnerService {
         const endPoint = 'all';
         return this.http.get(this.ownerUrl + endPoint);
     }
+
+    addOwner(owner: Owner) {
+        const endPoint = 'add';
+        return this.http.post(this.ownerUrl + endPoint, owner).subscribe(
+            res => {
+              console.log(res);
+            },
+            err => {
+              console.log("Error occured");
+            }
+          );
+    }
+
+    update(owner: Owner) {
+        const endPoint = 'update/';
+        return this.http.post(this.ownerUrl + endPoint + owner.idOwner, owner).subscribe(
+            res => {
+              console.log(res);
+            },
+            err => {
+              console.log("Error occured");
+            }
+          );
+    }
 }
 

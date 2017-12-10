@@ -10,5 +10,7 @@ export class Owner {
     password?: string;
     address: Address;
 
-    constructor() {}
+    constructor() {
+        this.address = new Address();
+    }
 }

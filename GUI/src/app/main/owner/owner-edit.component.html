@@ -5,21 +5,81 @@
     </button>
 </div>
 <div class="modal-body">
-
-    <form #ownerForm="ngForm">
-
-            <div class="col">
-                <label>Imię</label>
-                <input type="text" class="form-control" id="name" required [(ngModel)]="modelCopy.name" name="name" #name="ngModel">
-            </div>
-
-            <div class="col">
-                <label>Nazwisko</label>
-                <input type="text" class="form-control" id="surname" required [(ngModel)]="modelCopy.surname" name="surname" #surname="ngModel">
-            </div>
-    </form>
+        <ngb-tabset>
+                <ngb-tab title="DANE">
+                  <ng-template ngbTabContent>
+                        <form #ownerForm="ngForm" class="m-3">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="name">Imię</label>
+                                        <input type="text" class="form-control" id="name" required [(ngModel)]="modelCopy.name" name="name" #name="ngModel">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="surname">Nazwisko</label>
+                                        <input type="text" class="form-control" id="surname" required [(ngModel)]="modelCopy.surname" name="surname" #surname="ngModel">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="address">Adres</label>
+                                        <input type="text" class="form-control" id="address" required [(ngModel)]="modelCopy.address.address" name="address" #address="ngModel">
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="city">Miasto</label>
+                                        <input type="text" class="form-control" id="city" required [(ngModel)]="modelCopy.address.city" name="city" #city="ngModel">
+                                    </div>
+                                    <div class="col-md-2 mb-3">
+                                        <label for="postal">Kod</label>
+                                        <input type="text" class="form-control" id="postal" required [(ngModel)]="modelCopy.address.postalCode" name="postal" #postal="ngModel">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="tel">Telefon</label>
+                                        <input type="text" class="form-control" id="tel" required [(ngModel)]="modelCopy.tel" name="tel" #tel="ngModel">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5 mb-3">
+                                        <label class="custom-control custom-checkbox">
+                                            <span class="custom-control-description">Rejestracja online</span>
+                                            <input type="checkbox" class="custom-control-input" [checked]="modelCopy.onlineReg" (change)="modelCopy.onlineReg = !modelCopy.onlineReg">
+                                            <span class="custom-control-indicator"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div [hidden]="!modelCopy.onlineReg" class="row">
+                                        <div class="col-md-6 mb-3">
+                                                <label for="login">Login</label>
+                                                <input type="text" class="form-control" id="login" required [(ngModel)]="modelCopy.login" name="login" #login="ngModel">
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label for="password">Hasło</label>
+                                                <input type="password" class="form-control" id="password" required [(ngModel)]="modelCopy.password" name="password" #password="ngModel">
+                                            </div>
+                                    </div>
+                            </form>
+                  </ng-template>
+                </ngb-tab>
+                <ngb-tab>
+                  <ng-template ngbTabTitle><b>Fancy</b> title</ng-template>
+                  <ng-template ngbTabContent>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.
+                    <p>Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table
+                    craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl
+                    cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia
+                    yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean
+                    shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero
+                    sint qui sapiente accusamus tattooed echo park.</p>
+                  </ng-template>
+                </ngb-tab>
+                <ngb-tab title="Disabled" [disabled]="true">
+                  <ng-template ngbTabContent>
+                    <p>Sed commodo, leo at suscipit dictum, quam est porttitor sapien, eget sodales nibh elit id diam. Nulla facilisi. Donec egestas ligula vitae odio interdum aliquet. Duis lectus turpis, luctus eget tincidunt eu, congue et odio. Duis pharetra et nisl at faucibus. Quisque luctus pulvinar arcu, et molestie lectus ultrices et. Sed diam urna, egestas ut ipsum vel, volutpat volutpat neque. Praesent fringilla tortor arcu. Vivamus faucibus nisl enim, nec tristique ipsum euismod facilisis. Morbi ut bibendum est, eu tincidunt odio. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris aliquet odio ac lorem aliquet ultricies in eget neque. Phasellus nec tortor vel tellus pulvinar feugiat.</p>
+                  </ng-template>
+                </ngb-tab>
+              </ngb-tabset>
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-success">Zatwierdź</button>
-    <button type="button" class="btn btn-outline-dark">Zamknij</button>
+    <button type="button" class="btn btn-success" (click)="onSubmit()">Zatwierdź</button>
+    <button type="button" class="btn btn-outline-dark" (click)="onDismiss()">Zamknij</button>
 </div>
