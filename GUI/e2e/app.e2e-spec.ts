@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('veterinaryclinicapp App', () => {
+describe('veterinaryclinic-gui App', () => {
   let page: AppPage;
 
   beforeEach(() => {

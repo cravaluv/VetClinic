@@ -7,12 +7,14 @@ import { MainRoutingModule } from './main-routing.module';
 import { HomeComponent } from './home/home.component';
 import { OwnerService } from '../core/services/owner.service';
 import { OwnerEditComponent } from './owner/owner-edit.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
-        MainRoutingModule
+        MainRoutingModule,
+        NgbModule
     ],
     declarations: [
         MainComponent,
