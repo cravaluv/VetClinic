@@ -8,6 +8,9 @@ import { HomeComponent } from './home/home.component';
 import { OwnerService } from '../core/services/owner.service';
 import { OwnerEditComponent } from './owner/owner-edit.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { PetComponent } from './pet/pet.component';
+import { PetEditComponent } from './pet/pet-edit.component';
+import { AnimalService } from '../core/services/animal.service';
 
 @NgModule({
     imports: [
@@ -20,9 +23,11 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
         MainComponent,
         OwnerComponent,
         HomeComponent,
-        OwnerEditComponent
+        OwnerEditComponent,
+        PetComponent,
+        PetEditComponent
     ],
-    providers: [OwnerService],
-    entryComponents: [OwnerEditComponent]
+    providers: [OwnerService, AnimalService],
+    entryComponents: [OwnerEditComponent, PetEditComponent]
 })
 export class MainModule { }

@@ -1,21 +1,21 @@
 import { Component, Input } from '@angular/core';
 import { OwnerService } from '../../core/services/owner.service';
 import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
-import { Owner } from '../../core/models/owner';
+import { Animal } from '../../core/models/animal';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap/modal/modal';
 import * as _ from 'lodash';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-owner-edit',
-  templateUrl: './owner-edit.component.html',
+  selector: 'app-pet-edit',
+  templateUrl: './pet-edit.component.html',
 })
-export class OwnerEditComponent implements OnInit {
+export class PetEditComponent implements OnInit {
 
-  @Input() model: Owner;
+  @Input() model: Animal;
   @Input() editMode = true;
 
-  modelCopy: Owner;
+  modelCopy: Animal;
 
   constructor(private activeModal: NgbActiveModal ) {
   }
@@ -30,14 +30,6 @@ export class OwnerEditComponent implements OnInit {
 
   onDismiss() {
     this.activeModal.dismiss();
-  }
-
-  addAnimal() {
-
-  }
-
-  deleteAnimal() {
-
   }
 
   addVisit() {

@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h4 class="modal-title">{{editMode ? 'EDYTUJ WŁAŚCICIELA' : 'DODAJ WŁAŚCICIELA'}}</h4>
+    <h4 class="modal-title">{{editMode ? 'EDYTUJ ZWIERZĘ' : 'DODAJ ZWIERZĘ'}}</h4>
     <button type="button" class="close" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -8,8 +8,8 @@
         <ngb-tabset>
                 <ngb-tab title="DANE">
                   <ng-template ngbTabContent>
-                        <form #ownerForm="ngForm" class="m-3">
-                                <div class="row">
+                        <form #petForm="ngForm" class="m-3">
+                                <!-- <div class="row">
                                     <div class="col-md-6 mb-3">
                                         <label for="name">Imię</label>
                                         <input type="text" class="form-control" id="name" required [(ngModel)]="modelCopy.name" name="name" #name="ngModel">
@@ -57,45 +57,14 @@
                                                 <label for="password">Hasło</label>
                                                 <input type="password" class="form-control" id="password" required [(ngModel)]="modelCopy.password" name="password" #password="ngModel">
                                             </div>
-                                    </div>
+                                    </div> -->
                             </form>
-                  </ng-template>
-                </ngb-tab>
-                <ngb-tab title="ZWIERZĘTA">
-                  <ng-template ngbTabContent>
-                    <div class="mt-2">
-                        <button class="btn btn-success" (click)="addAnimal()">Dodaj</button>
-                        <button class="btn btn-danger" (click)="deleteAnimal()">Usuń</button>
-                        <table class="table mt-3 table-striped table-hover">
-                          <thead>
-                            <tr>
-                              <th scope="col">id</th>
-                              <th scope="col">Imię</th>
-                              <th scope="col">Data urodzenia</th>
-                              <th scope="col">Aktywne</th>
-                              <th scope="col">Typ</th>
-                              <th scope="col">Rasa</th>
-                              <th scope="col">Kolor</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <!-- <tr *ngFor="let owner of owners" (dblclick)="update(owner)">
-                              <th>{{owner.idOwner}}</th>
-                              <td>{{owner.name}}</td>
-                              <td>{{owner.surname}}</td>
-                              <td>{{owner.login}}</td>
-                              <td>{{owner.tel}}</td>
-                              <td>{{owner.address.address}}, {{owner.address.postalCode}} {{owner.address.city}}</td>
-                            </tr> -->
-                          </tbody>
-                        </table>
-                      </div>
                   </ng-template>
                 </ngb-tab>
                 <ngb-tab title="WIZYTY">
                   <ng-template ngbTabContent>
                     <div class="mt-2">
-                        <button class="btn btn-success" (click)="addVisit()">Nowa wizyta</button>
+                        <button class="btn btn-success" (click)="addVisit()">Nowa</button>
                         <table class="table mt-3 table-striped table-hover">
                           <thead>
                             <tr>

@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { OwnerComponent } from './owner/owner.component';
 import { MainComponent } from './main.component';
 import { HomeComponent } from './home/home.component';
+import { PetComponent } from './pet/pet.component';
 
 const routes: Routes = [
 
@@ -18,9 +19,14 @@ const routes: Routes = [
       {
         path: 'owners',
         component: OwnerComponent
+      },
+      {
+        path: 'pets',
+        component: PetComponent
       }
     ]
   }
+
 ];
 
 @NgModule({

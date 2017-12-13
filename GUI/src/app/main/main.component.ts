@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-main',
   templateUrl: './main.component.html',
 })
+
 export class MainComponent {
   title = 'app';
 }
