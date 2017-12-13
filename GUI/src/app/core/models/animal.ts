@@ -6,11 +6,23 @@ export class Animal {
     birthDate: Date;
     active: boolean;
     owner: Owner;
-    // login?: string;
-    // password?: string;
-    // address: Address;
+    color: Color;
+    animalType: AnimalType;
+
 
     constructor() {
         this.owner = new Owner();
+        this.color = new Color();
+        this.animalType = new AnimalType();
     }
+}
+
+export class Color {
+  idColor: number;
+  color: string;
+}
+
+export class AnimalType {
+  idAnimalType: number;
+  type: string;
 }
