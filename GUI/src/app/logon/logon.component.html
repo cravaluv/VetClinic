@@ -1,17 +1,24 @@
-<div class="container">
-	<div class="login mx-auto">
-		<h2>Veterinary Clinic App</h2>
-		<div class="login-group mx-5 mt-4">
-			<div class="form-group">
-				<label for="lg_username" class="sr-only">Username</label>
-				<input type="text" class="form-control" id="lg_username" name="lg_username" placeholder="username">
-
-			</div>
-			<div class="form-group">
-				<label for="lg_password" class="sr-only">Password</label>
-				<input type="password" class="form-control" id="lg_password" name="lg_password" placeholder="password">
-			</div>
-			<button type="button" class="btn btn-secondary w-100">Zaloguj</button>
-		</div>
-	</div>
+<div style="background: #F1F1F1">
+  <div class="container">
+      <div class="vertical-center row">
+          <div class="mx-auto col-xl-4 col-lg-5 col-md-8 col-sm-10 p-0 drop-shadow logon-form">
+            <div class="h-25 p-3 header">
+              <span class="h3 text-dark align-middle p-0"><h2>Veterinary Clinic App</h2></span>
+            </div>
+            <form class="mx-4 mt-4 p-2">
+              <div class="form-group">
+                <label >Nazwa użytkownika</label>
+                <input class="form-control" #nameInput>
+              </div>
+              <div class="form-group">
+                <label >Hasło</label>
+                <input type="password" class="form-control" #passwordInput>
+              </div>
+              <div class="form-group">
+                <button type="button" class="btn btn-default btn-lg btn-block" (click)="logIn()">ZALOGUJ</button>
+                </div>
+            </form>
+          </div>
+        </div>
+  </div>
 </div>
