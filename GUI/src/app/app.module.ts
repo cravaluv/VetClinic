@@ -10,6 +10,7 @@ import { MainModule } from './main/main.module';
 import { PageNotFoundComponent } from './not-found.component';
 import { AppRoutingModule } from './app-routing.module';
 import { LogonComponent } from './logon/logon.component';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 @NgModule({
   declarations: [

@@ -13,6 +13,7 @@ import { OwnerEditComponent } from './owner-edit.component';
 export class OwnerComponent implements OnInit {
 
   owners: Owner[] = [];
+  filter;
 
   filteredItems: Owner[];
   pages = 4;
@@ -24,6 +25,10 @@ export class OwnerComponent implements OnInit {
   pageStart = 1;
   inputName = '';
 
+  // sorting
+  key = 'name';
+  reverse = false;
+
   constructor(private ownerService: OwnerService, private modalService: NgbModal) {
   }
 
@@ -34,6 +39,11 @@ export class OwnerComponent implements OnInit {
       (error) => {
         console.log(error);
       });
+  }
+
+  sort(key: string) {
+    this.key = key;
+    this.reverse = !this.reverse;
   }
 
   initPagination() {
