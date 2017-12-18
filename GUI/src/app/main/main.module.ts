@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MainComponent } from './main.component';
 import { OwnerComponent } from './owner/owner.component';
 import { MainRoutingModule } from './main-routing.module';
@@ -21,7 +21,8 @@ import { Ng2OrderModule } from 'ng2-order-pipe';
         MainRoutingModule,
         NgbModule,
         Ng2SearchPipeModule,
-        Ng2OrderModule
+        Ng2OrderModule,
+        ReactiveFormsModule
     ],
     declarations: [
         MainComponent,

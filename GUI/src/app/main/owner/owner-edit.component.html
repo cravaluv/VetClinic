@@ -1,85 +1,118 @@
 <div class="modal-header">
-    <h4 class="modal-title">{{editMode ? 'EDYTUJ WŁAŚCICIELA' : 'DODAJ WŁAŚCICIELA'}}</h4>
-    <button type="button" class="close" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
+  <h4 class="modal-title">{{editMode ? 'EDYTUJ WŁAŚCICIELA' : 'DODAJ WŁAŚCICIELA'}}</h4>
+  <button type="button" class="close" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
 </div>
 <div class="modal-body">
-        <ngb-tabset>
-                <ngb-tab title="DANE">
-                  <ng-template ngbTabContent>
-                        <form #ownerForm="ngForm" class="m-3">
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="name">Imię</label>
-                                        <input type="text" class="form-control" id="name" required [(ngModel)]="modelCopy.name" name="name" #name="ngModel">
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="surname">Nazwisko</label>
-                                        <input type="text" class="form-control" id="surname" required [(ngModel)]="modelCopy.surname" name="surname" #surname="ngModel">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="address">Adres</label>
-                                        <input type="text" class="form-control" id="address" required [(ngModel)]="modelCopy.address.address" name="address" #address="ngModel">
-                                    </div>
-                                    <div class="col-md-4 mb-3">
-                                        <label for="city">Miasto</label>
-                                        <input type="text" class="form-control" id="city" required [(ngModel)]="modelCopy.address.city" name="city" #city="ngModel">
-                                    </div>
-                                    <div class="col-md-2 mb-3">
-                                        <label for="postal">Kod</label>
-                                        <input type="text" class="form-control" id="postal" required [(ngModel)]="modelCopy.address.postalCode" name="postal" #postal="ngModel">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="tel">Telefon</label>
-                                        <input type="text" class="form-control" id="tel" required [(ngModel)]="modelCopy.tel" name="tel" #tel="ngModel">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-5 mb-3">
-                                        <label class="custom-control custom-checkbox">
-                                            <span class="custom-control-description">Rejestracja online</span>
-                                            <input type="checkbox" class="custom-control-input" [checked]="modelCopy.onlineReg" (change)="modelCopy.onlineReg = !modelCopy.onlineReg">
-                                            <span class="custom-control-indicator"></span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div [hidden]="!modelCopy.onlineReg" class="row">
-                                        <div class="col-md-6 mb-3">
-                                                <label for="login">Login</label>
-                                                <input type="text" class="form-control" id="login" required [(ngModel)]="modelCopy.login" name="login" #login="ngModel">
-                                            </div>
-                                            <div class="col-md-6 mb-3">
-                                                <label for="password">Hasło</label>
-                                                <input type="password" class="form-control" id="password" required [(ngModel)]="modelCopy.password" name="password" #password="ngModel">
-                                            </div>
-                                    </div>
-                            </form>
-                  </ng-template>
-                </ngb-tab>
-                <ngb-tab title="ZWIERZĘTA">
-                  <ng-template ngbTabContent>
-                    <div class="mt-2">
-                        <button class="btn btn-success" (click)="addAnimal()">Dodaj</button>
-                        <button class="btn btn-danger" (click)="deleteAnimal()">Usuń</button>
-                        <table class="table mt-3 table-striped table-hover">
-                          <thead>
-                            <tr>
-                              <th scope="col">id</th>
-                              <th scope="col">Imię</th>
-                              <th scope="col">Data urodzenia</th>
-                              <th scope="col">Aktywne</th>
-                              <th scope="col">Typ</th>
-                              <th scope="col">Rasa</th>
-                              <th scope="col">Kolor</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <!-- <tr *ngFor="let owner of owners" (dblclick)="update(owner)">
+  <ngb-tabset>
+    <ngb-tab title="DANE">
+      <ng-template ngbTabContent>
+        <form #ownerForm="ngForm" class="m-3">
+          <div class="row">
+            <div class="col-md-6 mb-3 form-group">
+              <label for="name">Imię</label>
+              <input id="name" name="name" class="form-control" [class.is-invalid]="name.invalid && (name.touched || submitted)" [class.is-valid]="name.valid && (name.touched || submitted)"
+                [(ngModel)]="modelCopy.name" #name="ngModel" required>
+
+              <div *ngIf="name.invalid && (name.dirty || name.touched || submitted)" class="invalid-feedback">
+                <div *ngIf="name?.errors.required">
+                  Imię jest wymagane.
+                </div>
+
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="surname">Nazwisko</label>
+              <input id="surname" name="surname" class="form-control" [class.is-invalid]="surname.invalid && (surname.touched || submitted)"
+                [class.is-valid]="surname.valid && (surname.touched || submitted)" [(ngModel)]="modelCopy.surname" #surname="ngModel"
+                required>
+
+              <div *ngIf="surname.invalid && (surname.dirty || surname.touched || submitted)" class="invalid-feedback">
+                <div *ngIf="surname?.errors.required">
+                  Nazwisko jest wymagane.
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="address">Ulica</label>
+              <input id="address" name="address" class="form-control" [class.is-invalid]="address.invalid && (address.touched || submitted)"
+                [class.is-valid]="address.valid && (address.touched || submitted)" [(ngModel)]="modelCopy.address.address"
+                #address="ngModel" required>
+
+              <div *ngIf="address.invalid && (address.dirty || address.touched || submitted)" class="invalid-feedback">
+                <div *ngIf="address?.errors.required">
+                  Ulica jest wymagana.
+                </div>
+
+              </div>
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="city">Miasto</label>
+              <input id="city" name="city" class="form-control" [class.is-invalid]="city.invalid && (city.touched || submitted)" [class.is-valid]="city.valid && (city.touched || submitted)"
+                [(ngModel)]="modelCopy.address.city" #city="ngModel" required>
+
+              <div *ngIf="city.invalid && (city.dirty || city.touched || submitted)" class="invalid-feedback">
+                <div *ngIf="city?.errors.required">
+                  Miasto jest wymagane.
+                </div>
+              </div>
+            </div>
+              <div class="col-md-2 mb-3">
+                <label for="postal">Kod</label>
+                <input type="text" class="form-control" id="postal" required [(ngModel)]="modelCopy.address.postalCode" name="postal" #postal="ngModel">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="tel">Telefon</label>
+                <input type="text" class="form-control" id="tel" required [(ngModel)]="modelCopy.tel" name="tel" #tel="ngModel">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-5 mb-3">
+                <label class="custom-control custom-checkbox">
+                  <span class="custom-control-description">Rejestracja online</span>
+                  <input type="checkbox" class="custom-control-input" [checked]="modelCopy.onlineReg" (change)="modelCopy.onlineReg = !modelCopy.onlineReg">
+                  <span class="custom-control-indicator"></span>
+                </label>
+              </div>
+            </div>
+            <div [hidden]="!modelCopy.onlineReg" class="row">
+              <div class="col-md-6 mb-3">
+                <label for="login">Login</label>
+                <input type="text" class="form-control" id="login" required [(ngModel)]="modelCopy.login" name="login" #login="ngModel">
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="password">Hasło</label>
+                <input type="password" class="form-control" id="password" required [(ngModel)]="modelCopy.password" name="password" #password="ngModel">
+              </div>
+            </div>
+        </form>
+      </ng-template>
+    </ngb-tab>
+    <ngb-tab title="ZWIERZĘTA">
+      <ng-template ngbTabContent>
+        <div class="mt-2">
+          <button class="btn btn-success" (click)="addAnimal()">Dodaj</button>
+          <button class="btn btn-danger" (click)="deleteAnimal()">Usuń</button>
+          <table class="table mt-3 table-striped table-hover">
+            <thead>
+              <tr>
+                <th scope="col">id</th>
+                <th scope="col">Imię</th>
+                <th scope="col">Data urodzenia</th>
+                <th scope="col">Aktywne</th>
+                <th scope="col">Typ</th>
+                <th scope="col">Rasa</th>
+                <th scope="col">Kolor</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- <tr *ngFor="let owner of owners" (dblclick)="update(owner)">
                               <th>{{owner.idOwner}}</th>
                               <td>{{owner.name}}</td>
                               <td>{{owner.surname}}</td>
@@ -87,12 +120,12 @@
                               <td>{{owner.tel}}</td>
                               <td>{{owner.address.address}}, {{owner.address.postalCode}} {{owner.address.city}}</td>
                             </tr> -->
-                          </tbody>
-                        </table>
-                      </div>
-                  </ng-template>
-                </ngb-tab>
-                <ngb-tab title="WIZYTY">
+            </tbody>
+          </table>
+        </div>
+      </ng-template>
+    </ngb-tab>
+    <!-- <ngb-tab title="WIZYTY">
                   <ng-template ngbTabContent>
                     <div class="mt-2">
                         <button class="btn btn-success" (click)="addVisit()">Nowa wizyta</button>
@@ -108,22 +141,22 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <!-- <tr *ngFor="let owner of owners" (dblclick)="update(owner)">
+                            <tr *ngFor="let owner of owners" (dblclick)="update(owner)">
                               <th>{{owner.idOwner}}</th>
                               <td>{{owner.name}}</td>
                               <td>{{owner.surname}}</td>
                               <td>{{owner.login}}</td>
                               <td>{{owner.tel}}</td>
                               <td>{{owner.address.address}}, {{owner.address.postalCode}} {{owner.address.city}}</td>
-                            </tr> -->
+                            </tr> 
                           </tbody>
                         </table>
                       </div>
                   </ng-template>
-                </ngb-tab>
-              </ngb-tabset>
-</div>
-<div class="modal-footer">
+                </ngb-tab> -->
+  </ngb-tabset>
+  </div>
+  <div class="modal-footer">
     <button type="button" class="btn btn-success" (click)="onSubmit()">Zatwierdź</button>
     <button type="button" class="btn btn-outline-dark" (click)="onDismiss()">Zamknij</button>
-</div>
+  </div>
