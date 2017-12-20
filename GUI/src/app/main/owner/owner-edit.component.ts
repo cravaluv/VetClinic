@@ -22,11 +22,19 @@ export class OwnerEditComponent implements OnInit {
 
   submitted = false;
 
-  constructor(private activeModal: NgbActiveModal ) {
+  constructor(private activeModal: NgbActiveModal) {
   }
 
   ngOnInit(): void {
     this.modelCopy = _.clone(this.model);
+  }
+
+  registerChange() {
+    this.modelCopy.onlineReg = !this.modelCopy.onlineReg;
+    this.form.controls['login'].setValidators(this.modelCopy.onlineReg ? Validators.required : null);
+    this.form.controls['login'].updateValueAndValidity();
+    this.form.controls['password'].setValidators(this.modelCopy.onlineReg ? Validators.required : null);
+    this.form.controls['password'].updateValueAndValidity();
   }
 
   onSubmit() {

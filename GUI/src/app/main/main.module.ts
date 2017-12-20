@@ -13,6 +13,9 @@ import { PetEditComponent } from './pet/pet-edit.component';
 import { AnimalService } from '../core/services/animal.service';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { Ng2OrderModule } from 'ng2-order-pipe';
+import { VisitComponent } from './visit/visit.component';
+import { VisitEditComponent } from './visit/visit-edit.component';
+import { VisitService } from '../core/services/visit.service';
 
 @NgModule({
     imports: [
@@ -30,9 +33,11 @@ import { Ng2OrderModule } from 'ng2-order-pipe';
         HomeComponent,
         OwnerEditComponent,
         PetComponent,
-        PetEditComponent
+        PetEditComponent,
+        VisitComponent,
+        VisitEditComponent
     ],
-    providers: [OwnerService, AnimalService],
-    entryComponents: [OwnerEditComponent, PetEditComponent]
+    providers: [OwnerService, AnimalService, VisitService],
+    entryComponents: [OwnerEditComponent, PetEditComponent, VisitEditComponent]
 })
 export class MainModule { }

@@ -4,6 +4,7 @@ import { OwnerComponent } from './owner/owner.component';
 import { MainComponent } from './main.component';
 import { HomeComponent } from './home/home.component';
 import { PetComponent } from './pet/pet.component';
+import { VisitComponent } from './visit/visit.component';
 
 const routes: Routes = [
 
@@ -23,6 +24,10 @@ const routes: Routes = [
       {
         path: 'pets',
         component: PetComponent
+      },
+      {
+        path: 'visits',
+        component: VisitComponent
       }
     ]
   }

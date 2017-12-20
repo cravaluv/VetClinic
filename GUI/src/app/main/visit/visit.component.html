@@ -1,0 +1,24 @@
+<h1>Visit section</h1>
+<div class="m-5">
+  <!-- <button class="btn btn-success" (click)="add()">Dodaj</button> -->
+  <table class="table mt-3 table-striped table-hover">
+    <thead>
+      <tr>
+        <th scope="col">id</th>
+        <th scope="col">Zwierzę</th>
+        <th scope="col">Weterynarz</th>
+        <th scope="col">Data</th>
+        <th scope="col">Typ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let visit of visits | orderBy: key : reverse | filter:filter; let i = index" (dblclick)="update(owner)">
+        <th>{{visit.idVisit}}</th>
+        <td>{{visit.anima.name}}</td>
+        <td>{{visit.personnel.name}} + {{visit.personnel.surname}} + </td>
+        <td>{{visit.date}}</td>
+        <td>{{visit.type}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
