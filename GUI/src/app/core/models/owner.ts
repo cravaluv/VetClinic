@@ -1,4 +1,5 @@
 import { Address } from './address';
+import { Animal } from './animal';
 
 export class Owner {
     idOwner: number;
@@ -9,6 +10,7 @@ export class Owner {
     login?: string;
     password?: string;
     address: Address;
+    animals: Animal[] = [];
 
     constructor() {
         this.address = new Address();
