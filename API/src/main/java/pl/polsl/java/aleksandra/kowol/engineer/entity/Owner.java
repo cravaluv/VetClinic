@@ -31,9 +31,10 @@ public class Owner {
     @JsonIgnore
     private String password;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "owner")
     private List<Animal> animals;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(referencedColumnName = "idAddress")
     private Address address;
 
