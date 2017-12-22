@@ -143,47 +143,18 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let animal of modelCopy.animals" [class.table-active]="selected === animal" (click)="selected = animal">
+              <tr *ngFor="let animal of modelCopy.animals" [class.table-active]="selected === animal" (click)="selected = animal" (dblclick)="update(animal)">
                 <td>{{animal.name}}</td>
-                <td>{{animal.animalType}}</td>
+                <td>{{animal.animalType.type}}</td>
                 <td>{{animal.birthDate | date:'fullDate'}}</td>
-                <td>{{animal.active}}</td>
-                <td>{{animal.color}}</td>
+                <td><i [ngClass]="{'fa' : true, 'fa-check text-success': animal.active,'fa-times text-danger': !animal.active}" aria-hidden="true"></i></td>
+                <td>{{animal.color.color}}</td>
               </tr>
             </tbody>
           </table>
         </div>
       </ng-template>
     </ngb-tab>
-    <!-- <ngb-tab title="WIZYTY">
-                  <ng-template ngbTabContent>
-                    <div class="mt-2">
-                        <button class="btn btn-success" (click)="addVisit()">Nowa wizyta</button>
-                        <table class="table mt-3 table-striped table-hover">
-                          <thead>
-                            <tr>
-                              <th scope="col">id</th>
-                              <th scope="col">Typ</th>
-                              <th scope="col">Data</th>
-                              <th scope="col">Zwierzę</th>
-                              <th scope="col">Opis</th>
-                              <th scope="col">Weterynarz</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr *ngFor="let owner of owners" (dblclick)="update(owner)">
-                              <th>{{owner.idOwner}}</th>
-                              <td>{{owner.name}}</td>
-                              <td>{{owner.surname}}</td>
-                              <td>{{owner.login}}</td>
-                              <td>{{owner.tel}}</td>
-                              <td>{{owner.address.address}}, {{owner.address.postalCode}} {{owner.address.city}}</td>
-                            </tr> 
-                          </tbody>
-                        </table>
-                      </div>
-                  </ng-template>
-                </ngb-tab> -->
   </ngb-tabset>
 </div>
 <div class="modal-footer">

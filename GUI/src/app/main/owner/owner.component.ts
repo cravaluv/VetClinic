@@ -8,402 +8,570 @@ import { OwnerEditComponent } from './owner-edit.component';
 export const DATA = [
   {
     "idOwner": 1,
-    "name": "Walsh",
-    "surname": "Anderson",
-    "tel": "(965) 460-2855",
+    "name": "Ivy",
+    "surname": "Horne",
+    "tel": "(877) 408-3160",
     "onlineReg": false,
     "address": {
-      "address": "Oriental Court",
-      "city": "Stouchsburg",
-      "postalCode": "18-132"
-    },
-    "animals": []
-  },
-  {
-    "idOwner": 2,
-    "name": "Ellison",
-    "surname": "Charles",
-    "tel": "(899) 517-2989",
-    "onlineReg": false,
-    "address": {
-      "address": "Stockton Street",
-      "city": "Hegins",
-      "postalCode": "88-447"
+      "address": "Beverly Road",
+      "city": "Iola",
+      "postalCode": "33-124"
     },
     "animals": [
       {
         "idAnimal": 1,
-        "name": "Kirsten",
-        "birthDate": "Sun Aug 30 1970 05:50:23 GMT+0200 (Środkowoeuropejski czas letni)",
-        "active": false
+        "name": "Vanessa",
+        "birthDate": "Sun Dec 13 1981 23:50:14 GMT+0100 (Środkowoeuropejski czas stand.)",
+        "active": false,
+        "color": {
+          "idColor": 1,
+          "color": "plawy"
+        },
+        "animalType": {
+          "idAnimalType": 1,
+          "type": "pies"
+        }
+      },
+      {
+        "idAnimal": 2,
+        "name": "Marylou",
+        "birthDate": "Wed Dec 15 1982 21:18:47 GMT+0100 (Środkowoeuropejski czas stand.)",
+        "active": true,
+        "color": {
+          "idColor": 1,
+          "color": "plawy"
+        },
+        "animalType": {
+          "idAnimalType": 1,
+          "type": "pies"
+        }
+      }
+    ]
+  },
+  {
+    "idOwner": 2,
+    "name": "George",
+    "surname": "Burton",
+    "tel": "(961) 485-2113",
+    "onlineReg": false,
+    "address": {
+      "address": "Anchorage Place",
+      "city": "Maury",
+      "postalCode": "83-342"
+    },
+    "animals": [
+      {
+        "idAnimal": 1,
+        "name": "Rochelle",
+        "birthDate": "Sat Nov 09 1974 22:15:49 GMT+0100 (Środkowoeuropejski czas stand.)",
+        "active": false,
+        "color": {
+          "idColor": 1,
+          "color": "plawy"
+        },
+        "animalType": {
+          "idAnimalType": 1,
+          "type": "pies"
+        }
+      },
+      {
+        "idAnimal": 2,
+        "name": "Olsen",
+        "birthDate": "Mon Nov 01 2010 06:00:54 GMT+0100 (Środkowoeuropejski czas stand.)",
+        "active": false,
+        "color": {
+          "idColor": 1,
+          "color": "plawy"
+        },
+        "animalType": {
+          "idAnimalType": 1,
+          "type": "pies"
+        }
       }
     ]
   },
   {
     "idOwner": 3,
-    "name": "Garrison",
-    "surname": "Mcdonald",
-    "tel": "(913) 435-3724",
+    "name": "Reyna",
+    "surname": "Steele",
+    "tel": "(875) 419-3961",
     "onlineReg": false,
     "address": {
-      "address": "Sandford Street",
-      "city": "Tibbie",
-      "postalCode": "67-368"
-    },
-    "animals": []
-  },
-  {
-    "idOwner": 4,
-    "name": "Tisha",
-    "surname": "Bryan",
-    "tel": "(853) 561-3274",
-    "onlineReg": false,
-    "address": {
-      "address": "Calyer Street",
-      "city": "Bluffview",
-      "postalCode": "45-834"
+      "address": "Pooles Lane",
+      "city": "Mammoth",
+      "postalCode": "63-455"
     },
     "animals": [
       {
         "idAnimal": 1,
-        "name": "Maxwell",
-        "birthDate": "Sun Oct 15 1972 10:39:32 GMT+0200 (Środkowoeuropejski czas letni)",
-        "active": false
+        "name": "Cassandra",
+        "birthDate": "Fri Nov 04 1994 09:41:54 GMT+0100 (Środkowoeuropejski czas stand.)",
+        "active": true,
+        "color": {
+          "idColor": 1,
+          "color": "plawy"
+        },
+        "animalType": {
+          "idAnimalType": 1,
+          "type": "pies"
+        }
+      }
+    ]
+  },
+  {
+    "idOwner": 4,
+    "name": "Araceli",
+    "surname": "Curtis",
+    "tel": "(933) 519-2902",
+    "onlineReg": false,
+    "address": {
+      "address": "Emerson Place",
+      "city": "Dunlo",
+      "postalCode": "69-771"
+    },
+    "animals": [
+      {
+        "idAnimal": 1,
+        "name": "Rojas",
+        "birthDate": "Mon Aug 05 2013 05:58:36 GMT+0200 (Środkowoeuropejski czas letni)",
+        "active": true,
+        "color": {
+          "idColor": 1,
+          "color": "plawy"
+        },
+        "animalType": {
+          "idAnimalType": 1,
+          "type": "pies"
+        }
+      },
+      {
+        "idAnimal": 2,
+        "name": "Stewart",
+        "birthDate": "Sat Mar 16 2002 14:51:12 GMT+0100 (Środkowoeuropejski czas stand.)",
+        "active": true,
+        "color": {
+          "idColor": 1,
+          "color": "plawy"
+        },
+        "animalType": {
+          "idAnimalType": 1,
+          "type": "pies"
+        }
       }
     ]
   },
   {
     "idOwner": 5,
-    "name": "Joyce",
-    "surname": "Terrell",
-    "tel": "(825) 596-3358",
+    "name": "Terrie",
+    "surname": "Delaney",
+    "tel": "(813) 451-2107",
     "onlineReg": false,
     "address": {
-      "address": "Pershing Loop",
-      "city": "Welch",
-      "postalCode": "58-572"
+      "address": "Perry Terrace",
+      "city": "Matthews",
+      "postalCode": "85-821"
     },
     "animals": [
       {
         "idAnimal": 1,
-        "name": "Gonzales",
-        "birthDate": "Tue Oct 26 1999 17:18:58 GMT+0200 (Środkowoeuropejski czas letni)",
-        "active": false
+        "name": "Shirley",
+        "birthDate": "Mon Oct 23 2017 14:53:51 GMT+0200 (Środkowoeuropejski czas letni)",
+        "active": true,
+        "color": {
+          "idColor": 1,
+          "color": "plawy"
+        },
+        "animalType": {
+          "idAnimalType": 1,
+          "type": "pies"
+        }
+      },
+      {
+        "idAnimal": 2,
+        "name": "Frances",
+        "birthDate": "Wed Sep 03 2014 12:54:19 GMT+0200 (Środkowoeuropejski czas letni)",
+        "active": false,
+        "color": {
+          "idColor": 1,
+          "color": "plawy"
+        },
+        "animalType": {
+          "idAnimalType": 1,
+          "type": "pies"
+        }
       }
     ]
   },
   {
     "idOwner": 6,
-    "name": "Lucille",
-    "surname": "Eaton",
-    "tel": "(872) 578-3598",
+    "name": "Grimes",
+    "surname": "Buckley",
+    "tel": "(914) 490-3984",
     "onlineReg": false,
     "address": {
-      "address": "Sedgwick Street",
-      "city": "Belfair",
-      "postalCode": "60-229"
+      "address": "Gerald Court",
+      "city": "Leming",
+      "postalCode": "70-728"
     },
     "animals": [
       {
         "idAnimal": 1,
-        "name": "Cherie",
-        "birthDate": "Sun Jun 19 2011 19:43:06 GMT+0200 (Środkowoeuropejski czas letni)",
-        "active": false
+        "name": "Gentry",
+        "birthDate": "Mon Nov 09 1992 06:28:25 GMT+0100 (Środkowoeuropejski czas stand.)",
+        "active": false,
+        "color": {
+          "idColor": 1,
+          "color": "plawy"
+        },
+        "animalType": {
+          "idAnimalType": 1,
+          "type": "pies"
+        }
+      },
+      {
+        "idAnimal": 2,
+        "name": "Casey",
+        "birthDate": "Tue Mar 12 1991 06:50:15 GMT+0100 (Środkowoeuropejski czas stand.)",
+        "active": false,
+        "color": {
+          "idColor": 1,
+          "color": "plawy"
+        },
+        "animalType": {
+          "idAnimalType": 1,
+          "type": "pies"
+        }
       }
     ]
   },
   {
     "idOwner": 7,
-    "name": "Josie",
-    "surname": "Clements",
-    "tel": "(801) 461-3539",
+    "name": "Stevenson",
+    "surname": "Burgess",
+    "tel": "(800) 541-2059",
     "onlineReg": false,
     "address": {
-      "address": "Moore Street",
-      "city": "Coinjock",
-      "postalCode": "78-137"
+      "address": "Argyle Road",
+      "city": "Caron",
+      "postalCode": "52-569"
     },
-    "animals": [
-      {
-        "idAnimal": 1,
-        "name": "Whitley",
-        "birthDate": "Tue Sep 30 2003 13:24:34 GMT+0200 (Środkowoeuropejski czas letni)",
-        "active": false
-      },
-      {
-        "idAnimal": 2,
-        "name": "Willis",
-        "birthDate": "Mon Feb 05 1996 05:39:58 GMT+0100 (Środkowoeuropejski czas stand.)",
-        "active": false
-      }
-    ]
+    "animals": []
   },
   {
     "idOwner": 8,
-    "name": "Rosalie",
-    "surname": "Barnes",
-    "tel": "(984) 542-2761",
+    "name": "Jeannette",
+    "surname": "Armstrong",
+    "tel": "(948) 548-2100",
     "onlineReg": false,
     "address": {
-      "address": "Abbey Court",
-      "city": "Rockhill",
-      "postalCode": "79-737"
+      "address": "Ebony Court",
+      "city": "Allison",
+      "postalCode": "94-901"
     },
-    "animals": [
-      {
-        "idAnimal": 1,
-        "name": "Sonia",
-        "birthDate": "Tue Mar 12 1985 02:40:54 GMT+0100 (Środkowoeuropejski czas stand.)",
-        "active": false
-      },
-      {
-        "idAnimal": 2,
-        "name": "Erickson",
-        "birthDate": "Wed Nov 17 1993 00:24:46 GMT+0100 (Środkowoeuropejski czas stand.)",
-        "active": false
-      }
-    ]
+    "animals": []
   },
   {
     "idOwner": 9,
-    "name": "Johnson",
-    "surname": "Wright",
-    "tel": "(856) 473-3655",
+    "name": "Scott",
+    "surname": "Patrick",
+    "tel": "(896) 593-2713",
     "onlineReg": false,
     "address": {
-      "address": "Lee Avenue",
-      "city": "Albrightsville",
-      "postalCode": "78-209"
+      "address": "Dekalb Avenue",
+      "city": "Clarence",
+      "postalCode": "81-565"
     },
     "animals": []
   },
   {
     "idOwner": 10,
-    "name": "Lorene",
-    "surname": "Foreman",
-    "tel": "(862) 439-2411",
+    "name": "Pate",
+    "surname": "Rojas",
+    "tel": "(902) 468-3932",
     "onlineReg": false,
     "address": {
-      "address": "Grace Court",
-      "city": "Alleghenyville",
-      "postalCode": "61-514"
+      "address": "Erasmus Street",
+      "city": "Gordon",
+      "postalCode": "51-420"
     },
     "animals": [
       {
         "idAnimal": 1,
-        "name": "Sabrina",
-        "birthDate": "Mon Jul 26 2010 04:45:49 GMT+0200 (Środkowoeuropejski czas letni)",
-        "active": true
+        "name": "Delores",
+        "birthDate": "Tue Jan 16 2001 10:01:55 GMT+0100 (Środkowoeuropejski czas stand.)",
+        "active": false,
+        "color": {
+          "idColor": 1,
+          "color": "plawy"
+        },
+        "animalType": {
+          "idAnimalType": 1,
+          "type": "pies"
+        }
       }
     ]
   },
   {
     "idOwner": 11,
-    "name": "Latasha",
-    "surname": "Malone",
-    "tel": "(964) 538-3412",
+    "name": "Rosa",
+    "surname": "Pate",
+    "tel": "(874) 461-3993",
     "onlineReg": false,
     "address": {
-      "address": "Cedar Street",
-      "city": "Macdona",
-      "postalCode": "23-126"
+      "address": "Quentin Road",
+      "city": "Garberville",
+      "postalCode": "88-427"
     },
-    "animals": [
-      {
-        "idAnimal": 1,
-        "name": "Mcgee",
-        "birthDate": "Sun Sep 01 2002 22:39:28 GMT+0200 (Środkowoeuropejski czas letni)",
-        "active": true
-      },
-      {
-        "idAnimal": 2,
-        "name": "Hickman",
-        "birthDate": "Wed Dec 15 1993 03:37:50 GMT+0100 (Środkowoeuropejski czas stand.)",
-        "active": false
-      }
-    ]
+    "animals": []
   },
   {
     "idOwner": 12,
-    "name": "Wade",
-    "surname": "Lane",
-    "tel": "(972) 490-2716",
+    "name": "Chen",
+    "surname": "Banks",
+    "tel": "(950) 587-3544",
     "onlineReg": false,
     "address": {
-      "address": "Montague Street",
-      "city": "Emerald",
-      "postalCode": "62-133"
+      "address": "Joralemon Street",
+      "city": "Whitmer",
+      "postalCode": "55-316"
     },
     "animals": [
       {
         "idAnimal": 1,
-        "name": "Brittany",
-        "birthDate": "Wed Apr 01 1992 19:49:10 GMT+0200 (Środkowoeuropejski czas letni)",
-        "active": true
-      },
-      {
-        "idAnimal": 2,
-        "name": "Brandi",
-        "birthDate": "Mon Jan 10 1972 03:19:48 GMT+0100 (Środkowoeuropejski czas stand.)",
-        "active": false
+        "name": "Pennington",
+        "birthDate": "Sat Mar 17 1979 01:22:33 GMT+0100 (Środkowoeuropejski czas stand.)",
+        "active": true,
+        "color": {
+          "idColor": 1,
+          "color": "plawy"
+        },
+        "animalType": {
+          "idAnimalType": 1,
+          "type": "pies"
+        }
       }
     ]
   },
   {
     "idOwner": 13,
-    "name": "Charlene",
-    "surname": "Goodwin",
-    "tel": "(984) 559-2400",
+    "name": "Lourdes",
+    "surname": "Branch",
+    "tel": "(830) 529-3090",
     "onlineReg": false,
     "address": {
-      "address": "Harden Street",
-      "city": "Westerville",
-      "postalCode": "97-232"
+      "address": "Homecrest Court",
+      "city": "Oneida",
+      "postalCode": "73-224"
     },
     "animals": []
   },
   {
     "idOwner": 14,
-    "name": "Todd",
-    "surname": "Cain",
-    "tel": "(981) 537-3839",
+    "name": "Dejesus",
+    "surname": "Lawson",
+    "tel": "(943) 521-3011",
     "onlineReg": false,
     "address": {
-      "address": "Nova Court",
-      "city": "Bethany",
-      "postalCode": "23-525"
+      "address": "Clermont Avenue",
+      "city": "Mappsville",
+      "postalCode": "21-669"
     },
     "animals": []
   },
   {
     "idOwner": 15,
-    "name": "Gwen",
-    "surname": "Oconnor",
-    "tel": "(950) 544-2230",
+    "name": "Angelia",
+    "surname": "Mcneil",
+    "tel": "(925) 555-3544",
     "onlineReg": false,
     "address": {
-      "address": "Keen Court",
-      "city": "Walland",
-      "postalCode": "22-699"
+      "address": "Autumn Avenue",
+      "city": "Neahkahnie",
+      "postalCode": "82-521"
     },
     "animals": [
       {
         "idAnimal": 1,
-        "name": "Kari",
-        "birthDate": "Wed Jun 25 2003 21:35:14 GMT+0200 (Środkowoeuropejski czas letni)",
-        "active": true
+        "name": "Cantu",
+        "birthDate": "Fri Jul 17 2015 09:54:59 GMT+0200 (Środkowoeuropejski czas letni)",
+        "active": false,
+        "color": {
+          "idColor": 1,
+          "color": "plawy"
+        },
+        "animalType": {
+          "idAnimalType": 1,
+          "type": "pies"
+        }
       },
       {
         "idAnimal": 2,
-        "name": "Fuentes",
-        "birthDate": "Wed Apr 18 1979 14:15:09 GMT+0200 (Środkowoeuropejski czas letni)",
-        "active": true
+        "name": "Dorothy",
+        "birthDate": "Sun Jan 25 1976 17:51:04 GMT+0100 (Środkowoeuropejski czas stand.)",
+        "active": false,
+        "color": {
+          "idColor": 1,
+          "color": "plawy"
+        },
+        "animalType": {
+          "idAnimalType": 1,
+          "type": "pies"
+        }
       }
     ]
   },
   {
     "idOwner": 16,
-    "name": "Pat",
-    "surname": "Whitley",
-    "tel": "(977) 462-2396",
+    "name": "Russell",
+    "surname": "Ellison",
+    "tel": "(948) 421-2126",
     "onlineReg": false,
     "address": {
-      "address": "Amber Street",
-      "city": "Harrodsburg",
-      "postalCode": "30-443"
+      "address": "Cox Place",
+      "city": "Statenville",
+      "postalCode": "19-701"
     },
     "animals": [
       {
         "idAnimal": 1,
-        "name": "Therese",
-        "birthDate": "Sat May 21 1988 08:31:19 GMT+0200 (Środkowoeuropejski czas letni)",
-        "active": false
+        "name": "Laurel",
+        "birthDate": "Wed Jul 11 2001 04:01:30 GMT+0200 (Środkowoeuropejski czas letni)",
+        "active": true,
+        "color": {
+          "idColor": 1,
+          "color": "plawy"
+        },
+        "animalType": {
+          "idAnimalType": 1,
+          "type": "pies"
+        }
       },
       {
         "idAnimal": 2,
-        "name": "Daniels",
-        "birthDate": "Tue Feb 23 2016 04:19:55 GMT+0100 (Środkowoeuropejski czas stand.)",
-        "active": true
+        "name": "Fischer",
+        "birthDate": "Sat Apr 22 1995 11:46:22 GMT+0200 (Środkowoeuropejski czas letni)",
+        "active": false,
+        "color": {
+          "idColor": 1,
+          "color": "plawy"
+        },
+        "animalType": {
+          "idAnimalType": 1,
+          "type": "pies"
+        }
       }
     ]
   },
   {
     "idOwner": 17,
-    "name": "Amber",
-    "surname": "Holman",
-    "tel": "(993) 491-2878",
+    "name": "Estella",
+    "surname": "Murphy",
+    "tel": "(841) 418-2653",
     "onlineReg": false,
     "address": {
-      "address": "Chester Court",
-      "city": "Witmer",
-      "postalCode": "21-871"
-    },
-    "animals": []
-  },
-  {
-    "idOwner": 18,
-    "name": "Marianne",
-    "surname": "Hartman",
-    "tel": "(903) 582-3180",
-    "onlineReg": false,
-    "address": {
-      "address": "Lott Avenue",
-      "city": "Wollochet",
-      "postalCode": "88-743"
+      "address": "Jefferson Street",
+      "city": "Sparkill",
+      "postalCode": "68-682"
     },
     "animals": [
       {
         "idAnimal": 1,
-        "name": "Gertrude",
-        "birthDate": "Tue Oct 12 1999 07:34:36 GMT+0200 (Środkowoeuropejski czas letni)",
-        "active": false
-      },
-      {
-        "idAnimal": 2,
-        "name": "Aline",
-        "birthDate": "Thu May 28 1970 20:57:29 GMT+0200 (Środkowoeuropejski czas letni)",
-        "active": false
+        "name": "Cleo",
+        "birthDate": "Thu Nov 19 1992 18:43:41 GMT+0100 (Środkowoeuropejski czas stand.)",
+        "active": true,
+        "color": {
+          "idColor": 1,
+          "color": "plawy"
+        },
+        "animalType": {
+          "idAnimalType": 1,
+          "type": "pies"
+        }
       }
     ]
   },
   {
-    "idOwner": 19,
-    "name": "Lauri",
-    "surname": "Carson",
-    "tel": "(951) 520-2984",
+    "idOwner": 18,
+    "name": "Beverley",
+    "surname": "Gonzalez",
+    "tel": "(888) 401-3453",
     "onlineReg": false,
     "address": {
-      "address": "Lawrence Street",
-      "city": "Northridge",
-      "postalCode": "70-939"
+      "address": "Pierrepont Place",
+      "city": "Savannah",
+      "postalCode": "19-879"
+    },
+    "animals": []
+  },
+  {
+    "idOwner": 19,
+    "name": "Bianca",
+    "surname": "Santiago",
+    "tel": "(920) 464-3628",
+    "onlineReg": false,
+    "address": {
+      "address": "Arion Place",
+      "city": "Zortman",
+      "postalCode": "20-952"
     },
     "animals": [
       {
         "idAnimal": 1,
-        "name": "Zimmerman",
-        "birthDate": "Mon Dec 04 2000 17:53:10 GMT+0100 (Środkowoeuropejski czas stand.)",
-        "active": false
+        "name": "Rosella",
+        "birthDate": "Sun Oct 12 2003 15:00:07 GMT+0200 (Środkowoeuropejski czas letni)",
+        "active": true,
+        "color": {
+          "idColor": 1,
+          "color": "plawy"
+        },
+        "animalType": {
+          "idAnimalType": 1,
+          "type": "pies"
+        }
       },
       {
         "idAnimal": 2,
-        "name": "Faith",
-        "birthDate": "Thu Dec 24 1998 04:28:34 GMT+0100 (Środkowoeuropejski czas stand.)",
-        "active": false
+        "name": "Higgins",
+        "birthDate": "Thu Jan 25 1973 03:50:04 GMT+0100 (Środkowoeuropejski czas stand.)",
+        "active": false,
+        "color": {
+          "idColor": 1,
+          "color": "plawy"
+        },
+        "animalType": {
+          "idAnimalType": 1,
+          "type": "pies"
+        }
       }
     ]
   },
   {
     "idOwner": 20,
-    "name": "Jana",
-    "surname": "Tran",
-    "tel": "(909) 571-2661",
+    "name": "Krystal",
+    "surname": "Hall",
+    "tel": "(978) 419-2018",
     "onlineReg": false,
     "address": {
-      "address": "Harwood Place",
-      "city": "Kennedyville",
-      "postalCode": "33-245"
+      "address": "Gilmore Court",
+      "city": "Rushford",
+      "postalCode": "53-979"
     },
-    "animals": []
+    "animals": [
+      {
+        "idAnimal": 1,
+        "name": "Preston",
+        "birthDate": "Mon Jan 28 2013 01:17:04 GMT+0100 (Środkowoeuropejski czas stand.)",
+        "active": true,
+        "color": {
+          "idColor": 1,
+          "color": "plawy"
+        },
+        "animalType": {
+          "idAnimalType": 1,
+          "type": "pies"
+        }
+      }
+    ]
   }
 ]
 

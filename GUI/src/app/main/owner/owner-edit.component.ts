@@ -7,6 +7,7 @@ import * as _ from 'lodash';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Animal } from '../../core/models/animal';
+import { PetEditComponent } from '../pet/pet-edit.component';
 
 @Component({
   selector: 'app-owner-edit',
@@ -24,7 +25,7 @@ export class OwnerEditComponent implements OnInit {
 
   submitted = false;
 
-  constructor(private activeModal: NgbActiveModal) {
+  constructor(private activeModal: NgbActiveModal, private modalService: NgbModal) {
   }
 
   ngOnInit(): void {
@@ -48,6 +49,17 @@ export class OwnerEditComponent implements OnInit {
 
   onDismiss() {
     this.activeModal.dismiss();
+  }
+
+
+  update(animal: Animal) {
+    const modal = this.modalService.open(PetEditComponent, { size: 'lg' });
+    modal.componentInstance.model = animal;
+
+    modal.result.then((result) => {
+      // this.ownerService.update(result);
+    }, (reason) => {
+    });
   }
 
   addAnimal() {
