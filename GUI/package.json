@@ -27,6 +27,7 @@
     "ng2-order-pipe": "^0.1.5",
     "ng2-search-filter": "^0.3.1",
     "ngx-loading": "^1.0.9",
+    "ngx-pagination": "^3.0.3",
     "rxjs": "^5.5.5",
     "typescript": "^2.6.2",
     "zone.js": "^0.8.18"

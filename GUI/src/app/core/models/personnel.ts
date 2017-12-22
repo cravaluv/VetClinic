@@ -6,6 +6,7 @@ export class Personnel {
   name: string;
   surname: string;
   login: string;
+  password: string;
   address: Address;
   roles: Role[];
   schedules: Schedule[];

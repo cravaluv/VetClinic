@@ -135,24 +135,21 @@
           <table class="table mt-3 table-striped table-hover">
             <thead>
               <tr>
-                <th scope="col">id</th>
                 <th scope="col">Imię</th>
+                <th scope="col">Typ</th>
                 <th scope="col">Data urodzenia</th>
                 <th scope="col">Aktywne</th>
-                <th scope="col">Typ</th>
-                <th scope="col">Rasa</th>
                 <th scope="col">Kolor</th>
               </tr>
             </thead>
             <tbody>
-              <!-- <tr *ngFor="let owner of owners" (dblclick)="update(owner)">
-                              <th>{{owner.idOwner}}</th>
-                              <td>{{owner.name}}</td>
-                              <td>{{owner.surname}}</td>
-                              <td>{{owner.login}}</td>
-                              <td>{{owner.tel}}</td>
-                              <td>{{owner.address.address}}, {{owner.address.postalCode}} {{owner.address.city}}</td>
-                            </tr> -->
+              <tr *ngFor="let animal of modelCopy.animals" [class.table-active]="selected === animal" (click)="selected = animal">
+                <td>{{animal.name}}</td>
+                <td>{{animal.animalType}}</td>
+                <td>{{animal.birthDate | date:'fullDate'}}</td>
+                <td>{{animal.active}}</td>
+                <td>{{animal.color}}</td>
+              </tr>
             </tbody>
           </table>
         </div>

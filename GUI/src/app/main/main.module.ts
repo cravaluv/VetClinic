@@ -19,6 +19,7 @@ import { VisitService } from '../core/services/visit.service';
 import { PersonnelComponent } from './personnel/personnel.component';
 import { PersonnelEditComponent } from './personnel/personnel-edit.component';
 import { PersonnelService } from '../core/services/personnel.service';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
     imports: [
@@ -28,7 +29,8 @@ import { PersonnelService } from '../core/services/personnel.service';
         NgbModule,
         Ng2SearchPipeModule,
         Ng2OrderModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        NgxPaginationModule
     ],
     declarations: [
         MainComponent,

@@ -6,6 +6,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap/modal/modal';
 import * as _ from 'lodash';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Animal } from '../../core/models/animal';
 
 @Component({
   selector: 'app-owner-edit',
@@ -17,6 +18,7 @@ export class OwnerEditComponent implements OnInit {
   @Input() editMode = true;
 
   modelCopy: Owner;
+  selected: Animal;
 
   @ViewChild('ownerForm') form: any;
 

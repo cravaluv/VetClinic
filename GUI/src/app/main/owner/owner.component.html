@@ -1,44 +1,40 @@
 <h1>Owner section</h1>
 <div class="m-4">
   <div class="ml-5 mb-2 p-1 bg-light">
-  <button class="btn btn-success" (click)="add()">Dodaj</button>
-  <button class="btn btn-danger" (click)="add()">Usuń</button>
+    <button class="btn btn-success" (click)="add()">Dodaj</button>
+    <button class="btn btn-danger" (click)="add()">Usuń</button>
   </div>
   <input class="form-control" type="text" name="search" placeholder="Wyszukaj..." [(ngModel)]="filter">
-  <table class="table mt-3 table-striped table-hover">
+  <table *ngIf="filteredItems.length > 0" class="table mt-3 table-striped table-hover">
     <thead>
       <tr>
-        <th scope="col">id</th>   
-        <th scope="col" (click)="sort('name')">Imię <i [ngClass]="{'fa' : true, 'fa-sort-alpha-desc': reverse && key === 'name','fa-sort-alpha-asc': !reverse && key === 'name', 'fa-sort': key !== 'name'}" aria-hidden="true"></i></th>
-        <th scope="col" (click)="sort('surname')">Nazwisko <i [ngClass]="{'fa' : true, 'fa-sort-alpha-desc': reverse && key === 'surname','fa-sort-alpha-asc': !reverse && key === 'surname', 'fa-sort': key !== 'surname'}" aria-hidden="true"></i></th>
-        <th scope="col" (click)="sort('login')">Login <i [ngClass]="{'fa' : true, 'fa-sort-alpha-desc': reverse && key === 'login','fa-sort-alpha-asc': !reverse && key === 'login', 'fa-sort': key !== 'login'}" aria-hidden="true"></i></th>
+        <th scope="col" (click)="sort('name')">Imię
+          <i [ngClass]="{'fa' : true, 'fa-caret-up': reverse && key === 'name','fa-caret-down': !reverse && key === 'name', 'fa-sort': key !== 'name'}"
+            aria-hidden="true"></i>
+        </th>
+        <th scope="col" (click)="sort('surname')">Nazwisko
+          <i [ngClass]="{'fa' : true, 'fa-caret-up': reverse && key === 'surname','fa-caret-down': !reverse && key === 'surname', 'fa-sort': key !== 'surname'}"
+            aria-hidden="true"></i>
+        </th>
         <th scope="col">Telefon</th>
-        <th scope="col">Adres</th>
+        <th scope="col">Ulica</th>
+        <th scope="col">Kod pocztowy</th>
+        <th scope="col">Miasto</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let owner of owners | orderBy: key : reverse | filter:filter; let i = index" (dblclick)="update(owner)">
-        <th>{{owner.idOwner}}</th>
+      <tr *ngFor="let owner of filteredItems | orderBy: key : reverse | filter:filter |  paginate: { itemsPerPage: 10, currentPage: p }; let i = index"
+        [class.table-active]="selected === owner" (click)="selected = owner" (dblclick)="update(owner)">
         <td>{{owner.name}}</td>
         <td>{{owner.surname}}</td>
-        <td>{{owner.login}}</td>
         <td>{{owner.tel}}</td>
-        <td>{{owner.address.address}}, {{owner.address.postalCode}} {{owner.address.city}}</td>
+        <td>{{owner.address.address}}</td>
+        <td>{{owner.address.postalCode}}</td>
+        <td>{{owner.address.city}}</td>
       </tr>
     </tbody>
   </table>
-  <div class="btn-toolbar" role="toolbar" style="margin: 0;">
-      <div class="btn-group">
-           <label style="margin-top:10px">Page {{currentIndex}}/{{pageNumber}}</label>
-        </div>
-        <div class="btn-group pull-right">
-           <ul class="pagination">
-              <li [ngClass]="{'disabled': (currentIndex == 1 || pageNumber == 0)}" ><a  (click)="prevPage()" href="#">Prev</a></li>
-                 <li *ngFor="let page of pagesIndex"  [ngClass]="{'active': (currentIndex == page)}">
-                    <a (click)="setPage(page)" href="#" >{{page}}</a>
-                 </li>
-              <li [ngClass]="{'disabled': (currentIndex == pageNumber || pageNumber == 0)}" ><a   (click)="nextPage()" href="#">Next</a></li>
-           </ul>
-        </div>
-     </div>
+  <div class="float-right mr-5">
+    <pagination-controls previousLabel="" nextLabel="" (pageChange)="p = $event"></pagination-controls>
   </div>
+</div>
