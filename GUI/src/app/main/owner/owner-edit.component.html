@@ -130,8 +130,10 @@
     <ngb-tab title="ZWIERZĘTA">
       <ng-template ngbTabContent>
         <div class="mt-2">
-          <button class="btn btn-success" (click)="addAnimal()">Dodaj</button>
-          <button class="btn btn-danger" (click)="deleteAnimal()">Usuń</button>
+          <div class="mb-2 p-1 bg-dark rounded">
+            <button class="btn btn-success" (click)="addAnimal()">Dodaj</button>
+            <button class="btn btn-danger" (click)="deleteAnimal()">Usuń</button>
+          </div>
           <table class="table mt-3 table-striped table-hover">
             <thead>
               <tr>
@@ -147,7 +149,10 @@
                 <td>{{animal.name}}</td>
                 <td>{{animal.animalType.type}}</td>
                 <td>{{animal.birthDate | date:'fullDate'}}</td>
-                <td><i [ngClass]="{'fa' : true, 'fa-check text-success': animal.active,'fa-times text-danger': !animal.active}" aria-hidden="true"></i></td>
+                <td>
+                  <i [ngClass]="{'fa' : true, 'fa-check text-success': animal.active,'fa-times text-danger': !animal.active}"
+                    aria-hidden="true"></i>
+                </td>
                 <td>{{animal.color.color}}</td>
               </tr>
             </tbody>

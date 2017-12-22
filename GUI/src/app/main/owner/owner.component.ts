@@ -588,14 +588,6 @@ export class OwnerComponent implements OnInit {
 
   filteredItems: Owner[];
   p = 1;
-  pages = 4;
-  pageSize = 5;
-  pageNumber = 0;
-  currentIndex = 1;
-  items: Owner[];
-  pagesIndex: Array<number>;
-  pageStart = 1;
-  inputName = '';
 
   // Sortowanie
   key: string;

@@ -1,19 +1,25 @@
-<h1>Animal section</h1>
-<div class="m-5">
+<div class="mx-4 my-2">
+  <div class="mb-2 p-1 bg-dark rounded">
+    <h1 class="text-light">ZWIERZĘTA</h1>
+  </div>
   <!-- <button class="btn btn-success" (click)="add()">Dodaj</button> -->
   <table class="table mt-3 table-striped table-hover">
     <thead>
       <tr>
-        <th scope="col">id</th>
-        <th scope="col">Imię <i [ngClass]="{'fa fa-fw' : true, 'fa-sort-alpha-desc': reverse && key === 'name','fa-sort-alpha-asc': !reverse && key === 'name', 'fa-sort': key !== 'name'}" aria-hidden="true"></i></th>
+        <th scope="col">Imię
+          <i [ngClass]="{'fa fa-fw' : true, 'fa-sort-alpha-desc': reverse && key === 'name','fa-sort-alpha-asc': !reverse && key === 'name', 'fa-sort': key !== 'name'}"
+            aria-hidden="true"></i>
+        </th>
         <th scope="col">Data urodzenia</th>
         <th scope="col">Aktywne</th>
         <th scope="col">Typ</th>
         <th scope="col">Rasa</th>
         <th scope="col">Kolor</th>
         <th scope="col">Imię właściciela</th>
-        <th scope="col">Nazwisko właściciela <i [ngClass]="{'fa fa-fw' : true, 'fa-sort-alpha-desc': reverse && key === 'owner.name','fa-sort-alpha-asc': !reverse && key === 'owner.name', 'fa-sort': key !== 'owner.name'}" aria-hidden="true"></i></th>
-        <th scope="col">Telefon</th>
+        <th scope="col">Nazwisko właściciela
+          <i [ngClass]="{'fa fa-fw' : true, 'fa-sort-alpha-desc': reverse && key === 'owner.name','fa-sort-alpha-asc': !reverse && key === 'owner.name', 'fa-sort': key !== 'owner.name'}"
+            aria-hidden="true"></i>
+        </th>
       </tr>
     </thead>
     <tbody>
