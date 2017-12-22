@@ -11,7 +11,12 @@ import { PetEditComponent } from './pet-edit.component';
 })
 export class PetComponent implements OnInit {
 
-  pets: Animal[] = [];
+  animals: Animal[] = [];
+
+
+  // Sortowanie
+  key: string;
+  reverse = false;
 
   constructor(private animalService: AnimalService, private modalService: NgbModal) {
   }

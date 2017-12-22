@@ -17,7 +17,7 @@ export class OwnerComponent implements OnInit {
 
   filteredItems: Owner[];
   pages = 4;
-  pageSize = 5;
+  pageSize = 1;
   pageNumber = 0;
   currentIndex = 1;
   items: Owner[];
@@ -25,8 +25,8 @@ export class OwnerComponent implements OnInit {
   pageStart = 1;
   inputName = '';
 
-  // sorting
-  key = 'name';
+  // Sortowanie
+  key: string;
   reverse = false;
 
   constructor(private ownerService: OwnerService, private modalService: NgbModal) {
