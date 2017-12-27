@@ -18,9 +18,6 @@ public class Address {
     @Column(name = "city", nullable = false, length = 45)
     private String city;
     @Basic
-    @Column(name = "state", nullable = false, length = 45)
-    private String state;
-    @Basic
     @Column(name = "postalCode", nullable = false, length = 45)
     private String postalCode;
 
@@ -56,15 +53,6 @@ public class Address {
 
     public void setCity(String city) {
         this.city = city;
-    }
-
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
     }
 
 
@@ -104,7 +92,6 @@ public class Address {
         if (idAddress != address1.idAddress) return false;
         if (address != null ? !address.equals(address1.address) : address1.address != null) return false;
         if (city != null ? !city.equals(address1.city) : address1.city != null) return false;
-        if (state != null ? !state.equals(address1.state) : address1.state != null) return false;
         if (postalCode != null ? !postalCode.equals(address1.postalCode) : address1.postalCode != null) return false;
 
         return true;
@@ -115,7 +102,6 @@ public class Address {
         int result = idAddress;
         result = 31 * result + (address != null ? address.hashCode() : 0);
         result = 31 * result + (city != null ? city.hashCode() : 0);
-        result = 31 * result + (state != null ? state.hashCode() : 0);
         result = 31 * result + (postalCode != null ? postalCode.hashCode() : 0);
         return result;
     }

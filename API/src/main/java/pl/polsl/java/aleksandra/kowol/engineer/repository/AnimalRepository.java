@@ -7,5 +7,4 @@ import pl.polsl.java.aleksandra.kowol.engineer.entity.Animal;
 
 public interface AnimalRepository extends JpaRepository<Animal, Integer> {
 
-
 }

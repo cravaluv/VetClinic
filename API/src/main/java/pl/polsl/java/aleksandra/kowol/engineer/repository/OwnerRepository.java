@@ -7,5 +7,4 @@ import pl.polsl.java.aleksandra.kowol.engineer.entity.Owner;
 
 public interface OwnerRepository extends JpaRepository<Owner, Integer> {
 
-
 }

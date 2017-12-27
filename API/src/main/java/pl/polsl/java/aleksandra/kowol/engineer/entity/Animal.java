@@ -15,13 +15,13 @@ public class Animal {
     @Column(name = "name", nullable = false, length = 45)
     private String name;
     @Basic
-    @Column(name = "birthDate", nullable = false)
+    @Column(name = "birthDate", nullable = true)
     private Timestamp birthDate;
     @Basic
     @Column(name = "active", nullable = false)
     private byte active;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(referencedColumnName = "idOwner")
 	private Owner owner;
     @ManyToOne
