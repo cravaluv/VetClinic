@@ -5,13 +5,11 @@ export class Animal {
     name: string;
     birthDate: Date;
     active: boolean;
-    owner: Owner;
     color: Color;
     animalType: AnimalType;
 
 
     constructor() {
-        this.owner = new Owner();
         this.color = new Color();
         this.animalType = new AnimalType();
     }

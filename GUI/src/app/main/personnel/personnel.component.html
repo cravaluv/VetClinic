@@ -3,25 +3,34 @@
       <h1 class="text-light">PRACOWNICY</h1>
   <button class="btn btn-success" (click)="add()">Dodaj</button>
   <button class="btn btn-danger" (click)="add()">Usuń</button>
+  <input class="form-control mt-2" type="text" name="search" placeholder="Wyszukaj..." [(ngModel)]="filter">
   </div>
   <input class="form-control" type="text" name="search" placeholder="Wyszukaj..." [(ngModel)]="filter">
   <table class="table mt-3 table-striped table-hover">
     <thead>
       <tr>
-        <th scope="col">id</th>
-        <th scope="col" (click)="sort('name')">Imię <i [ngClass]="{'fa fa-sort-alpha-desc': reverse && key === 'name','fa fa fa-sort-alpha-asc fa-fw': !reverse  && key === 'name', 'fa-sort': key !== 'name'}" aria-hidden="true"></i></th>
-        <th scope="col" (click)="sort('surname')">Nazwisko <i [ngClass]="{'fa fa-sort-alpha-desc': reverse && key === 'surname','fa fa fa-sort-alpha-asc fa-fw': !reverse  && key === 'surname', 'fa-sort': key !== 'surname'}" aria-hidden="true"></i></th>
-        <th scope="col" (click)="sort('login')">Login <i [ngClass]="{'fa fa-sort-alpha-desc': reverse && key === 'login','fa fa fa-sort-alpha-asc fa-fw': !reverse  && key === 'login', 'fa-sort': key !== 'login'}" aria-hidden="true"></i></th>
-        <th scope="col">Adres</th>
+        <th scope="col" (click)="sort('name')">Imię
+          <i [ngClass]="{'fa' : true, 'fa-caret-up': reverse && key === 'name','fa-caret-down': !reverse && key === 'name', 'fa-sort': key !== 'name'}"
+            aria-hidden="true"></i>
+        </th>
+        <th scope="col" (click)="sort('surname')">Nazwisko
+          <i [ngClass]="{'fa' : true, 'fa-caret-up': reverse && key === 'surname','fa-caret-down': !reverse && key === 'surname', 'fa-sort': key !== 'surname'}"
+            aria-hidden="true"></i>
+        </th>
+        <th scope="col">Login</th>
+        <th scope="col">Ulica</th>
+        <th scope="col">Kod pocztowy</th>
+        <th scope="col">Miasto</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let person of personnel | orderBy: key : reverse | filter:filter; let i = index" (dblclick)="update(person)">
-        <th>{{person.idPersonnel}}</th>
         <td>{{person.name}}</td>
         <td>{{person.surname}}</td>
         <td>{{person.login}}</td>
-        <td>{{person.address.address}}, {{person.address.postalCode}} {{person.address.city}}</td>
+        <td>{{person.address.address}}</td>
+        <td>{{person.address.postalCode}}</td>
+        <td>{{person.address.city}}</td>
       </tr>
     </tbody>
   </table>

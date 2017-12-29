@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h4 class="modal-title">{{editMode ? 'EDYTUJ WŁAŚCICIELA' : 'DODAJ WŁAŚCICIELA'}}</h4>
+  <h4 class="modal-title">{{editMode ? 'EDYTUJ PRACOWNIKA' : 'DODAJ PRACOWNIKA'}}</h4>
   <button type="button" class="close" aria-label="Close" (click)="onDismiss()">
     <span aria-hidden="true">&times;</span>
   </button>
@@ -79,8 +79,8 @@
           <div class="row">
             <div class="col-md-6 mb-3">
               <label for="login">Login</label>
-              <input id="login" name="login" class="form-control" required [class.is-invalid]="login.invalid && (login.touched || submitted)" [class.is-valid]="login.valid && (login.touched || submitted)"
-                [(ngModel)]="modelCopy.login" #login="ngModel">
+              <input id="login" name="login" class="form-control" required [class.is-invalid]="login.invalid && (login.touched || submitted)"
+                [class.is-valid]="login.valid && (login.touched || submitted)" [(ngModel)]="modelCopy.login" #login="ngModel">
 
               <div *ngIf="login.invalid && (login.dirty || login.touched || submitted)" class="invalid-feedback">
                 <div *ngIf="login?.errors.required">
@@ -106,6 +106,27 @@
     <ngb-tab title="GRAFIK">
       <ng-template ngbTabContent>
         <div class="mt-2">
+          <div class="mb-2 p-1 bg-dark rounded">
+            <div class="col-6">
+              <form class="form-inline">
+                <div class="form-group">
+                  <div class="input-group">
+                    <input class="form-control" placeholder="yyyy-mm-dd" name="d2" #c2="ngModel" [(ngModel)]="currentDateModel" (ngModelChange)="onChangeDate($event)"
+                      ngbDatepicker #d2="ngbDatepicker">
+                    <button class="input-group-addon" (click)="d2.toggle()" type="button">
+                      <i class="fa fa-calendar" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                </div>
+                <hr/>
+                <button class="btn btn-sm btn-outline-light" (click)="currentDateModel = today; onChangeDate(currentDateModel)">Wybierz dziś</button>
+                <hr/>
+              </form>
+
+            </div>
+          </div>
+          <mwl-calendar-day-view [viewDate]="viewDate" [events]="events" [hourSegments]="4" [dayStartHour]="9" [dayEndHour]="17">
+          </mwl-calendar-day-view>
         </div>
       </ng-template>
     </ngb-tab>

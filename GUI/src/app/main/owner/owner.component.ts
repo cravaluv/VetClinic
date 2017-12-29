@@ -21,7 +21,7 @@ export const DATA = [
       {
         "idAnimal": 1,
         "name": "Vanessa",
-        "birthDate": "Sun Dec 13 1981 23:50:14 GMT+0100 (Środkowoeuropejski czas stand.)",
+        "birthDate": new Date(),
         "active": false,
         "color": {
           "idColor": 1,
@@ -35,7 +35,7 @@ export const DATA = [
       {
         "idAnimal": 2,
         "name": "Marylou",
-        "birthDate": "Wed Dec 15 1982 21:18:47 GMT+0100 (Środkowoeuropejski czas stand.)",
+        "birthDate": new Date(),
         "active": true,
         "color": {
           "idColor": 1,
@@ -63,7 +63,7 @@ export const DATA = [
       {
         "idAnimal": 1,
         "name": "Rochelle",
-        "birthDate": "Sat Nov 09 1974 22:15:49 GMT+0100 (Środkowoeuropejski czas stand.)",
+        "birthDate": new Date(),
         "active": false,
         "color": {
           "idColor": 1,
@@ -77,7 +77,7 @@ export const DATA = [
       {
         "idAnimal": 2,
         "name": "Olsen",
-        "birthDate": "Mon Nov 01 2010 06:00:54 GMT+0100 (Środkowoeuropejski czas stand.)",
+        "birthDate": new Date(),
         "active": false,
         "color": {
           "idColor": 1,
@@ -105,7 +105,7 @@ export const DATA = [
       {
         "idAnimal": 1,
         "name": "Cassandra",
-        "birthDate": "Fri Nov 04 1994 09:41:54 GMT+0100 (Środkowoeuropejski czas stand.)",
+        "birthDate": new Date(),
         "active": true,
         "color": {
           "idColor": 1,
@@ -133,7 +133,7 @@ export const DATA = [
       {
         "idAnimal": 1,
         "name": "Rojas",
-        "birthDate": "Mon Aug 05 2013 05:58:36 GMT+0200 (Środkowoeuropejski czas letni)",
+        "birthDate": new Date(),
         "active": true,
         "color": {
           "idColor": 1,
@@ -147,7 +147,7 @@ export const DATA = [
       {
         "idAnimal": 2,
         "name": "Stewart",
-        "birthDate": "Sat Mar 16 2002 14:51:12 GMT+0100 (Środkowoeuropejski czas stand.)",
+        "birthDate": new Date(),
         "active": true,
         "color": {
           "idColor": 1,
@@ -175,7 +175,7 @@ export const DATA = [
       {
         "idAnimal": 1,
         "name": "Shirley",
-        "birthDate": "Mon Oct 23 2017 14:53:51 GMT+0200 (Środkowoeuropejski czas letni)",
+        "birthDate": new Date(),
         "active": true,
         "color": {
           "idColor": 1,
@@ -189,7 +189,7 @@ export const DATA = [
       {
         "idAnimal": 2,
         "name": "Frances",
-        "birthDate": "Wed Sep 03 2014 12:54:19 GMT+0200 (Środkowoeuropejski czas letni)",
+        "birthDate": new Date(),
         "active": false,
         "color": {
           "idColor": 1,
@@ -217,7 +217,7 @@ export const DATA = [
       {
         "idAnimal": 1,
         "name": "Gentry",
-        "birthDate": "Mon Nov 09 1992 06:28:25 GMT+0100 (Środkowoeuropejski czas stand.)",
+        "birthDate": new Date(),
         "active": false,
         "color": {
           "idColor": 1,
@@ -231,7 +231,7 @@ export const DATA = [
       {
         "idAnimal": 2,
         "name": "Casey",
-        "birthDate": "Tue Mar 12 1991 06:50:15 GMT+0100 (Środkowoeuropejski czas stand.)",
+        "birthDate": new Date(),
         "active": false,
         "color": {
           "idColor": 1,
@@ -298,7 +298,7 @@ export const DATA = [
       {
         "idAnimal": 1,
         "name": "Delores",
-        "birthDate": "Tue Jan 16 2001 10:01:55 GMT+0100 (Środkowoeuropejski czas stand.)",
+        "birthDate": new Date(),
         "active": false,
         "color": {
           "idColor": 1,
@@ -339,7 +339,7 @@ export const DATA = [
       {
         "idAnimal": 1,
         "name": "Pennington",
-        "birthDate": "Sat Mar 17 1979 01:22:33 GMT+0100 (Środkowoeuropejski czas stand.)",
+        "birthDate": new Date(),
         "active": true,
         "color": {
           "idColor": 1,
@@ -393,7 +393,7 @@ export const DATA = [
       {
         "idAnimal": 1,
         "name": "Cantu",
-        "birthDate": "Fri Jul 17 2015 09:54:59 GMT+0200 (Środkowoeuropejski czas letni)",
+        "birthDate": new Date(),
         "active": false,
         "color": {
           "idColor": 1,
@@ -407,7 +407,7 @@ export const DATA = [
       {
         "idAnimal": 2,
         "name": "Dorothy",
-        "birthDate": "Sun Jan 25 1976 17:51:04 GMT+0100 (Środkowoeuropejski czas stand.)",
+        "birthDate": new Date(),
         "active": false,
         "color": {
           "idColor": 1,
@@ -435,7 +435,7 @@ export const DATA = [
       {
         "idAnimal": 1,
         "name": "Laurel",
-        "birthDate": "Wed Jul 11 2001 04:01:30 GMT+0200 (Środkowoeuropejski czas letni)",
+        "birthDate": new Date(),
         "active": true,
         "color": {
           "idColor": 1,
@@ -449,7 +449,7 @@ export const DATA = [
       {
         "idAnimal": 2,
         "name": "Fischer",
-        "birthDate": "Sat Apr 22 1995 11:46:22 GMT+0200 (Środkowoeuropejski czas letni)",
+        "birthDate": new Date(),
         "active": false,
         "color": {
           "idColor": 1,
@@ -477,7 +477,7 @@ export const DATA = [
       {
         "idAnimal": 1,
         "name": "Cleo",
-        "birthDate": "Thu Nov 19 1992 18:43:41 GMT+0100 (Środkowoeuropejski czas stand.)",
+        "birthDate": new Date(),
         "active": true,
         "color": {
           "idColor": 1,
@@ -518,7 +518,7 @@ export const DATA = [
       {
         "idAnimal": 1,
         "name": "Rosella",
-        "birthDate": "Sun Oct 12 2003 15:00:07 GMT+0200 (Środkowoeuropejski czas letni)",
+        "birthDate": new Date(),
         "active": true,
         "color": {
           "idColor": 1,
@@ -532,7 +532,7 @@ export const DATA = [
       {
         "idAnimal": 2,
         "name": "Higgins",
-        "birthDate": "Thu Jan 25 1973 03:50:04 GMT+0100 (Środkowoeuropejski czas stand.)",
+        "birthDate": new Date(),
         "active": false,
         "color": {
           "idColor": 1,
@@ -560,7 +560,7 @@ export const DATA = [
       {
         "idAnimal": 1,
         "name": "Preston",
-        "birthDate": "Mon Jan 28 2013 01:17:04 GMT+0100 (Środkowoeuropejski czas stand.)",
+        "birthDate": new Date(),
         "active": true,
         "color": {
           "idColor": 1,
@@ -598,6 +598,7 @@ export class OwnerComponent implements OnInit {
 
   ngOnInit(): void {
     this.owners = DATA;
+  
     this.filteredItems = this.owners;
     // this.initPagination();
     // this.ownerService.getOwners().subscribe((data) => {
