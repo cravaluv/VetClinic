@@ -9,6 +9,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CalendarEvent } from 'angular-calendar';
 import { DatePipe } from '@angular/common';
 import { DatepickerAdapterService } from '../../ui/services/datepicker-adapter.service';
+import { VisitEditComponent } from '../visit/visit-edit.component';
 
 @Component({
   selector: 'app-personnel-edit',
@@ -39,7 +40,7 @@ export class PersonnelEditComponent implements OnInit {
     return new Date();
   }
 
-  constructor(private activeModal: NgbActiveModal) {
+  constructor(private activeModal: NgbActiveModal, private modalService: NgbModal) {
   }
 
   ngOnInit(): void {
@@ -50,8 +51,11 @@ export class PersonnelEditComponent implements OnInit {
     this.model2 = new Date();
   }
 
-  onChangeDate(evnt) {
-    evnt.year ? this.viewDate = new Date(evnt.year, evnt.month, evnt.day) : this.viewDate = evnt;
+  onSegmentClick(event) {
+    // Wyszukaj wizytę z event.date
+    const ccc = event;
+    const modal = this.modalService.open(VisitEditComponent, { size: 'lg' });
+    modal.componentInstance.editMode = false;
   }
 
   onSubmit() {

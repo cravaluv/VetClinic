@@ -15,13 +15,17 @@ export class VisitEditComponent implements OnInit {
   @Input() model: Visit;
   @Input() editMode = true;
 
-  modelCopy: Visit;
+  modelCopy = new Visit();
+
+  submitted = false;
 
   constructor(private activeModal: NgbActiveModal ) {
   }
 
   ngOnInit(): void {
-    this.modelCopy = _.clone(this.model);
+    if (this.editMode) {
+      this.modelCopy = _.clone(this.model);
+    }
   }
 
   onSubmit() {

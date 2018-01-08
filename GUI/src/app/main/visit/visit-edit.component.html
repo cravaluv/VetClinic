@@ -1,0 +1,126 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{editMode ? 'EDYTUJ WIZYTĘ' : 'DODAJ WIZYTĘ'}}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="onDismiss()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <ngb-tabset>
+    <ngb-tab title="DANE">
+      <ng-template ngbTabContent>
+        <form #ownerForm="ngForm" class="m-3">
+          <div class="row">
+            <div class="col-md-6 mb-3 form-group">
+              <label for="type">Typ</label>
+              <input id="type" name="type" class="form-control" [class.is-invalid]="type.invalid && (type.touched || submitted)" [class.is-valid]="type.valid && (type.touched || submitted)"
+                [(ngModel)]="modelCopy.type" #type="ngModel" required>
+
+              <div *ngIf="type.invalid && (type.dirty || type.touched || submitted)" class="invalid-feedback">
+                <div *ngIf="type?.errors.required">
+                  Typ wizyty jest wymagany.
+                </div>
+
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="description">Opis</label>
+              <input id="description" name="description" class="form-control" [(ngModel)]="modelCopy.description" #description="ngModel" required>
+            </div>
+          </div>
+          <!-- <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="address">Ulica</label>
+              <input id="address" name="address" class="form-control" [class.is-invalid]="address.invalid && (address.touched || submitted)"
+                [class.is-valid]="address.valid && (address.touched || submitted)" [(ngModel)]="modelCopy.address.address"
+                #address="ngModel" required>
+
+              <div *ngIf="address.invalid && (address.dirty || address.touched || submitted)" class="invalid-feedback">
+                <div *ngIf="address?.errors.required">
+                  Ulica jest wymagana.
+                </div>
+
+              </div>
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="city">Miasto</label>
+              <input id="city" name="city" class="form-control" [class.is-invalid]="city.invalid && (city.touched || submitted)" [class.is-valid]="city.valid && (city.touched || submitted)"
+                [(ngModel)]="modelCopy.address.city" #city="ngModel" required>
+
+              <div *ngIf="city.invalid && (city.dirty || city.touched || submitted)" class="invalid-feedback">
+                <div *ngIf="city?.errors.required">
+                  Miasto jest wymagane.
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2 mb-3">
+              <label for="postal">Kod</label>
+              <input id="postal" name="postal" class="form-control" [class.is-invalid]="postal.invalid && (postal.touched || submitted)"
+                [class.is-valid]="postal.valid && (postal.touched || submitted)" [(ngModel)]="modelCopy.address.postalCode"
+                #postal="ngModel" required pattern="[0-9]{2}-[0-9]{3}">
+              <div *ngIf="postal.invalid && (postal.dirty || postal.touched || submitted)" class="invalid-feedback">
+                <div *ngIf="postal?.errors.required">
+                  Kod pocztowy jest wymagany.
+                </div>
+                <div *ngIf="postal?.errors.pattern">
+                  Błędny kod pocztowy.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="tel">Telefon komórkowy</label>
+              <input id="tel" name="tel" class="form-control" [class.is-invalid]="tel.invalid && (tel.touched || submitted)" [class.is-valid]="tel.valid && (tel.touched || submitted)"
+                [(ngModel)]="modelCopy.tel" #tel="ngModel" required pattern="^([0-9]{9})|(([0-9]{3}-){2}[0-9]{3})$">
+              <div *ngIf="tel.invalid && (tel.dirty || tel.touched || submitted)" class="invalid-feedback">
+                <div *ngIf="tel?.errors.required">
+                  Telefon jest wymagany.
+                </div>
+                <div *ngIf="tel?.errors.pattern">
+                  Błędny telefon.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-5 mb-3">
+              <label class="custom-control custom-checkbox">
+                <span class="custom-control-description">Rejestracja online</span>
+                <input type="checkbox" class="custom-control-input" [checked]="modelCopy.onlineReg" (change)="registerChange()">
+                <span class="custom-control-indicator"></span>
+              </label>
+            </div>
+          </div>
+          <div [hidden]="!modelCopy.onlineReg" class="row">
+            <div class="col-md-6 mb-3">
+              <label for="login">Login</label>
+              <input id="login" name="login" class="form-control" [class.is-invalid]="login.invalid && (login.touched || submitted)" [class.is-valid]="login.valid && (login.touched || submitted)"
+                [(ngModel)]="modelCopy.login" #login="ngModel">
+
+              <div *ngIf="login.invalid && (login.dirty || login.touched || submitted)" class="invalid-feedback">
+                <div *ngIf="login?.errors.required">
+                  Login jest wymagany.
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="password">Hasło</label>
+              <input id="password" name="password" class="form-control" [class.is-invalid]="password.invalid && (password.touched || submitted)"
+                [class.is-valid]="password.valid && (password.touched || submitted)" [(ngModel)]="modelCopy.password" #password="ngModel">
+
+              <div *ngIf="password.invalid && (password.dirty || password.touched || submitted)" class="invalid-feedback">
+                <div *ngIf="password?.errors.required">
+                  Hasło jest wymagane.
+                </div>
+              </div>
+            </div>
+          </div> -->
+        </form>
+      </ng-template>
+    </ngb-tab>
+  </ngb-tabset>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-success" (click)="onSubmit()">Zatwierdź</button>
+  <button type="button" class="btn btn-outline-dark" (click)="onDismiss()">Zamknij</button>
+</div>

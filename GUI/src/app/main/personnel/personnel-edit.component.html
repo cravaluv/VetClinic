@@ -126,7 +126,7 @@
               </form>
             </div>
           </div>
-          <mwl-calendar-day-view [viewDate]="viewDate" [events]="events" [hourSegments]="4" [dayStartHour]="9" [dayEndHour]="17">
+          <mwl-calendar-day-view [viewDate]="viewDate" [events]="events" [hourSegments]="4" [dayStartHour]="9" [dayEndHour]="17" (hourSegmentClicked)="onSegmentClick($event)">
           </mwl-calendar-day-view>
         </div>
       </ng-template>
