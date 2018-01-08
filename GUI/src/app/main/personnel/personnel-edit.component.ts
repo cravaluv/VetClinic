@@ -4,10 +4,11 @@ import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { Personnel } from '../../core/models/personnel';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap/modal/modal';
 import * as _ from 'lodash';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CalendarEvent } from 'angular-calendar';
 import { DatePipe } from '@angular/common';
+import { DatepickerAdapterService } from '../../ui/services/datepicker-adapter.service';
 
 @Component({
   selector: 'app-personnel-edit',
@@ -23,7 +24,7 @@ export class PersonnelEditComponent implements OnInit {
 
   view = 'day';
 
-  currentDateModel;
+  currentDateModel = new Date();
   viewDate: Date = new Date();
 
   events: CalendarEvent[] = [];
@@ -31,6 +32,8 @@ export class PersonnelEditComponent implements OnInit {
   @ViewChild('ownerForm') form: any;
 
   submitted = false;
+
+  model2 = new Date();
 
   get today() {
     return new Date();
@@ -43,8 +46,12 @@ export class PersonnelEditComponent implements OnInit {
     this.modelCopy = _.clone(this.model);
   }
 
+  selectToday() {
+    this.model2 = new Date();
+  }
+
   onChangeDate(evnt) {
-    this.viewDate = new Date(evnt.year, evnt.month, evnt.day);
+    evnt.year ? this.viewDate = new Date(evnt.year, evnt.month, evnt.day) : this.viewDate = evnt;
   }
 
   onSubmit() {
