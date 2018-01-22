@@ -1,0 +1,21 @@
+<div class="mx-4 my-2">
+        <div class="mb-2 p-1 bg-dark rounded">
+
+        <h1 class="text-light">GRAFIK</h1>
+
+            <form class="form-inline">
+                <button class="btn btn-sm btn-outline-light" (click)="view = 'day'; viewDate = today" [disabled]="view === 'day'">Widok dnia</button>
+                <button class="btn btn-sm btn-outline-light ml-2" (click)="view = 'week'; viewDate = today" [disabled]="view === 'week'">Widok tygodnia</button>
+            </form>
+
+    </div>
+    <div [ngSwitch]="view">
+        <mwl-calendar-week-view *ngSwitchCase="'week'" [viewDate]="viewDate" [events]="events">
+        </mwl-calendar-week-view>
+        <mwl-calendar-day-view *ngSwitchCase="'day'" [viewDate]="viewDate" [events]="events" [hourSegments]="4" [dayStartHour]="9"
+            [dayEndHour]="17" (hourSegmentClicked)="onSegmentClick($event)">
+        </mwl-calendar-day-view>
+    </div>
+    <!-- <mwl-calendar-day-view [viewDate]="viewDate" [events]="events" [hourSegments]="4" [dayStartHour]="9" [dayEndHour]="17" (hourSegmentClicked)="onSegmentClick($event)">
+    </mwl-calendar-day-view> -->
+</div>

@@ -12,6 +12,7 @@ import { PetEditComponent } from './pet-edit.component';
 export class PetComponent implements OnInit {
 
   animals: Animal[] = [];
+  selected: Animal;
 
 
   // Sortowanie
@@ -22,12 +23,16 @@ export class PetComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.animalService.getAnimals().subscribe((data) => {
-    //   this.pets = Object.keys(data).map((key) =>  data[key]);
-    // },
-    //   (error) => {
-    //     console.log(error);
-    //   });
+    this.animalService.getAnimals().subscribe((data) => {
+      this.animals = Object.keys(data).map((key) => {
+        // Formatowanie daty string => Date
+        data[key].birthDate = new Date(data[key].birthDate);
+        return data[key];
+      });
+    },
+      (error) => {
+        console.log(error);
+      });
   }
 
   add() {

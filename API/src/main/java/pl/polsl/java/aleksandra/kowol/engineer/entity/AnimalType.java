@@ -1,5 +1,7 @@
 package pl.polsl.java.aleksandra.kowol.engineer.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -13,6 +15,7 @@ public class AnimalType {
     @Column(name = "type", nullable = false, length = 45)
     private String type;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "animalType")
     private List<Animal> animals;
 

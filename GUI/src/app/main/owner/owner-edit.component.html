@@ -92,11 +92,10 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md-5 mb-3">
+            <div class="col-md-5 mb-2">
               <label class="custom-control custom-checkbox">
-                <span class="custom-control-description">Rejestracja online</span>
-                <input type="checkbox" class="custom-control-input" [checked]="modelCopy.onlineReg" (change)="registerChange()">
-                <span class="custom-control-indicator"></span>
+                <input type="checkbox" class="custom-control-input" [checked]="modelCopy.onlineReg" id="onlineReg" (change)="registerChange()">
+                <label class="custom-control-label" for="onlineReg">Rejestracja online</label>
               </label>
             </div>
           </div>
@@ -114,7 +113,7 @@
             </div>
             <div class="col-md-6 mb-3">
               <label for="password">Hasło</label>
-              <input id="password" name="password" class="form-control" [class.is-invalid]="password.invalid && (password.touched || submitted)"
+              <input id="password" name="password" type="password" class="form-control" [class.is-invalid]="password.invalid && (password.touched || submitted)"
                 [class.is-valid]="password.valid && (password.touched || submitted)" [(ngModel)]="modelCopy.password" #password="ngModel">
 
               <div *ngIf="password.invalid && (password.dirty || password.touched || submitted)" class="invalid-feedback">
@@ -132,10 +131,10 @@
         <div class="mt-2">
           <div class="mb-2 p-1 bg-dark rounded">
             <button class="btn btn-success" (click)="addAnimal()">Dodaj</button>
-            <button class="btn btn-danger" (click)="deleteAnimal()">Usuń</button>
+            <!-- <button class="btn btn-danger" (click)="deleteAnimal()" [disabled]="!selected">Usuń</button> -->
           </div>
           <table class="table mt-3 table-striped table-hover">
-            <thead>
+            <thead class="thead-dark">
               <tr>
                 <th scope="col">Imię</th>
                 <th scope="col">Typ</th>
@@ -150,8 +149,7 @@
                 <td>{{animal.animalType.type}}</td>
                 <td>{{animal.birthDate | date:'fullDate'}}</td>
                 <td>
-                  <i [ngClass]="{'fa' : true, 'fa-check text-success': animal.active,'fa-times text-danger': !animal.active}"
-                    aria-hidden="true"></i>
+                  <i [ngClass]="{'fa' : true, 'fa-check text-success': animal.active,'fa-times text-danger': !animal.active}" aria-hidden="true"></i>
                 </td>
                 <td>{{animal.color.color}}</td>
               </tr>

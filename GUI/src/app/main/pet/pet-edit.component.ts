@@ -5,6 +5,7 @@ import { Animal } from '../../core/models/animal';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap/modal/modal';
 import * as _ from 'lodash';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { VisitEditComponent } from '../visit/visit-edit.component';
 
 @Component({
   selector: 'app-pet-edit',
@@ -17,11 +18,15 @@ export class PetEditComponent implements OnInit {
 
   modelCopy: Animal;
 
-  constructor(private activeModal: NgbActiveModal ) {
+  constructor(private activeModal: NgbActiveModal, private modalService: NgbModal) {
   }
 
   ngOnInit(): void {
-    this.modelCopy = _.clone(this.model);
+    if (this.editMode) {
+      this.modelCopy = _.clone(this.model);
+      this.modelCopy.birthDate = new Date(this.modelCopy.birthDate);
+    }
+    this.editMode ? this.modelCopy = _.clone(this.model) : this.modelCopy = new Animal();
   }
 
   onSubmit() {
@@ -33,6 +38,12 @@ export class PetEditComponent implements OnInit {
   }
 
   addVisit() {
-    
+    const modal = this.modalService.open(VisitEditComponent, { size: 'lg' });
+    modal.componentInstance.editMode = false;
+
+    modal.result.then((result) => {
+
+    }, (reason) => {
+    });
   }
 }

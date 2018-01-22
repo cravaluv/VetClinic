@@ -1,8 +1,14 @@
 package pl.polsl.java.aleksandra.kowol.engineer.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -16,25 +22,36 @@ public class Animal {
     private String name;
     @Basic
     @Column(name = "birthDate", nullable = true)
-    private Timestamp birthDate;
+    private Date birthDate;
     @Basic
     @Column(name = "active", nullable = false)
-    private byte active;
+    private boolean active;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(referencedColumnName = "idOwner")
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name="idOwner")
+    @JsonBackReference
+//    @JoinColumn(referencedColumnName = "idOwner")
 	private Owner owner;
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(referencedColumnName = "idAnimalType")
     private AnimalType animalType;
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(referencedColumnName = "idColor")
     private Color color;
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(referencedColumnName = "idAnimalRace")
     private AnimalRace animalRace;
     @OneToMany(mappedBy = "animal")
     private List<Visit> visits;
+
+//    public Animal(Animal animal) {
+//        SimpleDateFormat formatter = new SimpleDateFormat("EE MMM d y H:m:s ZZZ");
+//        this.visits = animal.visits;
+//        this.name = animal.name;
+//        this.color = animal.color;
+//        this.birthDate =
+//        String dateString = formatter.format(new Date());
+//    }
 
 
     public int getIdAnimal() {
@@ -55,20 +72,20 @@ public class Animal {
     }
 
 
-    public Timestamp getBirthDate() {
+    public Date getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Timestamp birthDate) {
+    public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
     }
 
 
-    public byte getActive() {
+    public boolean getActive() {
         return active;
     }
 
-    public void setActive(byte active) {
+    public void setActive(boolean active) {
         this.active = active;
     }
 
@@ -118,6 +135,16 @@ public class Animal {
         this.visits = visits;
     }
 
+    public void update(Animal animal) {
+        this.active = animal.active;
+        this.animalRace = animal.animalRace;
+        this.animalType = animal.animalType;
+        this.birthDate = animal.birthDate;
+        this.color = animal.color;
+        this.name = animal.name;
+        this.visits = animal.visits;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -138,7 +165,6 @@ public class Animal {
         int result = idAnimal;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (birthDate != null ? birthDate.hashCode() : 0);
-        result = 31 * result + (int) active;
         return result;
     }
 }

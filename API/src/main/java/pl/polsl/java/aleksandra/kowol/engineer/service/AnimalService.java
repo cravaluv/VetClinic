@@ -1,5 +1,7 @@
 package pl.polsl.java.aleksandra.kowol.engineer.service;
 
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import pl.polsl.java.aleksandra.kowol.engineer.entity.Animal;
 import pl.polsl.java.aleksandra.kowol.engineer.entity.Owner;
 
@@ -7,11 +9,11 @@ import java.util.List;
 
 public interface AnimalService {
 
-    List<Owner> findAllAnimals();
+    List<Animal> findAllAnimals();
 
-    Owner findAnimalById(Integer id);
+    Animal findAnimalById(Integer id);
 
-    void saveAnimal(Animal animal, Owner owner);
+    void saveAnimal(Animal animal);
 
     //    boolean isOwnerExist(Owner owner)
 

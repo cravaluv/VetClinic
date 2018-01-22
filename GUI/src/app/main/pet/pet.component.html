@@ -1,30 +1,28 @@
 <div class="mx-4 my-2">
   <div class="mb-2 p-1 bg-dark rounded">
     <h1 class="text-light">ZWIERZĘTA</h1>
+    <input class="form-control mt-2" type="text" name="search" placeholder="Wyszukaj..." [(ngModel)]="filter">
   </div>
   <!-- <button class="btn btn-success" (click)="add()">Dodaj</button> -->
   <table class="table mt-3 table-striped table-hover">
-    <thead>
+    <thead class="thead-dark">
       <tr>
-        <th scope="col">Imię
-          <i [ngClass]="{'fa fa-fw' : true, 'fa-sort-alpha-desc': reverse && key === 'name','fa-sort-alpha-asc': !reverse && key === 'name', 'fa-sort': key !== 'name'}"
-            aria-hidden="true"></i>
-        </th>
+        <th scope="col">Imię</th>
+        <th scope="col">Typ</th>
         <th scope="col">Data urodzenia</th>
         <th scope="col">Aktywne</th>
-        <th scope="col">Typ</th>
-        <th scope="col">Rasa</th>
         <th scope="col">Kolor</th>
-        <th scope="col">Imię właściciela</th>
-        <th scope="col">Nazwisko właściciela
-          <i [ngClass]="{'fa fa-fw' : true, 'fa-sort-alpha-desc': reverse && key === 'owner.name','fa-sort-alpha-asc': !reverse && key === 'owner.name', 'fa-sort': key !== 'owner.name'}"
-            aria-hidden="true"></i>
-        </th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let animal of animals | orderBy: key : reverse " (dblclick)="update(animal)">
-
+      <tr *ngFor="let animal of animals" [class.table-active]="selected === animal" (click)="selected = animal" (dblclick)="update(animal)">
+        <td>{{animal.name}}</td>
+        <td>{{animal.animalType.type}}</td>
+        <td>{{animal.birthDate | date:'fullDate'}}</td>
+        <td>
+          <i [ngClass]="{'fa' : true, 'fa-check text-success': animal.active,'fa-times text-danger': !animal.active}" aria-hidden="true"></i>
+        </td>
+        <td>{{animal.color.color}}</td>
       </tr>
     </tbody>
   </table>

@@ -9,7 +9,7 @@ export class Owner {
     onlineReg: boolean;
     login?: string;
     password?: string;
-    address: Address;
+    address?: Address;
     animals: Animal[] = [];
 
     constructor() {

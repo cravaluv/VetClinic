@@ -19,17 +19,20 @@ export class OwnerEditComponent implements OnInit {
   @Input() editMode = true;
 
   modelCopy: Owner;
+  animals: Animal[] = [];
   selected: Animal;
+  animalsFetched = false;
+  busy = false;
 
   @ViewChild('ownerForm') form: any;
 
   submitted = false;
 
-  constructor(private activeModal: NgbActiveModal, private modalService: NgbModal) {
+  constructor(private activeModal: NgbActiveModal, private modalService: NgbModal, private ownerService: OwnerService) {
   }
 
   ngOnInit(): void {
-    this.modelCopy = _.clone(this.model);
+    this.editMode ? this.modelCopy = _.clone(this.model) : this.modelCopy = new Owner();
   }
 
   registerChange() {
@@ -42,9 +45,9 @@ export class OwnerEditComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    if (this.form.valid) {
+    // if (this.form.valid) {
       this.activeModal.close(this.modelCopy);
-    }
+    // }
   }
 
   onDismiss() {
@@ -54,19 +57,23 @@ export class OwnerEditComponent implements OnInit {
 
   update(animal: Animal) {
     const modal = this.modalService.open(PetEditComponent, { size: 'lg' });
+    const previousAnimal = animal;
     modal.componentInstance.model = animal;
 
     modal.result.then((result) => {
+      this.modelCopy.animals[this.modelCopy.animals.indexOf(previousAnimal)] = result;
       // this.ownerService.update(result);
     }, (reason) => {
     });
   }
 
   addAnimal() {
+    const modal = this.modalService.open(PetEditComponent, { size: 'lg' });
+    modal.componentInstance.editMode = false;
 
-  }
-
-  deleteAnimal() {
-
+    modal.result.then((result) => {
+      this.modelCopy.animals.push(result);
+    }, (reason) => {
+    });
   }
 }

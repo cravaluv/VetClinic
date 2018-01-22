@@ -8,6 +8,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 import pl.polsl.java.aleksandra.kowol.engineer.entity.Animal;
@@ -67,11 +68,7 @@ public class OwnerController  {
     public ResponseEntity<?> getOwnerAnimals(@PathVariable("id") int id) {
 //        logger.info("Fetching User with id {}", id);
         Owner owner = ownerService.findOwnerById(id);
-//        if (user == null) {
-//            logger.error("User with id {} not found.", id);
-//            return new ResponseEntity(new CustomErrorType("User with id " + id
-//                    + " not found"), HttpStatus.NOT_FOUND);
-//        }
-        return new ResponseEntity<>(owner.getAnimals(), HttpStatus.OK);
+        List<Animal> animals = owner.getAnimals();
+        return new ResponseEntity<>(animals, HttpStatus.OK);
     }
 }

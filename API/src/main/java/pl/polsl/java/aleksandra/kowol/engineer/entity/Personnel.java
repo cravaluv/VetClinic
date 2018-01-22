@@ -35,8 +35,6 @@ public class Personnel {
     @JoinTable(name = "personnel_role", joinColumns = @JoinColumn(name = "personnel_id", referencedColumnName = "idPersonnel"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "idRole"))
     private List<Role> roles;
     @OneToMany(mappedBy = "personnel")
-    private List<Schedule> schedules;
-    @OneToMany(mappedBy = "personnel")
     private List<Visit> visits;
 
 
@@ -124,15 +122,6 @@ public class Personnel {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
-    }
-
-
-    public List<Schedule> getSchedules() {
-        return schedules;
-    }
-
-    public void setSchedules(List<Schedule> schedules) {
-        this.schedules = schedules;
     }
 
 

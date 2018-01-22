@@ -6,6 +6,7 @@ import { HomeComponent } from './home/home.component';
 import { PetComponent } from './pet/pet.component';
 import { VisitComponent } from './visit/visit.component';
 import { PersonnelComponent } from './personnel/personnel.component';
+import { ScheduleComponent } from './schedule/schedule.component';
 
 const routes: Routes = [
 
@@ -33,6 +34,10 @@ const routes: Routes = [
       {
         path: 'personnel',
         component: PersonnelComponent
+      },
+      {
+        path: 'schedule',
+        component: ScheduleComponent
       }
     ]
   }

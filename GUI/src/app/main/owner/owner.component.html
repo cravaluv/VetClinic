@@ -1,12 +1,12 @@
 <div class="mx-4 my-2">
   <div class="mb-2 p-1 bg-dark rounded">
       <h1 class="text-light">WŁAŚCICIELE</h1>
-    <button class="btn btn-success" (click)="add()">Dodaj</button>
-    <button class="btn btn-danger" (click)="add()">Usuń</button>
+    <button class="btn btn-outline-success" (click)="add()">Dodaj</button>
+    <button class="btn btn-outline-danger" (click)="add()">Usuń</button>
     <input class="form-control mt-2" type="text" name="search" placeholder="Wyszukaj..." [(ngModel)]="filter">
   </div>
-  <table *ngIf="filteredItems.length > 0" class="table mt-3 table-striped table-hover">
-    <thead>
+  <table *ngIf="filteredItems" class="table mt-3 table-striped table-hover">
+    <thead class="bg-dark text-light">
       <tr>
         <th scope="col" (click)="sort('name')">Imię
           <i [ngClass]="{'fa' : true, 'fa-caret-up': reverse && key === 'name','fa-caret-down': !reverse && key === 'name', 'fa-sort': key !== 'name'}"
@@ -24,13 +24,13 @@
     </thead>
     <tbody>
       <tr *ngFor="let owner of filteredItems | orderBy: key : reverse | filter:filter |  paginate: { itemsPerPage: 10, currentPage: p }; let i = index"
-        [class.table-active]="selected === owner" (click)="selected = owner" (dblclick)="update(owner)">
+        [class.table-active]="selected === owner" (click)="onSelect(owner)" (dblclick)="update(owner)">
         <td>{{owner.name}}</td>
         <td>{{owner.surname}}</td>
         <td>{{owner.tel}}</td>
-        <td>{{owner.address.address}}</td>
-        <td>{{owner.address.postalCode}}</td>
-        <td>{{owner.address.city}}</td>
+        <td>{{owner?.address.address}}</td>
+        <td>{{owner?.address.postalCode}}</td>
+        <td>{{owner?.address.city}}</td>
       </tr>
     </tbody>
   </table>

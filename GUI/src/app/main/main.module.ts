@@ -22,6 +22,7 @@ import { PersonnelService } from '../core/services/personnel.service';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { CalendarModule } from 'angular-calendar';
 import { DatepickerAdapterService } from '../ui/services/datepicker-adapter.service';
+import { ScheduleComponent } from './schedule/schedule.component';
 
 @NgModule({
     imports: [
@@ -45,7 +46,8 @@ import { DatepickerAdapterService } from '../ui/services/datepicker-adapter.serv
         VisitComponent,
         VisitEditComponent,
         PersonnelComponent,
-        PersonnelEditComponent
+        PersonnelEditComponent,
+        ScheduleComponent
     ],
     providers: [OwnerService, AnimalService, VisitService, PersonnelService,
      {provide: NgbDateAdapter, useClass: DatepickerAdapterService}],

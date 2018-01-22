@@ -18,9 +18,11 @@
               <label for="name">Data urodzenia</label>
               <div class="input-group">
                 <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="modelCopy.birthDate" ngbDatepicker #d="ngbDatepicker">
-                <button class="input-group-addon" (click)="d.toggle()" type="button">
-                  <i class="fa fa-calendar" aria-hidden="true"></i>
-                </button>
+                <div class="input-group-append">
+                  <button class="btn btn-outline-primary" (click)="d.toggle()" type="button">
+                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                  </button>
+                </div>
               </div>
 
             </div>
@@ -28,9 +30,8 @@
           <div class="row">
             <div class="col-md-2 mb-3">
               <label class="custom-control custom-checkbox">
-                <span class="custom-control-description">Aktywne</span>
-                <input type="checkbox" class="custom-control-input" [checked]="modelCopy.active" (change)="modelCopy.onlineReg = !modelCopy.onlineReg">
-                <span class="custom-control-indicator"></span>
+                <input type="checkbox" class="custom-control-input" id="active" [checked]="modelCopy.active" (change)="modelCopy.active = !modelCopy.active">
+                <label class="custom-control-label" for="active">Aktywne</label>
               </label>
             </div>
             <div class="col-md-2 mb-3">

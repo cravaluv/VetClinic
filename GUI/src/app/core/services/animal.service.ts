@@ -3,6 +3,7 @@ import { Jsonp, URLSearchParams } from '@angular/http';
 import { Animal } from '../models/animal';
 import 'rxjs/add/operator/map';
 import { HttpClient } from '@angular/common/http';
+import { Owner } from '../models/owner';
 
 interface ItemsResponse {
     results: any[];

@@ -1,6 +1,7 @@
 package pl.polsl.java.aleksandra.kowol.engineer.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
@@ -31,8 +32,9 @@ public class Owner {
     @JsonIgnore
     private String password;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "owner")
+    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonManagedReference
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner", fetch = FetchType.EAGER)
     private List<Animal> animals;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(referencedColumnName = "idAddress")

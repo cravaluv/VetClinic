@@ -42,5 +42,10 @@ export class OwnerService {
             }
           );
     }
+    
+    getOwnerAnimals(ownerId: number) {
+      const endPoint = `/${ownerId}/animals`;
+        return this.http.get(this.ownerUrl + endPoint);
+    }
 }
 
