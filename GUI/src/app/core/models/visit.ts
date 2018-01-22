@@ -6,37 +6,39 @@ export class Visit {
   date: Date;
   type: string;
   description: string;
-  medicines: Medicine[];
-  vaccinations: Vaccination[];
+  medicines: VisitMedicine[];
   diseases: Disease[];
   animal: Animal;
   personnel: Personnel;
 
   constructor() {
     this.medicines = [];
-    this.vaccinations = [];
     this.diseases = [];
   }
 }
 
-export class Medicine {
-  idMedicine: number;
+export class VisitMedicine {
+  idMedicine?: number;
+  idVisit?: number;
   name: string;
-  description: string;
   amount: number;
-  visits: Visit[];
-}
 
-export class Vaccination {
-  idVaccination: number;
-  name: string;
-  amount: number;
-  visits: Visit[];
+  constructor(name: string, amount: number) {
+    this.name = name;
+    this.amount = amount;
+  }
 }
 
 export class Disease {
   idDisease: number;
   name: string;
   description: string;
-  visits: Visit[];
+}
+
+export class Medicine {
+  idMedicine: number;
+  name: string;
+  description: string;
+  totalAmount: number;
+  minAmout: number;
 }

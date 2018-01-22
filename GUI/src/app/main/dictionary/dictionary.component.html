@@ -1,0 +1,83 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <h5 class="modal-title">{{modalTitle[dictionaryName]}}</h5>
+    <button type="button" class="btn btn-outline-secondary btn-sm" aria-label="Close"
+      (click)="activeModal.dismiss('cancel')">
+      <span aria-hidden="true" class="fa fa-times"></span>
+    </button>
+  </div>
+  <div class="modal-body p-0">
+    <div class="p-3">
+
+      <div class="form-row align-items-center m-0">
+
+        <!-- Okienko do wpisywania wartości słownika-->
+        <div class="col-4">
+          <input type="text" class="form-control" [placeholder]="Nazwa..."
+            id="valueInput" name="valueInput" #valueInput="ngModel" [(ngModel)]="newValue"
+            (ngModelChange)="clearDuplicateInfo()">
+        </div>
+
+        <!-- Okienko do wpisywania wartości słownika-->
+        <div *ngIf="dictionaryName === 'Medicines'" class="col-4">
+          <select></select>
+          <option *ngFor="let n in [] | range:50">
+            {{n}}
+          </option>
+        </div>
+
+        <!-- Przycisk Dodaj -->
+        <div class="col-auto">
+
+          <!-- Dodaj -->
+          <button type="submit" class="btn btn-primary" [disabled]="!newValue" (click)="add()">DODAJ
+          </button>
+
+        </div>
+      </div>
+
+      <!-- Iniformacja o duplikacie -->
+      <span *ngIf="duplicate" class="text-secondary pl-3">
+        <i class="fa fa-exclamation-circle text-primary"></i>
+        DUPLIKAT
+      </span>
+
+      <br />
+
+      <!-- Lista wartości słownika-->
+      <table class="table table-hover table-sm">
+
+        <!-- Nagłówek tabeli -->
+        <thead>
+          <tr>
+            <th scope="col">Nazwa</th>
+            <th *ngIf="dictionaryName === 'Medicines'" scope="col">Minimalna ilość</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+
+        <!-- Zawartość tabeli -->
+        <tbody>
+          <tr *ngFor="let dictVal of dictionaryCopy">
+            <td>{{dictVal.name}}</td>
+            <td *ngIf="dictionaryName === 'Medicines'">{{dictVal.minAmount}}</td>
+            <td>
+              <button *ngIf="isNew(dictVal)" type="button" class="btn btn-sm btn-outline-danger pt-0 pb-0 float-right"
+                (click)="delete(dictVal)">
+                <i class="fa fa-trash-o"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="save();" [disabled]="busy" translate>
+      <i class="fa fa-circle-o-notch fa-spin fa-fw" [hidden]="!busy"></i> COMMON.SAVE
+    </button>
+    <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss('cancel')"
+      translate>COMMON.CANCEL</button>
+  </div>
+</div>

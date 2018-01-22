@@ -103,34 +103,6 @@
         </form>
       </ng-template>
     </ngb-tab>
-    <ngb-tab title="GRAFIK">
-      <ng-template ngbTabContent>
-        <div class="mt-2">
-          <div class="mb-2 p-1 bg-dark rounded">
-            <div class="col-6">
-              <form class="form-inline">
-                <div class="form-group">
-                  <div class="input-group">
-                    <input class="form-control" placeholder="yyyy-mm-dd" name="d2" #c2="ngModel" [(ngModel)]="currentDateModel" (ngModelChange)="viewDate = currentDateModel"
-                      ngbDatepicker #d2="ngbDatepicker">
-                    <span class="input-group-btn">
-                      <button class="btn btn-secondary" (click)="d2.toggle()" type="button">
-                        <i class="fa fa-calendar" aria-hidden="true"></i>
-                      </button>
-                    </span>
-                  </div>
-                </div>
-                <hr/>
-                <button class="btn btn-sm btn-outline-light" (click)="currentDateModel = today; viewDate = today">Wybierz dziś</button>
-                <hr/>
-              </form>
-            </div>
-          </div>
-          <mwl-calendar-day-view [viewDate]="viewDate" [events]="events" [hourSegments]="4" [dayStartHour]="9" [dayEndHour]="17" (hourSegmentClicked)="onSegmentClick($event)">
-          </mwl-calendar-day-view>
-        </div>
-      </ng-template>
-    </ngb-tab>
   </ngb-tabset>
 </div>
 <div class="modal-footer">

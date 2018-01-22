@@ -1,0 +1,56 @@
+<div class="form-row align-items-center m-0">
+
+  <div class="col-4">
+    <select class="form-control custom-select" id="inlineFormInput" (change)="select($event)" [value]="selectedName">
+      <option disabled selected translate [value]="null">Wybierz lek...</option>
+      <option *ngFor="let medicine of medicineList" [value]="property">{{medicine.name}} | liczba: {{medicine.totalAmount}}</option>
+    </select>
+  </div>
+
+  <!-- Przycisk Dodaj -->
+  <div class="col-auto">
+
+    <!-- Dodaj -->
+    <button type="submit" class="btn btn-outline-primary" [disabled]="!selectedName" (click)="add()" translate>DODAJ
+    </button>
+
+  </div>
+</div>
+
+<span *ngIf="duplicate" class="text-secondary pl-3">
+  <i class="fa fa-exclamation-circle text-primary"></i>
+  Wybrany lek istnieje już na liście
+</span>
+
+<br />
+
+<!-- Lista lista atrybutów urządzenia-->
+<table *ngIf="visitMedicines.length" class="table table-hover table-sm">
+
+  <!-- Nagłówek tabeli -->
+  <thead>
+    <tr>
+      <th scope="col" translate>Nazwa</th>
+      <th scope="col" translate>Ilość</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+
+  <!-- Zawartość tabeli -->
+  <tbody>
+    <tr *ngFor="let medicine of selectedMedicines">
+      <td>{{medicine.name}}</td>
+      <td>{{medicine.amount}}</td>
+      <td>
+        <button type="button" class="btn btn-sm btn-outline-danger pt-0 pb-0" (click)="delete(medicine)">
+          <i class="fa fa-trash-o"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<!-- Iniformacja prezentowana zamiast pustej tabeli -->
+<span *ngIf="visitMedicines.length === 0" class="text-secondary pl-3">
+  <i class="fa fa-info-circle text-primary"></i>
+  Tabela leków jest pusta
+</span>
