@@ -24,11 +24,13 @@ export class MedicineListComponent {
     this.getPropertyList();
   }
 
+  duplicate = false;
+
   // lista dostępnych leków
   medicineList: Medicine[] = [];
 
   // nazwa wybranego leku
-  selectedMed: VisitMedicine;
+  selectedMed: Medicine;
 
   // liczba jednostek wybranego leku
   selectedAmount: number;
@@ -40,21 +42,25 @@ export class MedicineListComponent {
   selectedMedicines: VisitMedicine[] = [];
 
   add() {
-    this.selectedMedicines.push(new VisitMedicine(this.selectedMed.name, this.selectedAmout));
-    const medToDelete = this.selectedMedicines.find(m => m.name === this.selectedMed.name);
-    this.selectedMedicines.splice(this.selectedMedicines.indexOf(medToDelete), 1);
-    this.selectedMed.name = null;
+    this.selectedMedicines.push(new VisitMedicine(this.selectedMed.name, this.selectedAmount));
+    const medToDelete = this.medicineList.find(m => m.name === this.selectedMed.name);
+    this.medicineList.splice(this.medicineList.indexOf(medToDelete), 1);
+    this.medicineList.length > 0 ? this.selectedMed = this.medicineList[0] : this.selectedMed = null;
   }
 
   delete(medicine: VisitMedicine) {
     this.selectedMedicines.splice(this.selectedMedicines.indexOf(medicine), 1);
     const medToAdd = this._allMedicines.find(m => m.name === medicine.name);
-    medToAdd.totalAmount += medicine.amount;
     this.medicineList.push(medToAdd);
   }
 
   copyValues() {
     this.model = this.selectedMedicines;
+  }
+
+  select(select) {
+    const selectedName = select.target.value.split(' | ');
+    this.selectedMed = this.medicineList.find(med => med.name === selectedName[0]);
   }
 
   private getPropertyList() {

@@ -1,14 +1,14 @@
 <div class="form-row align-items-center m-0">
-
-  <div class="col-4">
-    <select class="form-control custom-select" id="inlineFormInput" (change)="select($event)" [value]="selectedName">
-      <option disabled selected translate [value]="null">Wybierz lek...</option>
-      <option *ngFor="let medicine of medicineList" [value]="property">{{medicine.name}} | liczba: {{medicine.totalAmount}}</option>
-    </select>
-  </div>
-<div class="col-4"></div>
-  <select class="custom-select" [(ngModel)]="selectedAmount">
-    <option selected [value]="null">Wybierz ilość</option>
+  <div class="row mt-2">
+    <div class="col-md-6">
+      <select class="form-control custom-select" id="inlineFormInput" (change)="select($event)" [value]="selectedName">
+        <option disabled selected [value]="null">Wybierz lek...</option>
+        <option *ngFor="let medicine of medicineList" [ngValue]="medicine">{{medicine.name}} | {{medicine.totalAmount}}</option>
+      </select>
+    </div>
+    <div class="col-md-3">
+    <select class="custom-select" [(ngModel)]="selectedAmount">
+      <option disabled selected [value]="null">Wybierz ilość</option>
       <option>1</option>
       <option>2</option>
       <option>3</option>
@@ -18,16 +18,17 @@
       <option>7</option>
       <option>8</option>
     </select>
-</div>
+   </div>
 
   <!-- Przycisk Dodaj -->
-  <div class="col-auto">
+  <div class="col-md-3">
 
     <!-- Dodaj -->
-    <button type="submit" class="btn btn-outline-primary" [disabled]="!selectedName" (click)="add()" translate>DODAJ
+    <button type="submit" class="btn btn-outline-primary" [disabled]="!selectedMed || !selectedAmount" (click)="add()" translate>DODAJ
     </button>
 
   </div>
+</div>
 </div>
 
 <span *ngIf="duplicate" class="text-secondary pl-3">
@@ -38,7 +39,7 @@
 <br />
 
 <!-- Lista lista atrybutów urządzenia-->
-<table *ngIf="visitMedicines.length" class="table table-hover table-sm">
+<table *ngIf="selectedMedicines.length" class="table table-hover table-sm">
 
   <!-- Nagłówek tabeli -->
   <thead>
@@ -63,7 +64,7 @@
   </tbody>
 </table>
 <!-- Iniformacja prezentowana zamiast pustej tabeli -->
-<span *ngIf="visitMedicines.length === 0" class="text-secondary pl-3">
+<span *ngIf="selectedMedicines.length === 0" class="text-secondary pl-3">
   <i class="fa fa-info-circle text-primary"></i>
   Tabela leków jest pusta
 </span>

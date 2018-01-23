@@ -16,7 +16,36 @@ export class VisitEditComponent implements OnInit {
   @Input() editMode = true;
 
   availableHours: Date[] = [];
-  selectedVisitDate = new Date();
+
+  medicineList = [
+    {
+      name: 'lek 1',
+      description: 'opis leku',
+      totalAmount: 30,
+      minAmout: 5,
+    },
+    {
+      name: 'lek 2',
+      description: 'opis leku',
+      totalAmount: 10,
+      minAmout: 2,
+    },
+    {
+      name: 'lek 3',
+      description: 'opis leku',
+      totalAmount: 10,
+      minAmout: 1,
+    },
+    {
+      name: 'lek 4',
+      description: 'opis leku',
+      totalAmount: 5,
+      minAmout: 1,
+    }
+  ];
+
+  selectedVisitDate: Date;
+  selectedVisitHour;
 
   workStart = 9;
   workEnd = 17;
@@ -44,8 +73,12 @@ export class VisitEditComponent implements OnInit {
     this.activeModal.close(this.modelCopy);
   }
 
-  onDateChange(czek) {
-    const bb = czek;
+  onChange(select) {
+    const time = select.target.value.split(':');
+    if (time.length === 2) {
+      this.selectedVisitDate.setHours(time[0]);
+      this.selectedVisitDate.setMinutes(time[1]);
+    }
   }
 
   onDismiss() {
@@ -69,5 +102,6 @@ export class VisitEditComponent implements OnInit {
       const dateToAdd = new Date(previousHour);
       this.availableHours.push(dateToAdd);
     }
+    this.availableHours.length > 0 ? this.selectedVisitDate = this.availableHours[0] : this.selectedVisitDate = undefined;
   }
 }

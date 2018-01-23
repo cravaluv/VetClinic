@@ -36,6 +36,16 @@ export class VisitComponent implements OnInit {
   //   });
   // }
 
+  addVisit() {
+    const modal = this.modalService.open(VisitEditComponent, { size: 'lg' });
+    modal.componentInstance.editMode = false;
+
+    modal.result.then((result) => {
+      this.visitService.update(result);
+    }, (reason) => {
+    });
+  }
+
   update(visit: Visit) {
     const modal = this.modalService.open(VisitEditComponent, { size: 'lg' });
     modal.componentInstance.model = visit;

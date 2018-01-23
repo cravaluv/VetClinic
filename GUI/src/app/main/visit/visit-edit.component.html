@@ -43,8 +43,8 @@
             </div>
             <div class="col-md-3 mb-3">
               <label for="name">Godzina wizyty</label>
-              <select class="custom-select" id="inputGroupSelect01" [(ngModel)]="selectedVisitDate">
-                <option *ngFor="let hour of availableHours">{{hour | date:'HH:mm'}}</option>
+              <select class="custom-select" (change)="onChange($event)">  
+                <option *ngFor="let hour of availableHours" [ngValue]="hour">{{hour | date:'HH:mm'}}</option>
               </select>
             </div>
           </div>
@@ -53,6 +53,7 @@
     </ngb-tab>
     <ngb-tab [disabled]="editMode" title="LEKI">
       <ng-template ngbTabContent>
+        <app-medicine-list [model]="modelCopy.medicines" [medicines]="medicineList"></app-medicine-list>
         <!-- <div class="row my-3">
           <div class="col-md-4 form-group">
            
