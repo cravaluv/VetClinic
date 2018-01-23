@@ -43,7 +43,7 @@
             </div>
             <div class="col-md-3 mb-3">
               <label for="name">Godzina wizyty</label>
-              <select class="custom-select" id="inputGroupSelect01">
+              <select class="custom-select" id="inputGroupSelect01" [(ngModel)]="selectedVisitDate">
                 <option *ngFor="let hour of availableHours">{{hour | date:'HH:mm'}}</option>
               </select>
             </div>
@@ -53,15 +53,9 @@
     </ngb-tab>
     <ngb-tab [disabled]="editMode" title="LEKI">
       <ng-template ngbTabContent>
-        <div class="row my-3">
+        <!-- <div class="row my-3">
           <div class="col-md-4 form-group">
-            <select class="custom-select" [(ngModel)]="selectedMedicine">
-              <option selected></option>
-              <option>Lek 1</option>
-              <option>Lek 2</option>
-              <option>Lek 3</option>
-              <option>Lek 4</option>
-            </select>
+           
           </div>
           <div class="col-md-4 form-group">
             <button class="btn btn-outline-success" [disabled]="!selectedMedicine">Dodaj</button>
@@ -81,49 +75,7 @@
               <td>{{animal.animalType.type}}</td>
             </tr>
           </tbody>
-        </table>
-
-        <!-- <form #ownerForm="ngForm" class="m-3">
-          <div class="row">
-            <div class="col-md-6 mb-3 form-group">
-              <label for="type">Typ</label>
-              <input id="type" name="type" class="form-control" [class.is-invalid]="type.invalid && (type.touched || submitted)" [class.is-valid]="type.valid && (type.touched || submitted)"
-                [(ngModel)]="modelCopy.type" #type="ngModel" required>
-
-              <div *ngIf="type.invalid && (type.dirty || type.touched || submitted)" class="invalid-feedback">
-                <div *ngIf="type?.errors.required">
-                  Typ wizyty jest wymagany.
-                </div>
-
-              </div>
-            </div>
-            <div class="col-md-6 mb-3">
-              <label for="description">Opis</label>
-              <input id="description" name="description" class="form-control" [(ngModel)]="modelCopy.description" #description="ngModel"
-                required>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-3 mb-3">
-              <label for="name">Data wizyty</label>
-              <div class="input-group">
-                <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="modelCopy.date" (ngModelChange)="getAvailableHours($event)"
-                  ngbDatepicker #d="ngbDatepicker">
-                <div class="input-group-append">
-                  <button class="btn btn-outline-primary" (click)="d.toggle()" type="button">
-                    <i class="fa fa-calendar" aria-hidden="true"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3 mb-3">
-              <label for="name">Godzina wizyty</label>
-              <select class="custom-select" id="inputGroupSelect01">
-                <option *ngFor="let hour of availableHours">{{hour | date:'HH:mm'}}</option>
-              </select>
-            </div>
-          </div>
-        </form> -->
+        </table> -->
       </ng-template>
     </ngb-tab>
   </ngb-tabset>

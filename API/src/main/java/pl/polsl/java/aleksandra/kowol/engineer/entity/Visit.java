@@ -24,10 +24,6 @@ public class Visit {
     private List<Medicine> medicines;
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "visit_vaccination", joinColumns = @JoinColumn(name = "visit_id", referencedColumnName = "idVisit"), inverseJoinColumns = @JoinColumn(name = "vaccination_id", referencedColumnName = "idVaccination"))
-    private List<Vaccination> vaccinations;
-
-    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "visit_disease", joinColumns = @JoinColumn(name = "visit_id", referencedColumnName = "idVisit"), inverseJoinColumns = @JoinColumn(name = "disease_id", referencedColumnName = "idDisease"))
     private List<Disease> diseases;
 
@@ -35,9 +31,9 @@ public class Visit {
     @JoinColumn(name = "idAnimal", referencedColumnName = "idAnimal", nullable = false)
     private Animal animal;
 
-    @ManyToOne
-    @JoinColumn(name = "idPersonnel", referencedColumnName = "idPersonnel", nullable = false)
-    private Personnel personnel;
+    @ManyToOne(cascade=CascadeType.ALL)
+    @JoinColumn(referencedColumnName = "idVisitType")
+    private VisitType visitType;
 
 
     public int getIdVisit() {
@@ -108,13 +104,6 @@ public class Visit {
         this.medicines = medicines;
     }
 
-    public List<Vaccination> getVaccinations() {
-        return vaccinations;
-    }
-
-    public void setVaccinations(List<Vaccination> vaccinations) {
-        this.vaccinations = vaccinations;
-    }
 
    public List<Disease> getDiseases() {
         return diseases;
@@ -132,11 +121,11 @@ public class Visit {
         this.animal = animal;
     }
 
-    public Personnel getPersonnel() {
-        return personnel;
+    public VisitType getVisitType() {
+        return visitType;
     }
 
-    public void setPersonnel(Personnel personnel) {
-        this.personnel = personnel;
+    public void setVisitType(VisitType visitType) {
+        this.visitType = visitType;
     }
 }

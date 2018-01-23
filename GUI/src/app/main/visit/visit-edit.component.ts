@@ -16,11 +16,10 @@ export class VisitEditComponent implements OnInit {
   @Input() editMode = true;
 
   availableHours: Date[] = [];
+  selectedVisitDate = new Date();
 
   workStart = 9;
   workEnd = 17;
-
-  selectedMedicine = '';
 
   modelCopy = new Visit();
 
@@ -41,7 +40,12 @@ export class VisitEditComponent implements OnInit {
   }
 
   onSubmit() {
+    this.modelCopy.date = this.selectedVisitDate;
     this.activeModal.close(this.modelCopy);
+  }
+
+  onDateChange(czek) {
+    const bb = czek;
   }
 
   onDismiss() {
@@ -65,6 +69,5 @@ export class VisitEditComponent implements OnInit {
       const dateToAdd = new Date(previousHour);
       this.availableHours.push(dateToAdd);
     }
-    const ccc = this.availableHours;
   }
 }

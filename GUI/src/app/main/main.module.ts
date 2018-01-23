@@ -23,6 +23,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { CalendarModule } from 'angular-calendar';
 import { DatepickerAdapterService } from '../ui/services/datepicker-adapter.service';
 import { ScheduleComponent } from './schedule/schedule.component';
+import { MedicineListComponent } from './visit/medicine-list.component';
 
 @NgModule({
     imports: [
@@ -47,7 +48,8 @@ import { ScheduleComponent } from './schedule/schedule.component';
         VisitEditComponent,
         PersonnelComponent,
         PersonnelEditComponent,
-        ScheduleComponent
+        ScheduleComponent,
+        MedicineListComponent
     ],
     providers: [OwnerService, AnimalService, VisitService, PersonnelService,
      {provide: NgbDateAdapter, useClass: DatepickerAdapterService}],

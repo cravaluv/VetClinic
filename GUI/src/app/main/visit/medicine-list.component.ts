@@ -6,12 +6,11 @@ import * as _ from 'lodash';
 import { Medicine } from '../../core/models/visit';
 import { VisitMedicine } from '../../core/models/visit';
 
-
 @Component({
-  selector: 'medicine-list',
+  selector: 'app-medicine-list',
   templateUrl: './medicine-list.component.html',
 })
-export class MedicineList {
+export class MedicineListComponent {
 
   @Input() model: VisitMedicine[];
 
@@ -32,7 +31,7 @@ export class MedicineList {
   selectedMed: VisitMedicine;
 
   // liczba jednostek wybranego leku
-  selectedAmout: number;
+  selectedAmount: number;
 
   submitted = false;
 

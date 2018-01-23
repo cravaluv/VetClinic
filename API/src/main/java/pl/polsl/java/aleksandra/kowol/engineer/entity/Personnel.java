@@ -34,9 +34,6 @@ public class Personnel {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "personnel_role", joinColumns = @JoinColumn(name = "personnel_id", referencedColumnName = "idPersonnel"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "idRole"))
     private List<Role> roles;
-    @OneToMany(mappedBy = "personnel")
-    private List<Visit> visits;
-
 
     public int getIdPersonnel() {
         return idPersonnel;
@@ -124,12 +121,4 @@ public class Personnel {
         this.roles = roles;
     }
 
-
-    public List<Visit> getVisits() {
-        return visits;
-    }
-
-    public void setVisits(List<Visit> visits) {
-        this.visits = visits;
-    }
 }

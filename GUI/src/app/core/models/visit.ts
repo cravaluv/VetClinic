@@ -7,13 +7,9 @@ export class Visit {
   type: string;
   description: string;
   medicines: VisitMedicine[];
-  diseases: Disease[];
-  animal: Animal;
-  personnel: Personnel;
 
   constructor() {
     this.medicines = [];
-    this.diseases = [];
   }
 }
 

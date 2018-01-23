@@ -42,7 +42,7 @@ export class PetEditComponent implements OnInit {
     modal.componentInstance.editMode = false;
 
     modal.result.then((result) => {
-
+      this.modelCopy.visits.push(result);
     }, (reason) => {
     });
   }

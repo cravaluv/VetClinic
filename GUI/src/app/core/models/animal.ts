@@ -1,4 +1,5 @@
 import { Owner } from './owner';
+import { Visit } from './visit';
 
 export class Animal {
     idAnimal: number;
@@ -7,6 +8,7 @@ export class Animal {
     active: boolean;
     color: Color;
     animalType: AnimalType;
+    visits: Visit[] = [];
 
 
     constructor() {
