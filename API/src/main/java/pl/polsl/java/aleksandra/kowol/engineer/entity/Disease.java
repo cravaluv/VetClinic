@@ -13,8 +13,8 @@ public class Disease {
     @Column(name = "description", nullable = false, length = 254)
     private String description;
 
-    @ManyToMany(mappedBy = "diseases")
-    private List<Visit> visits;
+//    @ManyToMany(mappedBy = "diseases")
+//    private List<Visit> visits;
 
 
     public int getIdDisease() {
@@ -34,14 +34,14 @@ public class Disease {
         this.description = description;
     }
 
-
-    public List<Visit> getVisits() {
-        return visits;
-    }
-
-    public void setVisits(List<Visit> visits) {
-        this.visits = visits;
-    }
+//
+//    public List<Visit> getVisits() {
+//        return visits;
+//    }
+//
+//    public void setVisits(List<Visit> visits) {
+//        this.visits = visits;
+//    }
 
     @Override
     public boolean equals(Object o) {

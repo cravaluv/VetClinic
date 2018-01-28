@@ -34,7 +34,6 @@ public class Owner {
 
     @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonManagedReference
-//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner", fetch = FetchType.EAGER)
     private List<Animal> animals;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(referencedColumnName = "idAddress")

@@ -1,10 +1,13 @@
 package pl.polsl.java.aleksandra.kowol.engineer.entity;
 
+import com.fasterxml.jackson.annotation.*;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Visit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,28 +16,25 @@ public class Visit {
     @Column(name = "date", nullable = false)
     private Timestamp date;
     @Basic
-    @Column(name = "type", nullable = false, length = 45)
-    private String type;
-    @Basic
     @Column(name = "description", nullable = false, length = 254)
     private String description;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "visit_medicine", joinColumns = @JoinColumn(name = "visit_id", referencedColumnName = "idVisit"), inverseJoinColumns = @JoinColumn(name = "medicine_id", referencedColumnName = "idMedicine"))
     private List<Medicine> medicines;
+//
+//    @ManyToMany(cascade = CascadeType.ALL)
+//    @JoinTable(name = "visit_disease", joinColumns = @JoinColumn(name = "visit_id", referencedColumnName = "idVisit"), inverseJoinColumns = @JoinColumn(name = "disease_id", referencedColumnName = "idDisease"))
+//    private List<Disease> diseases;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "visit_disease", joinColumns = @JoinColumn(name = "visit_id", referencedColumnName = "idVisit"), inverseJoinColumns = @JoinColumn(name = "disease_id", referencedColumnName = "idDisease"))
-    private List<Disease> diseases;
-
-    @ManyToOne
-    @JoinColumn(name = "idAnimal", referencedColumnName = "idAnimal", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="idAnimal")
+    @JsonBackReference
     private Animal animal;
 
     @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(referencedColumnName = "idVisitType")
     private VisitType visitType;
-
 
     public int getIdVisit() {
         return idVisit;
@@ -51,15 +51,6 @@ public class Visit {
 
     public void setDate(Timestamp date) {
         this.date = date;
-    }
-
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
 
@@ -81,7 +72,6 @@ public class Visit {
 
         if (idVisit != visit.idVisit) return false;
         if (date != null ? !date.equals(visit.date) : visit.date != null) return false;
-        if (type != null ? !type.equals(visit.type) : visit.type != null) return false;
         if (description != null ? !description.equals(visit.description) : visit.description != null) return false;
 
         return true;
@@ -91,7 +81,6 @@ public class Visit {
     public int hashCode() {
         int result = idVisit;
         result = 31 * result + (date != null ? date.hashCode() : 0);
-        result = 31 * result + (type != null ? type.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
         return result;
     }
@@ -103,15 +92,15 @@ public class Visit {
     public void setMedicines(List<Medicine> medicines) {
         this.medicines = medicines;
     }
-
-
-   public List<Disease> getDiseases() {
-        return diseases;
-    }
-
-    public void setDiseases(List<Disease> diseases) {
-        this.diseases = diseases;
-    }
+//
+//
+//   public List<Disease> getDiseases() {
+//        return diseases;
+//    }
+//
+//    public void setDiseases(List<Disease> diseases) {
+//        this.diseases = diseases;
+//    }
 
    public Animal getAnimal() {
         return animal;

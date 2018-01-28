@@ -3,6 +3,8 @@ package pl.polsl.java.aleksandra.kowol.engineer.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import pl.polsl.java.aleksandra.kowol.engineer.entity.Animal;
 import pl.polsl.java.aleksandra.kowol.engineer.entity.Visit;
 
 import java.util.Date;
@@ -19,5 +21,8 @@ public interface VisitRepository extends JpaRepository<Visit, Integer> {
      */
     @Query("select v from Visit v where v.date like ?1")
     public List<Visit> findVisitByDate(String date);
+
+    @Query("select a from Visit v join v.animal a where v.idVisit = :id")
+    public Animal getAnimalByVisitId(@Param("id") int id);
 
 }

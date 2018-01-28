@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h4 class="modal-title">{{editMode ? 'EDYTUJ ZWIERZĘ' : 'DODAJ ZWIERZĘ'}}</h4>
+  <h4 class="modal-title">{{modalTitle[mode]}}</h4>
   <button type="button" class="close" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>
@@ -12,13 +12,13 @@
           <div class="row">
             <div class="col-md-6 mb-3">
               <label for="name">Imię</label>
-              <input type="text" class="form-control" id="name" required [(ngModel)]="modelCopy.name" name="name" #name="ngModel">
+              <input type="text" class="form-control" id="name" required [disabled]="mode === 'VIEW'" [(ngModel)]="modelCopy.name" name="name" #name="ngModel">
             </div>
             <div class="col-md-6 mb-3">
               <label for="name">Data urodzenia</label>
               <div class="input-group">
-                <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="modelCopy.birthDate" ngbDatepicker #d="ngbDatepicker">
-                <div class="input-group-append">
+                <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [disabled]="mode === 'VIEW'" [(ngModel)]="modelCopy.birthDate" ngbDatepicker #d="ngbDatepicker">
+                <div class="input-group-append" [hidden]="mode === 'VIEW'">
                   <button class="btn btn-outline-primary" (click)="d.toggle()" type="button">
                     <i class="fa fa-calendar" aria-hidden="true"></i>
                   </button>
@@ -34,59 +34,40 @@
                 <label class="custom-control-label" for="active">Aktywne</label>
               </label>
             </div>
-            <div class="col-md-2 mb-3">
+            <div class="col-md-3 mb-3">
               <label for="type">Typ</label>
-              <select class="form-control" id="type" [(ngModel)]="modelCopy.animalType.type" name="type">
-                <option>Pies</option>
-                <option>Kot</option>
-                <option>Królik</option>
-                <option>Żółw</option>
+              <select class="form-control" [disabled]="mode === 'VIEW'" id="type" [(ngModel)]="modelCopy.animalType.name" name="type">
+                <option *ngFor="let type of animalTypes">{{type.name}}</option>
               </select>
             </div>
             <div class="col-md-3 mb-3">
               <label for="color">Kolor</label>
-              <select class="form-control" id="color" [(ngModel)]="modelCopy.color.color" name="color">
-                <option>Płowy</option>
-                <option>Beżowy</option>
-                <option>Czarny</option>
-                <option>Czarny podpalany</option>
+              <select class="form-control" [disabled]="mode === 'VIEW'" id="color" [(ngModel)]="modelCopy.color.name" name="color">
+                <option *ngFor="let color of colors">{{color.name}}</option>
               </select>
             </div>
           </div>
-          <!-- <div class="row">
-            <div class="col-md-12 mb-3">
-              <label for="name">Właściciel</label>
-              <input type="text" class="form-control" id="name" required [(ngModel)]="modelCopy.name" name="name" #name="ngModel">
-            </div>
-          </div> -->
-
         </form>
       </ng-template>
     </ngb-tab>
     <ngb-tab title="WIZYTY">
       <ng-template ngbTabContent>
         <div class="mt-2">
-          <button class="btn btn-success" (click)="addVisit()">Nowa</button>
+          <button class="btn btn-success" [hidden]="mode === 'VIEW'" (click)="addVisit()">Nowa</button>
           <table class="table mt-3 table-striped table-hover">
             <thead>
               <tr>
-                <th scope="col">id</th>
-                <th scope="col">Typ</th>
                 <th scope="col">Data</th>
-                <th scope="col">Zwierzę</th>
+                <th scope="col">Typ</th>
                 <th scope="col">Opis</th>
-                <th scope="col">Weterynarz</th>
               </tr>
             </thead>
             <tbody>
-              <!-- <tr *ngFor="let owner of owners" (dblclick)="update(owner)">
-                              <th>{{owner.idOwner}}</th>
-                              <td>{{owner.name}}</td>
-                              <td>{{owner.surname}}</td>
-                              <td>{{owner.login}}</td>
-                              <td>{{owner.tel}}</td>
-                              <td>{{owner.address.address}}, {{owner.address.postalCode}} {{owner.address.city}}</td>
-                            </tr> -->
+              <tr *ngFor="let visit of modelCopy.visits" (dblclick)="updateVisit(visit)">
+                <th>{{visit.date | date:'d-MM-y, HH:mm'}}</th>
+                <td>{{visit.visitType}}</td>
+                <td>{{visit.description}}</td>
+              </tr>
             </tbody>
           </table>
         </div>

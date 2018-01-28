@@ -3,6 +3,7 @@ package pl.polsl.java.aleksandra.kowol.engineer.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.polsl.java.aleksandra.kowol.engineer.entity.Animal;
 import pl.polsl.java.aleksandra.kowol.engineer.entity.Owner;
 import pl.polsl.java.aleksandra.kowol.engineer.entity.Visit;
 import pl.polsl.java.aleksandra.kowol.engineer.repository.OwnerRepository;
@@ -34,6 +35,16 @@ public class VisitServiceImpl implements VisitService {
         DateFormat outputFormatter = new SimpleDateFormat("yyyy-MM-dd");
         return visitRepository.findVisitByDate(outputFormatter.format(date)+'%');
     }
+
+    @Override
+    public Animal getAnimalByVisitId(int id) {
+        return visitRepository.getAnimalByVisitId(id);
+    }
+
+//    @Override
+//    public List<Visit> getVisitByAnimalId(int id) {
+//        return visitRepository.getVisitByAnimal(id);
+//    }
 
     @Override
     public List<Visit> findAllVisits() {

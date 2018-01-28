@@ -52,6 +52,13 @@ public class VisitController  {
         return new ResponseEntity<>(visits, HttpStatus.OK);
     }
 
+    // -------------------Get daily visits-------------------------------------------
+    @RequestMapping(value = "/animal/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Animal> listAnimalByVisitId(@PathVariable("id") int id) {
+        Animal animal = visitService.getAnimalByVisitId(id);
+        return new ResponseEntity<>(animal, HttpStatus.OK);
+    }
+
     //    // -------------------Get a User-------------------------------------------
 //    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
 //    public ResponseEntity<?> getOwner(@PathVariable("id") int id) {

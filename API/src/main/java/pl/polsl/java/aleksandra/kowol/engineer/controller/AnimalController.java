@@ -54,8 +54,7 @@ public class AnimalController  {
     public ResponseEntity<?> updateAnimal(@PathVariable("id") int id, @RequestBody Animal animal) {
         Animal animalToUpdate = animalService.findAnimalById(id);
         if (animalToUpdate != null ) {
-            animalToUpdate.update(animal);
-            animalService.saveAnimal(animalToUpdate);
+            animalService.saveAnimal(animal);
 
             return new ResponseEntity<>(animal, HttpStatus.OK);
         } else return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);

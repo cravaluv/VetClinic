@@ -12,20 +12,20 @@ import java.util.concurrent.atomic.AtomicLong;
 @Service("commonService")
 public class CommonServiceImpl implements CommonService {
 
-    private AnimalTypeRepository animalTypeRepository;
-    private ColorRepository colorRepository;
+    private AnimalTypeDictionaryRepository animalTypeDictionaryRepository;
+    private ColorDictionaryRepository colorDictionaryRepository;
     private MedicineRepository medicineRepository;
     private RoleRepository roleRepository;
-    private VisitTypeRepository visitTypeRepository;
+    private VisitTypeDictionaryRepository visitTypeDictionaryRepository;
 
     @Autowired
-    public void setAnimalRepository(AnimalTypeRepository animalTypeRepository) {
-        this.animalTypeRepository = animalTypeRepository;
+    public void setAnimalRepository(AnimalTypeDictionaryRepository animalTypeDictionaryRepository) {
+        this.animalTypeDictionaryRepository = animalTypeDictionaryRepository;
     }
 
     @Autowired
-    public void setColorRepository(ColorRepository colorRepository) {
-        this.colorRepository = colorRepository;
+    public void setColorRepository(ColorDictionaryRepository colorDictionaryRepository) {
+        this.colorDictionaryRepository = colorDictionaryRepository;
     }
 
     @Autowired
@@ -39,19 +39,19 @@ public class CommonServiceImpl implements CommonService {
     }
 
     @Autowired
-    public void setVisitTypeRepository(VisitTypeRepository visitTypeRepository) {
-        this.visitTypeRepository = visitTypeRepository;
+    public void setVisitTypeRepository(VisitTypeDictionaryRepository visitTypeDictionaryRepository) {
+        this.visitTypeDictionaryRepository = visitTypeDictionaryRepository;
     }
 
 
     @Override
-    public List<Color> findAllColors() {
-        return colorRepository.findAll();
+    public List<ColorDictionary> findAllColors() {
+        return colorDictionaryRepository.findAll();
     }
 
     @Override
-    public void saveColor(Color color) {
-        colorRepository.save(color);
+    public void saveColor(ColorDictionary color) {
+        colorDictionaryRepository.save(color);
     }
 
     @Override
@@ -60,13 +60,13 @@ public class CommonServiceImpl implements CommonService {
     }
 
     @Override
-    public List<AnimalType> findAllAnimalTypes() {
-        return animalTypeRepository.findAll();
+    public List<AnimalTypeDictionary> findAllAnimalTypes() {
+        return animalTypeDictionaryRepository.findAll();
     }
 
     @Override
-    public void saveAnimalType(AnimalType animalType) {
-        animalTypeRepository.save(animalType);
+    public void saveAnimalType(AnimalTypeDictionary animalType) {
+        animalTypeDictionaryRepository.save(animalType);
     }
 
     @Override
@@ -75,17 +75,22 @@ public class CommonServiceImpl implements CommonService {
     }
 
     @Override
+    public Medicine findMedicineById(int id) {
+        return medicineRepository.findOne(id);
+    }
+
+    @Override
     public void saveMedicine(Medicine medicine) {
         medicineRepository.save(medicine);
     }
 
     @Override
-    public List<VisitType> findAllVisitType() {
-        return visitTypeRepository.findAll();
+    public List<VisitTypeDictionary> findAllVisitType() {
+        return visitTypeDictionaryRepository.findAll();
     }
 
     @Override
-    public void saveVisitType(VisitType visitType) {
-        visitTypeRepository.save(visitType);
+    public void saveVisitType(VisitTypeDictionary visitType) {
+        visitTypeDictionaryRepository.save(visitType);
     }
 }

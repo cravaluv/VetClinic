@@ -4,12 +4,12 @@ import { Animal } from './animal';
 export class Visit {
   idVisit: number;
   date: Date;
-  type: string;
+  visitType: VisitType;
   description: string;
-  medicines: VisitMedicine[];
+  medicines: VisitMedicine[] = [];
 
   constructor() {
-    this.medicines = [];
+    this.visitType = new VisitType();
   }
 }
 
@@ -34,7 +34,18 @@ export class Disease {
 export class Medicine {
   idMedicine: number;
   name: string;
-  description: string;
-  totalAmount: number;
-  minAmout: number;
+  amount: number;
+  minAmount: number;
+
+  constructor(name, amount, minAmount) {
+    this.name = name;
+    this.amount = amount;
+    this.minAmount = minAmount;
+  }
+
+}
+
+export class VisitType {
+  idVisitType: number;
+  name: string;
 }

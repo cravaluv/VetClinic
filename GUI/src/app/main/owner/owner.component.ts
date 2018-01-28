@@ -45,6 +45,7 @@ export class OwnerComponent implements OnInit {
 
   add() {
     const modal = this.modalService.open(OwnerEditComponent, { size: 'lg' });
+    modal.componentInstance.editMode = false;
 
     modal.result.then((result) => {
       this.ownerService.addOwner(result);

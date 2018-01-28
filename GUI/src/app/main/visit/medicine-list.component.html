@@ -3,7 +3,7 @@
     <div class="col-md-6">
       <select class="form-control custom-select" id="inlineFormInput" (change)="select($event)" [value]="selectedName">
         <option disabled selected [value]="null">Wybierz lek...</option>
-        <option *ngFor="let medicine of medicineList" [ngValue]="medicine">{{medicine.name}} | {{medicine.totalAmount}}</option>
+        <option *ngFor="let medicine of medicineList" [ngValue]="medicine">{{medicine.name}} | {{medicine.amount}}</option>
       </select>
     </div>
     <div class="col-md-3">

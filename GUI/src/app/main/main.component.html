@@ -29,6 +29,31 @@
       <li class="nav-item">
         <a class="nav-link" [routerLink]="['pets']">Informacje</a>
       </li>
+
+      <div ngbDropdown class="d-inline-block" placement="bottom-right">
+        <button class="btn btn-link nav-link" id="dropdownBasic1" ngbDropdownToggle>
+          Słowniki
+        </button>
+
+        <div ngbDropdownMenu aria-labelledby="dropdown_mod" class="p-3">
+          <button class="btn btn-outline-dark btn-block" (click)="openDictionary('MEDICINES')">
+            <span translate>Leki</span>
+          </button>
+          <button class="btn btn-outline-dark btn-block" (click)="openDictionary('COLORS')">
+            <span translate>Kolory</span>
+          </button>
+          <!-- <button class="btn btn-outline-dark btn-block" (click)="openDictionary('DISEASTERS')">
+            <span translate>Choroby</span>
+          </button> -->
+          <button class="btn btn-outline-dark btn-block" (click)="openDictionary('ANIMAL_TYPES')">
+            <span translate>Typy zwierząt</span>
+          </button>
+          <button class="btn btn-outline-dark btn-block" (click)="openDictionary('VISIT_TYPES')">
+            <span translate>Typy wizyt</span>
+          </button>
+        </div>
+      </div>
+
       <li class="nav-item">
         <a class="nav-link disabled" href="#">Disabled</a>
       </li>

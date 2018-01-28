@@ -5,6 +5,9 @@ import { Visit } from '../../core/models/visit';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap/modal/modal';
 import { VisitEditComponent } from './visit-edit.component';
 import { VisitService } from '../../core/services/visit.service';
+import { CommonService } from '../../core/services/common.service';
+import { Animal } from '../../core/models/animal';
+import { PetEditComponent } from '../pet/pet-edit.component';
 
 @Component({
   selector: 'app-visit',
@@ -18,12 +21,16 @@ export class VisitComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.animalService.getAnimals().subscribe((data) => {
-    //   this.pets = Object.keys(data).map((key) =>  data[key]);
-    // },
-    //   (error) => {
-    //     console.log(error);
-    //   });
+    this.visitService.getVisits().subscribe((data) => {
+      this.visits = Object.keys(data).map((key) =>  {
+        // Formatowanie daty string => Date
+        data[key].date = new Date(data[key].date);
+        return data[key];
+      });
+    },
+      (error) => {
+        console.log(error);
+      });
   }
 
   // add() {
@@ -54,5 +61,19 @@ export class VisitComponent implements OnInit {
       this.visitService.update(result);
     }, (reason) => {
     });
+  }
+
+  showAnimal(id: number) {
+    let animalToShow: Animal;
+    this.visitService.getAnimalByVisitId(id).subscribe((data) => {
+      animalToShow = data as Animal;
+    const modal = this.modalService.open(PetEditComponent, { size: 'lg' });
+    modal.componentInstance.model = animalToShow;
+    modal.componentInstance.mode = 'VIEW';
+
+    modal.result.then((result) => {
+    }, (reason) => {
+    });
+  });
   }
 }

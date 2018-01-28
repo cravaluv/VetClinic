@@ -12,8 +12,8 @@ public class AnimalType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idAnimalType;
     @Basic
-    @Column(name = "type", nullable = false, length = 45)
-    private String type;
+    @Column(name = "name", nullable = false, length = 45)
+    private String name;
 
     @JsonIgnore
     @OneToMany(mappedBy = "animalType")
@@ -30,11 +30,11 @@ public class AnimalType {
 
 
     public String getType() {
-        return type;
+        return name;
     }
 
     public void setType(String type) {
-        this.type = type;
+        this.name = type;
     }
 
 
@@ -54,7 +54,7 @@ public class AnimalType {
         AnimalType that = (AnimalType) o;
 
         if (idAnimalType != that.idAnimalType) return false;
-        if (type != null ? !type.equals(that.type) : that.type != null) return false;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
 
         return true;
     }
@@ -62,7 +62,7 @@ public class AnimalType {
     @Override
     public int hashCode() {
         int result = idAnimalType;
-        result = 31 * result + (type != null ? type.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
     }
 }

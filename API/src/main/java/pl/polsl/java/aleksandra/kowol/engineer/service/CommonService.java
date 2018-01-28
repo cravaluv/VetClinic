@@ -7,21 +7,23 @@ import java.util.List;
 
 public interface CommonService {
 
-    List<Color> findAllColors();
+    List<ColorDictionary> findAllColors();
 
-    void saveColor(Color color);
+    void saveColor(ColorDictionary color);
 
     List<Role> findAllRoles();
 
-    List<AnimalType> findAllAnimalTypes();
+    List<AnimalTypeDictionary> findAllAnimalTypes();
 
-    void saveAnimalType(AnimalType animalType);
+    void saveAnimalType(AnimalTypeDictionary animalType);
 
     List<Medicine> findAllMedicines();
 
+    Medicine findMedicineById(int id);
+
     void saveMedicine(Medicine medicine);
 
-    List<VisitType> findAllVisitType();
+    List<VisitTypeDictionary> findAllVisitType();
 
-    void saveVisitType(VisitType visitType);
+    void saveVisitType(VisitTypeDictionary visitType);
 }

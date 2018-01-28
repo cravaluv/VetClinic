@@ -1,26 +1,25 @@
 <div class="mx-4 my-2">
     <div class="mb-2 p-1 bg-dark rounded">
       <h1 class="text-light">WIZYTY</h1>
-      <button (click)="addVisit()">DODAJ</button>
   </div>
   <!-- <button class="btn btn-success" (click)="add()">Dodaj</button> -->
   <table class="table mt-3 table-striped table-hover">
     <thead>
       <tr>
-        <th scope="col">id</th>
-        <th scope="col">Zwierzę</th>
-        <th scope="col">Weterynarz</th>
+        <!-- <th scope="col">Zwierzę</th> -->
         <th scope="col">Data</th>
         <th scope="col">Typ</th>
+        <th scope="col">Opis</th>
+        <th scope="col"></th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let visit of visits | orderBy: key : reverse | filter:filter; let i = index" (dblclick)="update(owner)">
-        <th>{{visit.idVisit}}</th>
-        <td>{{visit.anima.name}}</td>
-        <td>{{visit.personnel.name}} + {{visit.personnel.surname}} + </td>
-        <td>{{visit.date}}</td>
-        <td>{{visit.type}}</td>
+        <!-- <td>{{visit.animal.name}}</td> -->
+        <td>{{visit.date | date:'d-MM-y, HH:mm'}}</td>
+        <td>{{visit.visitType}}</td>
+        <td>{{visit.description}}</td>
+        <td><button class="btn btn-outline-dark" (click)="showAnimal(visit.idVisit)">Zwierzę</button></td>
       </tr>
     </tbody>
   </table>

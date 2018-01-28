@@ -13,8 +13,8 @@ public class VisitType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idVisitType;
     @Basic
-    @Column(name = "type", nullable = false, length = 45)
-    private String type;
+    @Column(name = "name", nullable = false, length = 45)
+    private String name;
 
     @JsonIgnore
     @OneToMany(mappedBy = "visitType")
@@ -31,21 +31,21 @@ public class VisitType {
 
 
     public String getType() {
-        return type;
+        return name;
     }
 
     public void setType(String type) {
-        this.type = type;
+        this.name = type;
     }
 
-
-    public List<Visit> getVisits() {
-        return visits;
-    }
-
-    public void setVisits(List<Visit> visits) {
-        this.visits = visits;
-    }
+//
+//    public List<Visit> getVisits() {
+//        return visits;
+//    }
+//
+//    public void setVisits(List<Visit> visits) {
+//        this.visits = visits;
+//    }
 
     @Override
     public boolean equals(Object o) {
@@ -55,7 +55,7 @@ public class VisitType {
         VisitType that = (VisitType) o;
 
         if (idVisitType != that.idVisitType) return false;
-        if (type != null ? !type.equals(that.type) : that.type != null) return false;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
 
         return true;
     }
@@ -63,7 +63,7 @@ public class VisitType {
     @Override
     public int hashCode() {
         int result = idVisitType;
-        result = 31 * result + (type != null ? type.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
     }
 }

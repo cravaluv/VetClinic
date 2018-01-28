@@ -19,10 +19,10 @@ export class Animal {
 
 export class Color {
   idColor: number;
-  color: string;
+  name: string;
 }
 
 export class AnimalType {
   idAnimalType: number;
-  type: string;
+  name: string;
 }

@@ -35,19 +35,10 @@ export class PetComponent implements OnInit {
       });
   }
 
-  add() {
-    const modal = this.modalService.open(PetEditComponent, { size: 'lg' });
-    modal.componentInstance.model = new Animal();
-
-    modal.result.then((result) => {
-      this.animalService.addAnimal(result);
-    }, (reason) => {
-    });
-  }
-
   update(animal: Animal) {
     const modal = this.modalService.open(PetEditComponent, { size: 'lg' });
     modal.componentInstance.model = animal;
+    modal.componentInstance.mode = 'EDIT';
 
     modal.result.then((result) => {
       this.animalService.update(result);

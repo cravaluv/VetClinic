@@ -24,6 +24,8 @@ import { CalendarModule } from 'angular-calendar';
 import { DatepickerAdapterService } from '../ui/services/datepicker-adapter.service';
 import { ScheduleComponent } from './schedule/schedule.component';
 import { MedicineListComponent } from './visit/medicine-list.component';
+import { DictionaryComponent } from './dictionary/dictionary.component';
+import { CommonService } from '../core/services/common.service';
 
 @NgModule({
     imports: [
@@ -49,10 +51,11 @@ import { MedicineListComponent } from './visit/medicine-list.component';
         PersonnelComponent,
         PersonnelEditComponent,
         ScheduleComponent,
-        MedicineListComponent
+        MedicineListComponent,
+        DictionaryComponent
     ],
-    providers: [OwnerService, AnimalService, VisitService, PersonnelService,
+    providers: [OwnerService, AnimalService, VisitService, PersonnelService, CommonService
      {provide: NgbDateAdapter, useClass: DatepickerAdapterService}],
-    entryComponents: [OwnerEditComponent, PetEditComponent, VisitEditComponent, PersonnelEditComponent]
+    entryComponents: [OwnerEditComponent, PetEditComponent, VisitEditComponent, PersonnelEditComponent, DictionaryComponent]
 })
 export class MainModule { }

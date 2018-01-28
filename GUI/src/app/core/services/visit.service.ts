@@ -32,8 +32,8 @@ export class VisitService {
     }
 
     update(visit: Visit) {
-        const endPoint = 'update/';
-        return this.http.post(this.visitUrl + endPoint + visit.idVisit, visit).subscribe(
+        const endPoint = 'update/'  + visit.idVisit;
+        return this.http.post(this.visitUrl + endPoint, visit).subscribe(
             res => {
               console.log(res);
             },
@@ -41,6 +41,11 @@ export class VisitService {
               console.log("Error occured");
             }
           );
+    }
+
+    getAnimalByVisitId(id: number) {
+      const endPoint = 'animal/' + id;
+      return this.http.get(this.visitUrl + endPoint);
     }
 }
 

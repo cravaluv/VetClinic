@@ -1,5 +1,6 @@
 package pl.polsl.java.aleksandra.kowol.engineer.service;
 
+import pl.polsl.java.aleksandra.kowol.engineer.entity.Animal;
 import pl.polsl.java.aleksandra.kowol.engineer.entity.Visit;
 
 import java.util.Date;
@@ -13,6 +14,9 @@ public interface VisitService {
     void saveVisit(Visit visit);
 
     List<Visit> getVisitByDate(Date date);
+
+    Animal getAnimalByVisitId(int id);
+
 
     //    boolean isOwnerExist(Owner owner)
 

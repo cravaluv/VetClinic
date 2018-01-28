@@ -69,7 +69,7 @@ export class OwnerEditComponent implements OnInit {
 
   addAnimal() {
     const modal = this.modalService.open(PetEditComponent, { size: 'lg' });
-    modal.componentInstance.editMode = false;
+    modal.componentInstance.mode = 'NEW';
 
     modal.result.then((result) => {
       this.modelCopy.animals.push(result);

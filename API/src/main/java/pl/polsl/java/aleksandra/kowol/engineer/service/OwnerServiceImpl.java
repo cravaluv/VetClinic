@@ -25,6 +25,11 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
+    public Owner findOwnerByLogin(String login) {
+        return ownerRepository.findOwnerByLogin(login);
+    }
+
+    @Override
     public List<Owner> findAllOwners() {
         return ownerRepository.findAll();
     }

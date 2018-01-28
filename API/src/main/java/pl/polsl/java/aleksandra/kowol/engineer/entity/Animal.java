@@ -1,8 +1,6 @@
 package pl.polsl.java.aleksandra.kowol.engineer.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 
@@ -12,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Animal {
 
     @Id
@@ -27,7 +26,7 @@ public class Animal {
     @Column(name = "active", nullable = false)
     private boolean active;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="idOwner")
     @JsonBackReference
 //    @JoinColumn(referencedColumnName = "idOwner")
@@ -41,7 +40,8 @@ public class Animal {
     @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(referencedColumnName = "idAnimalRace")
     private AnimalRace animalRace;
-    @OneToMany(mappedBy = "animal")
+    @OneToMany(mappedBy = "animal", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Visit> visits;
 
 //    public Animal(Animal animal) {

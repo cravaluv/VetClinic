@@ -1,6 +1,6 @@
 <div class="modal-content">
   <div class="modal-header">
-    <h5 class="modal-title">{{modalTitle[dictionaryName]}}</h5>
+    <h5 class="modal-title">{{modalTitle[mode] | uppercase}}</h5>
     <button type="button" class="btn btn-outline-secondary btn-sm" aria-label="Close"
       (click)="activeModal.dismiss('cancel')">
       <span aria-hidden="true" class="fa fa-times"></span>
@@ -12,25 +12,29 @@
       <div class="form-row align-items-center m-0">
 
         <!-- Okienko do wpisywania wartości słownika-->
-        <div class="col-4">
-          <input type="text" class="form-control" [placeholder]="Nazwa..."
+
+        <div class="col-md-4 mb-3 mt-2">
+            <label for="surname"></label>
+            <input type="text" class="form-control" [placeholder]="'Nazwa...'"
             id="valueInput" name="valueInput" #valueInput="ngModel" [(ngModel)]="newValue"
             (ngModelChange)="clearDuplicateInfo()">
-        </div>
+          </div>
 
-        <!-- Okienko do wpisywania wartości słownika-->
-        <div *ngIf="dictionaryName === 'Medicines'" class="col-4">
-          <select></select>
-          <option *ngFor="let n in [] | range:50">
-            {{n}}
-          </option>
-        </div>
+        <div *ngIf="mode === 'MEDICINES'" class="col-md-2 mb-3">
+            <label for="surname">Min. liczba</label>
+            <input type="number" class="form-control" [(ngModel)]="minAmount">
+          </div>
+ 
+          <div *ngIf="mode === 'MEDICINES'" class="col-md-2 mb-3">
+              <label for="surname">Liczba</label>
+              <input type="number" class="form-control" [(ngModel)]="amount">
+            </div>
 
         <!-- Przycisk Dodaj -->
-        <div class="col-auto">
+        <div class="col-md-4 mb-3 mt-4">
 
           <!-- Dodaj -->
-          <button type="submit" class="btn btn-primary" [disabled]="!newValue" (click)="add()">DODAJ
+          <button type="submit" class="btn btn-primary" [disabled]="!newValue || (mode === 'MEDICINES' && amount === 0)" (click)="add()">DODAJ
           </button>
 
         </div>
@@ -51,22 +55,17 @@
         <thead>
           <tr>
             <th scope="col">Nazwa</th>
-            <th *ngIf="dictionaryName === 'Medicines'" scope="col">Minimalna ilość</th>
-            <th scope="col"></th>
+            <th *ngIf="mode === 'MEDICINES'" scope="col">Minimalna ilość</th>
+            <th *ngIf="mode === 'MEDICINES'" scope="col">Aktualna ilość</th>
           </tr>
         </thead>
 
         <!-- Zawartość tabeli -->
         <tbody>
-          <tr *ngFor="let dictVal of dictionaryCopy">
+          <tr *ngFor="let dictVal of dictionary" [ngClass]="{'table-danger': mode === 'MEDICINES' && dictVal.minAmount >= dictVal.amount }">
             <td>{{dictVal.name}}</td>
-            <td *ngIf="dictionaryName === 'Medicines'">{{dictVal.minAmount}}</td>
-            <td>
-              <button *ngIf="isNew(dictVal)" type="button" class="btn btn-sm btn-outline-danger pt-0 pb-0 float-right"
-                (click)="delete(dictVal)">
-                <i class="fa fa-trash-o"></i>
-              </button>
-            </td>
+            <td *ngIf="mode === 'MEDICINES'">{{dictVal.minAmount}}</td>
+            <td *ngIf="mode === 'MEDICINES'">{{dictVal.amount}}</td>
           </tr>
         </tbody>
       </table>
@@ -74,10 +73,10 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-primary" (click)="save();" [disabled]="busy" translate>
-      <i class="fa fa-circle-o-notch fa-spin fa-fw" [hidden]="!busy"></i> COMMON.SAVE
+    <button type="button" class="btn btn-primary" (click)="save()" translate>
+      ZAPISZ
     </button>
     <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss('cancel')"
-      translate>COMMON.CANCEL</button>
+      translate>ANULUJ</button>
   </div>
 </div>
