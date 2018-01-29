@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AnimalService } from '../../core/services/animal.service';
 import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
-import { Visit } from '../../core/models/visit';
+import { Visit, VisitType } from '../../core/models/visit';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap/modal/modal';
 import { VisitEditComponent } from './visit-edit.component';
 import { VisitService } from '../../core/services/visit.service';
@@ -16,8 +16,20 @@ import { PetEditComponent } from '../pet/pet-edit.component';
 export class VisitComponent implements OnInit {
 
   visits: Visit[] = [];
+  filteredItems: Visit[] = [];
+  visitTypes: VisitType[] = [];
 
-  constructor(private visitService: VisitService, private modalService: NgbModal) {
+  selectedDescription: string;
+
+  // paging
+  p = 1;
+
+  // filter panel
+  open = true;
+
+  filterType: string;
+
+  constructor(private visitService: VisitService, private modalService: NgbModal, private commonService: CommonService) {
   }
 
   ngOnInit(): void {
@@ -31,26 +43,13 @@ export class VisitComponent implements OnInit {
       (error) => {
         console.log(error);
       });
-  }
 
-  // add() {
-  //   const modal = this.modalService.open(VisitEditComponent, { size: 'lg' });
-  //   // modal.componentInstance.model = new Animal();
-
-  //   modal.result.then((result) => {
-  //     this.visitService.addVisit(result);
-  //   }, (reason) => {
-  //   });
-  // }
-
-  addVisit() {
-    const modal = this.modalService.open(VisitEditComponent, { size: 'lg' });
-    modal.componentInstance.editMode = false;
-
-    modal.result.then((result) => {
-      this.visitService.update(result);
-    }, (reason) => {
-    });
+      this.commonService.getDictionary('VISIT_TYPES').subscribe(data => {
+        this.visitTypes = Object.keys(data).map((key) => data[key] as VisitType);
+      },
+        (error) => {
+          console.log(error);
+        });
   }
 
   update(visit: Visit) {
@@ -61,6 +60,10 @@ export class VisitComponent implements OnInit {
       this.visitService.update(result);
     }, (reason) => {
     });
+  }
+
+  showPopover(description: string) {
+    this.selectedDescription = description;
   }
 
   showAnimal(id: number) {

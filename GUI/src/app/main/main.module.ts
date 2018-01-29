@@ -54,7 +54,7 @@ import { CommonService } from '../core/services/common.service';
         MedicineListComponent,
         DictionaryComponent
     ],
-    providers: [OwnerService, AnimalService, VisitService, PersonnelService, CommonService
+    providers: [OwnerService, AnimalService, VisitService, PersonnelService, CommonService,
      {provide: NgbDateAdapter, useClass: DatepickerAdapterService}],
     entryComponents: [OwnerEditComponent, PetEditComponent, VisitEditComponent, PersonnelEditComponent, DictionaryComponent]
 })

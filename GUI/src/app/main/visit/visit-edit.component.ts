@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { OwnerService } from '../../core/services/owner.service';
 import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
-import { Visit, VisityType, VisitType, Medicine } from '../../core/models/visit';
+import { Visit, VisitType, Medicine } from '../../core/models/visit';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap/modal/modal';
 import * as _ from 'lodash';
 import { NgbActiveModal, NgbDatepickerConfig, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
@@ -107,7 +107,7 @@ export class VisitEditComponent implements OnInit {
   }
 
   getAvailableHours(selectedDate: Date) {
-    //Pobranie z serwera
+    // Pobranie z serwera
     // this.visits = ...
     const iterate = (this.workEnd - this.workStart) * 4;
     let previousHour;

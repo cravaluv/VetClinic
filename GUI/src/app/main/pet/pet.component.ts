@@ -12,12 +12,16 @@ import { PetEditComponent } from './pet-edit.component';
 export class PetComponent implements OnInit {
 
   animals: Animal[] = [];
+  filteredItems: Animal[] = [];
   selected: Animal;
 
+  // paging
+  p = 1;
 
-  // Sortowanie
-  key: string;
-  reverse = false;
+  // filter panel
+  open = true;
+
+  filterName: string;
 
   constructor(private animalService: AnimalService, private modalService: NgbModal) {
   }
@@ -29,10 +33,22 @@ export class PetComponent implements OnInit {
         data[key].birthDate = new Date(data[key].birthDate);
         return data[key];
       });
+      this.filteredItems = this.animals;
     },
       (error) => {
         console.log(error);
       });
+  }
+
+  searchButtonClick() {
+    if (this.filterName) {
+      this.animals.filter(animal => animal.name.includes(this.filterName));
+    }
+  }
+
+  clearFilter() {
+    this.filterName = undefined;
+    this.filteredItems = this.animals;
   }
 
   update(animal: Animal) {

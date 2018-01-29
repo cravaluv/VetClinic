@@ -13,21 +13,15 @@ import { PersonnelService } from '../../core/services/personnel.service';
 export class PersonnelComponent implements OnInit {
 
   personnel: Personnel[] = [];
-  filter;
+  filteredItems: Personnel[] = [];
 
-  filteredItems: Personnel[];
-  pages = 4;
-  pageSize = 5;
-  pageNumber = 0;
-  currentIndex = 1;
-  items: Personnel[];
-  pagesIndex: Array<number>;
-  pageStart = 1;
-  inputName = '';
+  // paging
+  p = 1;
+  // filter panel
+  open = true;
 
-  // sorting
-  key = 'name';
-  reverse = false;
+  filterName: string;
+  filterAddress: string;
 
   constructor(private personnelService: PersonnelService, private modalService: NgbModal) {
   }
@@ -35,70 +29,38 @@ export class PersonnelComponent implements OnInit {
   ngOnInit(): void {
     this.personnelService.getPersonnel().subscribe((data) => {
       this.personnel = Object.keys(data).map((key) => data[key]);
+      this.filteredItems = this.personnel;
     },
       (error) => {
         console.log(error);
       });
   }
 
-  sort(key: string) {
-    this.key = key;
-    this.reverse = !this.reverse;
+  searchButtonClick() {
+    if (this.filterName || this.filterAddress) {
+      this.filteredItems.filter(person => {
+        let nameKeys, addressKeys, name, address;
+        if (this.filterName) {
+          nameKeys = this.filterName.split(' ');
+          name = person.name + ' ' + person.surname;
+        }
+        if (this.filterAddress) {
+          addressKeys = this.filterAddress.split(' ');
+          address = person.address.address + ' ' + person.address.city;
+        }
+        if ((addressKeys.length === 0 || addressKeys.some(element => address.includes(element))) &&
+          (nameKeys.length === 0 || nameKeys.some(element => name.includes(element)))) {
+          return true;
+        }
+        return false;
+      });
+    }
   }
 
-  initPagination() {
-    this.currentIndex = 1;
-    this.pageStart = 1;
-    this.pages = 4;
-
-    this.pageNumber = parseInt("" + (this.filteredItems.length / this.pageSize));
-    if (this.filteredItems.length % this.pageSize !== 0) {
-      this.pageNumber++;
-    }
-
-    if (this.pageNumber < this.pages) {
-      this.pages = this.pageNumber;
-    }
-
-    this.refreshItems();
-  }
-
-  refreshItems() {
-    this.items = this.filteredItems.slice((this.currentIndex - 1) * this.pageSize, (this.currentIndex) * this.pageSize);
-    this.pagesIndex = this.fillArray();
-  }
-
-  fillArray(): any {
-    var obj = new Array();
-    for (var index = this.pageStart; index < this.pageStart + this.pages; index++) {
-      obj.push(index);
-    }
-    return obj;
-  }
-
-  prevPage() {
-    if (this.currentIndex > 1) {
-      this.currentIndex--;
-    }
-    if (this.currentIndex < this.pageStart) {
-      this.pageStart = this.currentIndex;
-    }
-    this.refreshItems();
-  }
-  nextPage() {
-    if (this.currentIndex < this.pageNumber) {
-      this.currentIndex++;
-    }
-    if (this.currentIndex >= (this.pageStart + this.pages)) {
-      this.pageStart = this.currentIndex - this.pages + 1;
-    }
-
-    this.refreshItems();
-  }
-  setPage(index: number) {
-    this.currentIndex = index;
-    this.refreshItems();
-    const cc = 6;
+  clearFilter() {
+    this.filterAddress = undefined;
+    this.filterName = undefined;
+    this.filteredItems = this.personnel;
   }
 
   add() {

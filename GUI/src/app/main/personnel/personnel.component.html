@@ -1,20 +1,44 @@
 <div class="mx-4 my-2">
-    <div class="mb-2 p-1 bg-dark rounded">
-      <h1 class="text-light">PRACOWNICY</h1>
-  <button class="btn btn-outline-success" (click)="add()">Dodaj</button>
-  <button class="btn btn-outline-danger" (click)="add()">Usuń</button>
-  <input class="form-control mt-2" type="text" name="search" placeholder="Wyszukaj..." [(ngModel)]="filter">
+  <div class="mb-2 p-1 bg-dark rounded">
+    <h1 class="text-light">PRACOWNICY</h1>
+    <button class="btn btn-outline-success" (click)="add()">Dodaj</button>
+    <button class="btn btn-outline-danger" (click)="add()">Usuń</button>
+    <div class="card-header">
+      <button type="button" class="btn btn-link btn-sm" [hidden]="open" (click)="open = !open">
+        <i class="fa fa-chevron-down" aria-hidden="true"></i>
+        POKAŻ FILTRY
+      </button>
+      <button type="button" class="btn btn-link btn-sm" [hidden]="!open" (click)="open = !open">
+        <i class="fa fa-chevron-up" aria-hidden="true"></i>
+        UKRYJ FILTRY
+      </button>
+      <button type="button" class="btn btn-primary btn-sm" [hidden]="!open" (click)="searchButtonClick()">
+        <i class="fa fa-search" aria-hidden="true"></i>
+        WYSZUKAJ
+      </button>
+
+      <button type="button" class="btn btn-outline-secondary btn-sm" [hidden]="!open" (click)="clearFilter()">
+        <i class="fa fa-eraser" aria-hidden="true"></i>
+        WYCZYŚĆ
+      </button>
+    </div>
+    <div [hidden]="!open" class="card-header">
+      <div class="row">
+        <div class="col-md-3 mb-2 form-group">
+          <input class="form-control mt-2" type="text" placeholder="Imię i nazwisko..." [(ngModel)]="filterName">
+        </div>
+        <div class="col-md-3 mb-2 form-group">
+          <input class="form-control mt-2" type="text" placeholder="Adres..." [(ngModel)]="filterAddress">
+        </div>
+      </div>
+    </div>
   </div>
   <table class="table mt-3 table-striped table-hover">
     <thead class="bg-dark text-light">
       <tr>
-        <th scope="col" (click)="sort('name')">Imię
-          <i [ngClass]="{'fa' : true, 'fa-caret-up': reverse && key === 'name','fa-caret-down': !reverse && key === 'name', 'fa-sort': key !== 'name'}"
-            aria-hidden="true"></i>
+        <th scope="col">Imię
         </th>
-        <th scope="col" (click)="sort('surname')">Nazwisko
-          <i [ngClass]="{'fa' : true, 'fa-caret-up': reverse && key === 'surname','fa-caret-down': !reverse && key === 'surname', 'fa-sort': key !== 'surname'}"
-            aria-hidden="true"></i>
+        <th scope="col">Nazwisko
         </th>
         <th scope="col">Login</th>
         <th scope="col">Ulica</th>
@@ -23,7 +47,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let person of personnel | orderBy: key : reverse | filter:filter; let i = index" (dblclick)="update(person)">
+      <tr *ngFor="let person of personnel | paginate: { itemsPerPage: 10, currentPage: p }" (dblclick)="update(person)">
         <td>{{person.name}}</td>
         <td>{{person.surname}}</td>
         <td>{{person.login}}</td>
@@ -33,18 +57,11 @@
       </tr>
     </tbody>
   </table>
-  <div class="btn-toolbar" role="toolbar" style="margin: 0;">
-      <div class="btn-group">
-           <label style="margin-top:10px">Page {{currentIndex}}/{{pageNumber}}</label>
-        </div>
-        <div class="btn-group pull-right">
-           <ul class="pagination">
-              <li [ngClass]="{'disabled': (currentIndex == 1 || pageNumber == 0)}" ><a  (click)="prevPage()" href="#">Prev</a></li>
-                 <li *ngFor="let page of pagesIndex"  [ngClass]="{'active': (currentIndex == page)}">
-                    <a (click)="setPage(page)" href="#" >{{page}}</a>
-                 </li>
-              <li [ngClass]="{'disabled': (currentIndex == pageNumber || pageNumber == 0)}" ><a   (click)="nextPage()" href="#">Next</a></li>
-           </ul>
-        </div>
-     </div>
+  <span *ngIf="!filteredItems?.length" class="text-secondary pl-3">
+    <i class="fa fa-info-circle text-danger"></i>
+    Tabela jest pusta
+  </span>
+  <div class="float-right mr-5">
+    <pagination-controls *ngIf="filteredItems" previousLabel="" nextLabel="" (pageChange)="p = $event"></pagination-controls>
   </div>
+</div>

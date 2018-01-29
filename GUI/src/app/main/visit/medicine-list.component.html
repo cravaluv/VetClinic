@@ -7,28 +7,14 @@
       </select>
     </div>
     <div class="col-md-3">
-    <select class="custom-select" [(ngModel)]="selectedAmount">
-      <option disabled selected [value]="null">Wybierz ilość</option>
-      <option>1</option>
-      <option>2</option>
-      <option>3</option>
-      <option>4</option>
-      <option>5</option>
-      <option>6</option>
-      <option>7</option>
-      <option>8</option>
-    </select>
-   </div>
+      <input type="number" class="form-control" [(ngModel)]="selectedAmount">
+    </div>
 
-  <!-- Przycisk Dodaj -->
-  <div class="col-md-3">
-
-    <!-- Dodaj -->
-    <button type="submit" class="btn btn-outline-primary" [disabled]="!selectedMed || !selectedAmount" (click)="add()" translate>DODAJ
-    </button>
-
+    <div class="col-md-3">
+      <button type="submit" class="btn btn-outline-primary" [disabled]="!selectedMed || !selectedAmount" (click)="add()" translate>DODAJ
+      </button>
+    </div>
   </div>
-</div>
 </div>
 
 <span *ngIf="duplicate" class="text-secondary pl-3">
@@ -38,10 +24,8 @@
 
 <br />
 
-<!-- Lista lista atrybutów urządzenia-->
 <table *ngIf="selectedMedicines.length" class="table table-hover table-sm">
 
-  <!-- Nagłówek tabeli -->
   <thead>
     <tr>
       <th scope="col" translate>Nazwa</th>
@@ -50,7 +34,6 @@
     </tr>
   </thead>
 
-  <!-- Zawartość tabeli -->
   <tbody>
     <tr *ngFor="let medicine of selectedMedicines">
       <td>{{medicine.name}}</td>
@@ -63,7 +46,7 @@
     </tr>
   </tbody>
 </table>
-<!-- Iniformacja prezentowana zamiast pustej tabeli -->
+
 <span *ngIf="selectedMedicines.length === 0" class="text-secondary pl-3">
   <i class="fa fa-info-circle text-primary"></i>
   Tabela leków jest pusta

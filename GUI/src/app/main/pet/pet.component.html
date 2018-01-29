@@ -1,7 +1,32 @@
 <div class="mx-4 my-2">
   <div class="mb-2 p-1 bg-dark rounded">
     <h1 class="text-light">ZWIERZĘTA</h1>
-    <input class="form-control mt-2" type="text" name="search" placeholder="Wyszukaj..." [(ngModel)]="filter">
+    <div class="card-header">
+        <button type="button" class="btn btn-link btn-sm" [hidden]="open" (click)="open = !open">
+          <i class="fa fa-chevron-down" aria-hidden="true"></i>
+          POKAŻ FILTRY
+        </button>
+        <button type="button" class="btn btn-link btn-sm" [hidden]="!open" (click)="open = !open">
+          <i class="fa fa-chevron-up" aria-hidden="true"></i>
+          UKRYJ FILTRY
+        </button>
+        <button type="button" class="btn btn-primary btn-sm" [hidden]="!open" (click)="searchButtonClick()">
+          <i class="fa fa-search" aria-hidden="true"></i>
+          WYSZUKAJ
+        </button>
+  
+        <button type="button" class="btn btn-outline-secondary btn-sm" [hidden]="!open" (click)="clearFilter()">
+          <i class="fa fa-eraser" aria-hidden="true"></i>
+          WYCZYŚĆ
+        </button>
+      </div>
+      <div [hidden]="!open" class="card-header">
+        <div class="row">
+          <div class="col-md-3 mb-2 form-group">
+            <input class="form-control mt-2" type="text" placeholder="Imię..." [(ngModel)]="filterName">
+          </div>
+        </div>
+      </div>
   </div>
   <!-- <button class="btn btn-success" (click)="add()">Dodaj</button> -->
   <table class="table mt-3 table-striped table-hover">
@@ -15,15 +40,22 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let animal of animals" [class.table-active]="selected === animal" (click)="selected = animal" (dblclick)="update(animal)">
+      <tr *ngFor="let animal of filteredItems | paginate: { itemsPerPage: 10, currentPage: p }" [class.table-active]="selected === animal" (click)="selected = animal" (dblclick)="update(animal)">
         <td>{{animal.name}}</td>
-        <td>{{animal.animalType.type}}</td>
+        <td>{{animal.animalType.name}}</td>
         <td>{{animal.birthDate | date:'fullDate'}}</td>
         <td>
           <i [ngClass]="{'fa' : true, 'fa-check text-success': animal.active,'fa-times text-danger': !animal.active}" aria-hidden="true"></i>
         </td>
-        <td>{{animal.color.color}}</td>
+        <td>{{animal.color.name}}</td>
       </tr>
     </tbody>
   </table>
+  <span *ngIf="!filteredItems?.length" class="text-secondary pl-3">
+      <i class="fa fa-info-circle text-danger"></i>
+      Tabela jest pusta
+    </span>
+    <div class="float-right mr-5">
+      <pagination-controls *ngIf="filteredItems" previousLabel="" nextLabel="" (pageChange)="p = $event"></pagination-controls>
+    </div>
 </div>

@@ -1,12 +1,59 @@
 <div class="mx-4 my-2">
-    <div class="mb-2 p-1 bg-dark rounded">
-      <h1 class="text-light">WIZYTY</h1>
+  <div class="mb-2 p-1 bg-dark rounded">
+    <h1 class="text-light">WIZYTY</h1>
+    <div class="card-header">
+      <button type="button" class="btn btn-link btn-sm" [hidden]="open" (click)="open = !open">
+        <i class="fa fa-chevron-down" aria-hidden="true"></i>
+        POKAŻ FILTRY
+      </button>
+      <button type="button" class="btn btn-link btn-sm" [hidden]="!open" (click)="open = !open">
+        <i class="fa fa-chevron-up" aria-hidden="true"></i>
+        UKRYJ FILTRY
+      </button>
+      <button type="button" class="btn btn-primary btn-sm" [hidden]="!open" (click)="searchButtonClick()">
+        <i class="fa fa-search" aria-hidden="true"></i>
+        WYSZUKAJ
+      </button>
+
+      <button type="button" class="btn btn-outline-secondary btn-sm" [hidden]="!open" (click)="clearFilter()">
+        <i class="fa fa-eraser" aria-hidden="true"></i>
+        WYCZYŚĆ
+      </button>
+    </div>
+    <div [hidden]="!open" class="card-header">
+      <div class="row">
+        <div class="col-md-3 mb-2 form-group">
+          <select class="form-control mt-2" [(ngModel)]="filterType">
+            <option selected></option>
+            <option *ngFor="let type of visitTypes">{{type.name}}</option>
+          </select>
+        </div>
+        <div class="col-md-2 mb-2 form-group">
+          <div class="input-group">
+            <input class="form-control mt-2" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="dateFrom" ngbDatepicker #dFrom="ngbDatepicker">
+            <div class="input-group-append">
+              <button class="btn btn-outline-primary mt-2" (click)="dFrom.toggle()" type="button">
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2 mb-2 form-group">
+            <div class="input-group">
+            <input class="form-control mt-2" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="dateTo" ngbDatepicker #dTo="ngbDatepicker">
+            <div class="input-group-append">
+              <button class="btn btn-outline-primary mt-2" (click)="dTo.toggle()" type="button">
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+              </button>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
   </div>
-  <!-- <button class="btn btn-success" (click)="add()">Dodaj</button> -->
   <table class="table mt-3 table-striped table-hover">
     <thead>
       <tr>
-        <!-- <th scope="col">Zwierzę</th> -->
         <th scope="col">Data</th>
         <th scope="col">Typ</th>
         <th scope="col">Opis</th>
@@ -14,13 +61,20 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let visit of visits | orderBy: key : reverse | filter:filter; let i = index" (dblclick)="update(owner)">
-        <!-- <td>{{visit.animal.name}}</td> -->
+      <tr *ngFor="let visit of filteredItems | paginate: { itemsPerPage: 10, currentPage: p }" (dblclick)="update(visit)">
         <td>{{visit.date | date:'d-MM-y, HH:mm'}}</td>
-        <td>{{visit.visitType}}</td>
-        <td>{{visit.description}}</td>
-        <td><button class="btn btn-outline-dark" (click)="showAnimal(visit.idVisit)">Zwierzę</button></td>
+        <td>{{visit.visitType.name}}</td>
+        <td>
+          <button class="btn btn-outline-dark" #p="ngbPopover" style="border: 0;" [ngbPopover]="popContent" placement="auto" (click)="showPopover(visit.description)">...</button>
+        </td>
+        <td>
+          <button class="btn btn-outline-dark" (document:click)="p.close()" (click)="showAnimal(visit.idVisit)">Zwierzę</button>
+        </td>
       </tr>
     </tbody>
   </table>
 </div>
+
+<ng-template #popContent>
+  {{selectedDescription}}
+</ng-template>

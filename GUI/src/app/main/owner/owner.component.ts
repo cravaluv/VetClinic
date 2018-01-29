@@ -13,34 +13,25 @@ import { OwnerEditComponent } from './owner-edit.component';
 export class OwnerComponent implements OnInit {
 
   owners: Owner[] = [];
-  filter;
   selected: Owner;
 
   filteredItems: Owner[];
-  p = 1;
-  pages = 4;
-  pageSize = 5;
-  pageNumber = 0;
-  currentIndex = 1;
-  items: Owner[];
-  pagesIndex: Array<number>;
-  pageStart = 1;
-  inputName = '';
 
-  // Sortowanie
-  key: string;
-  reverse = false;
+  // paging
+  p = 1;
+
+  // filter panel
+  open = true;
+
+  filterName: string;
+  filterAddress: string;
+
 
   constructor(private ownerService: OwnerService, private modalService: NgbModal) {
   }
 
   ngOnInit(): void {
     this.getOwners();
-  }
-
-  sort(key: string) {
-    this.key = key;
-    this.reverse = !this.reverse;
   }
 
   add() {
@@ -67,6 +58,33 @@ export class OwnerComponent implements OnInit {
       this.getOwners();
     }, (reason) => {
     });
+  }
+
+  searchButtonClick() {
+    if (this.filterName || this.filterAddress) {
+      this.owners.filter(owner => {
+        let nameKeys, addressKeys, name, address;
+        if (this.filterName) {
+          nameKeys = this.filterName.split(' ');
+          name = owner.name + ' ' + owner.surname;
+        }
+        if (this.filterAddress) {
+          addressKeys = this.filterAddress.split(' ');
+          address = owner.address.address + ' ' + owner.address.city;
+        }
+        if ((addressKeys.length === 0 || addressKeys.some(element => address.includes(element))) &&
+          (nameKeys.length === 0 || nameKeys.some(element => name.includes(element)))) {
+          return true;
+        }
+        return false;
+      });
+    }
+  }
+
+  clearFilter() {
+    this.filterAddress = undefined;
+    this.filterName = undefined;
+    this.filteredItems = this.owners;
   }
 
   getOwners() {
