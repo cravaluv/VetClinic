@@ -23,12 +23,23 @@ export class DictionaryComponent implements OnInit {
 
   public dictionary: any[] = [];
 
-  modalTitle = {
-    'MEDICINES': 'Leki',
-    'ANIMAL_TYPES': 'Typy zwierząt',
-    'COLORS': 'Kolory',
-    'DISEASTERS': 'Choroby',
-    'VISIT_TYPES': 'Typy wizyt'
+  modes = {
+    'MEDICINES': {
+      title: 'Leki',
+      attr: 'name'
+    },
+    'ANIMAL_TYPES': {
+      title: 'Typy zwierząt',
+      attr: 'type'
+    },
+    'COLORS': {
+      title: 'Kolory',
+      attr: 'color'
+    },
+    'VISIT_TYPES': {
+      title: 'Typy wizyt',
+      attr: 'type'
+    }
   };
 
   constructor(public activeModal: NgbActiveModal, private commonService: CommonService) { }
@@ -44,9 +55,13 @@ export class DictionaryComponent implements OnInit {
   }
 
   add() {
-    if (!this.dictionary.find(v => v.name.toUpperCase() === this.newValue.toUpperCase())) {
+    if (!this.dictionary.find(v => v[this.modes[this.mode].attr].toUpperCase() === this.newValue.toUpperCase())) {
       let newObj;
-      this.mode !== 'MEDICINES' ? newObj = { name: this.newValue } : newObj = new Medicine(this.newValue, this.amount, this.minAmount);
+      if (this.mode === 'MEDICINES') {
+        newObj = new Medicine(this.newValue, this.amount, this.minAmount);
+      } else {
+        newObj = { [this.modes[this.mode].attr]: this.newValue };
+      }
       this.dictionary.push(newObj);
       this.newValue = '';
     } else {

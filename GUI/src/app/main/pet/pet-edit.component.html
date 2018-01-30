@@ -36,14 +36,14 @@
             </div>
             <div class="col-md-3 mb-3">
               <label for="type">Typ</label>
-              <select class="form-control" [disabled]="mode === 'VIEW'" id="type" [(ngModel)]="modelCopy.animalType.name" name="type">
-                <option *ngFor="let type of animalTypes">{{type.name}}</option>
+              <select class="form-control" [disabled]="mode === 'VIEW'" id="type" [(ngModel)]="modelCopy.animalType" name="type">
+                <option *ngFor="let type of animalTypes" [ngValue]="type" [selected]="type.type === modelCopy.animalType.type">{{type.type}}</option>
               </select>
             </div>
             <div class="col-md-3 mb-3">
               <label for="color">Kolor</label>
-              <select class="form-control" [disabled]="mode === 'VIEW'" id="color" [(ngModel)]="modelCopy.color.name" name="color">
-                <option *ngFor="let color of colors">{{color.name}}</option>
+              <select class="form-control" [disabled]="mode === 'VIEW'" id="color" [(ngModel)]="modelCopy.color" name="color">
+                <option *ngFor="let color of colors" [ngValue]="color" [selected]="color.color === modelCopy.color.color">{{color.color}}</option>
               </select>
             </div>
           </div>

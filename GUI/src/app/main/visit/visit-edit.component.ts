@@ -18,33 +18,6 @@ export class VisitEditComponent implements OnInit {
 
   availableHours: Date[] = [];
 
-  medicineList = [
-    {
-      name: 'lek 1',
-      description: 'opis leku',
-      totalAmount: 30,
-      minAmout: 5,
-    },
-    {
-      name: 'lek 2',
-      description: 'opis leku',
-      totalAmount: 10,
-      minAmout: 2,
-    },
-    {
-      name: 'lek 3',
-      description: 'opis leku',
-      totalAmount: 10,
-      minAmout: 1,
-    },
-    {
-      name: 'lek 4',
-      description: 'opis leku',
-      totalAmount: 5,
-      minAmout: 1,
-    }
-  ];
-
   selectedVisitDate: Date;
   selectedVisitHour;
 

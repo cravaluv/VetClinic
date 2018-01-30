@@ -33,20 +33,26 @@ public class CommonController  {
     }
 
     @RequestMapping(value = "/colors/all", method = RequestMethod.GET)
-    public ResponseEntity<List<ColorDictionary>> listAllColors() {
-        List<ColorDictionary> colors = commonService.findAllColors();
+    public ResponseEntity<List<Color>> listAllColors() {
+        List<Color> colors = commonService.findAllColors();
+        return new ResponseEntity<>(colors, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/colors/dupa", method = RequestMethod.GET)
+    public ResponseEntity<List<Color>> dupa() {
+        List<Color> colors = commonService.findAllColors();
         return new ResponseEntity<>(colors, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/visit_types/all", method = RequestMethod.GET)
-    public ResponseEntity<List<VisitTypeDictionary>> listAllVisitTypes() {
-        List<VisitTypeDictionary> visitTypes = commonService.findAllVisitType();
+    public ResponseEntity<List<VisitType>> listAllVisitTypes() {
+        List<VisitType> visitTypes = commonService.findAllVisitType();
         return new ResponseEntity<>(visitTypes, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/animal_types/all", method = RequestMethod.GET)
-    public ResponseEntity<List<AnimalTypeDictionary>> listAllAnimalTypes() {
-        List<AnimalTypeDictionary> animalTypes = commonService.findAllAnimalTypes();
+    public ResponseEntity<List<AnimalType>> listAllAnimalTypes() {
+        List<AnimalType> animalTypes = commonService.findAllAnimalTypes();
         return new ResponseEntity<>(animalTypes, HttpStatus.OK);
     }
 
@@ -63,19 +69,25 @@ public class CommonController  {
     }
 
     @RequestMapping(value = "/colors/update", method = RequestMethod.POST)
-    public ResponseEntity<?> updateColors(@RequestBody List<ColorDictionary> colors) {
+    public ResponseEntity<?> updateColors(@RequestBody List<Color> colors) {
         colors.forEach(color -> commonService.saveColor(color));
         return new ResponseEntity<>(colors, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/colors/add", method = RequestMethod.POST)
+    public ResponseEntity<?> updateColors(@RequestBody Color color) {
+        commonService.saveColor(color);
+        return new ResponseEntity<>(color, HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/visit_types/update", method = RequestMethod.POST)
-    public ResponseEntity<?> updateVisitType(@RequestBody List<VisitTypeDictionary> visitTypes) {
+    public ResponseEntity<?> updateVisitType(@RequestBody List<VisitType> visitTypes) {
         visitTypes.forEach(visitType -> commonService.saveVisitType(visitType));
         return new ResponseEntity<>(visitTypes, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/animal_types/update", method = RequestMethod.POST)
-    public ResponseEntity<?> updateAnimalType(@RequestBody List<AnimalTypeDictionary> animalTypes) {
+    public ResponseEntity<?> updateAnimalType(@RequestBody List<AnimalType> animalTypes) {
         animalTypes.forEach(animalType -> commonService.saveAnimalType(animalType));
         return new ResponseEntity<>(animalTypes, HttpStatus.OK);
     }
