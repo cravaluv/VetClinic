@@ -13,7 +13,7 @@ public class Color {
     private int idColor;
     @Basic
     @Column(name = "color", nullable = false, length = 45)
-    private String name;
+    private String color;
 
     @JsonIgnore
     @OneToMany(mappedBy = "color")
@@ -30,11 +30,11 @@ public class Color {
 
 
     public String getColor() {
-        return name;
+        return color;
     }
 
-    public void setColor(String color) {
-        this.name = color;
+    public void setColor(String name) {
+        this.color = color;
     }
 
 
@@ -54,7 +54,7 @@ public class Color {
         Color color1 = (Color) o;
 
         if (idColor != color1.idColor) return false;
-        if (name != null ? !name.equals(color1.name) : color1.name != null) return false;
+        if (color != null ? !color.equals(color1.color) : color1.color != null) return false;
 
         return true;
     }
@@ -62,7 +62,7 @@ public class Color {
     @Override
     public int hashCode() {
         int result = idColor;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (color != null ? color.hashCode() : 0);
         return result;
     }
 }

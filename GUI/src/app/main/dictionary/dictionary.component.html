@@ -1,6 +1,6 @@
 <div class="modal-content">
   <div class="modal-header">
-    <h5 class="modal-title">{{modalTitle[mode] | uppercase}}</h5>
+    <h5 class="modal-title">{{modes[mode].title | uppercase}}</h5>
     <button type="button" class="btn btn-outline-secondary btn-sm" aria-label="Close" (click)="activeModal.dismiss('cancel')">
       <span aria-hidden="true" class="fa fa-times"></span>
     </button>
@@ -51,7 +51,7 @@
 
         <tbody>
           <tr *ngFor="let dictVal of dictionary" [ngClass]="{'table-danger': mode === 'MEDICINES' && dictVal.minAmount >= dictVal.amount }">
-            <td>{{dictVal.name}}</td>
+            <td >{{dictVal[modes[mode].attr]}}</td>
             <td *ngIf="mode === 'MEDICINES'">{{dictVal.minAmount}}</td>
             <td *ngIf="mode === 'MEDICINES'">{{dictVal.amount}}</td>
           </tr>

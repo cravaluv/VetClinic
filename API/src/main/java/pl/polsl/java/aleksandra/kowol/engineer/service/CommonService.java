@@ -7,15 +7,15 @@ import java.util.List;
 
 public interface CommonService {
 
-    List<ColorDictionary> findAllColors();
+    List<Color> findAllColors();
 
-    void saveColor(ColorDictionary color);
+    void saveColor(Color color);
 
     List<Role> findAllRoles();
 
-    List<AnimalTypeDictionary> findAllAnimalTypes();
+    List<AnimalType> findAllAnimalTypes();
 
-    void saveAnimalType(AnimalTypeDictionary animalType);
+    void saveAnimalType(AnimalType animalType);
 
     List<Medicine> findAllMedicines();
 
@@ -23,7 +23,7 @@ public interface CommonService {
 
     void saveMedicine(Medicine medicine);
 
-    List<VisitTypeDictionary> findAllVisitType();
+    List<VisitType> findAllVisitType();
 
-    void saveVisitType(VisitTypeDictionary visitType);
+    void saveVisitType(VisitType visitType);
 }

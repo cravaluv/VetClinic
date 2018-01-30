@@ -47,5 +47,5 @@ export class Medicine {
 
 export class VisitType {
   idVisitType: number;
-  name: string;
+  type: string;
 }
