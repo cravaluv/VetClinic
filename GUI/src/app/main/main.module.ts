@@ -26,6 +26,9 @@ import { ScheduleComponent } from './schedule/schedule.component';
 import { MedicineListComponent } from './visit/medicine-list.component';
 import { DictionaryComponent } from './dictionary/dictionary.component';
 import { CommonService } from '../core/services/common.service';
+import { CustomerComponent } from './customer/customer.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import { OwnPetsComponent } from './own-animals/own-pets.component';
 
 @NgModule({
     imports: [
@@ -52,10 +55,14 @@ import { CommonService } from '../core/services/common.service';
         PersonnelEditComponent,
         ScheduleComponent,
         MedicineListComponent,
-        DictionaryComponent
+        DictionaryComponent,
+        CustomerComponent,
+        ChangePasswordComponent,
+        OwnPetsComponent
     ],
     providers: [OwnerService, AnimalService, VisitService, PersonnelService, CommonService,
      {provide: NgbDateAdapter, useClass: DatepickerAdapterService}],
-    entryComponents: [OwnerEditComponent, PetEditComponent, VisitEditComponent, PersonnelEditComponent, DictionaryComponent]
+    entryComponents: [OwnerEditComponent, PetEditComponent, VisitEditComponent, PersonnelEditComponent, DictionaryComponent,
+      ChangePasswordComponent]
 })
 export class MainModule { }

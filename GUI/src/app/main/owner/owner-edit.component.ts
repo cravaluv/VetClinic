@@ -45,9 +45,9 @@ export class OwnerEditComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    // if (this.form.valid) {
+    if (this.form.valid) {
       this.activeModal.close(this.modelCopy);
-    // }
+    }
   }
 
   onDismiss() {

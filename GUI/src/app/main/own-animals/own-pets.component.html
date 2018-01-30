@@ -1,0 +1,34 @@
+<div class="mx-4 my-2">
+  <div class="mb-2 p-1 bg-dark rounded">
+    <h1 class="text-light">MOJE ZWIERZĘTA</h1>
+  <button class="btn btn-success" (click)="add()">Dodaj</button>
+  <table class="table mt-3 table-striped table-hover">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Imię</th>
+        <th scope="col">Typ</th>
+        <th scope="col">Data urodzenia</th>
+        <th scope="col">Aktywne</th>
+        <th scope="col">Kolor</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let animal of filteredItems | paginate: { itemsPerPage: 10, currentPage: p }" [class.table-active]="selected === animal" (click)="selected = animal" (dblclick)="update(animal)">
+        <td>{{animal.name}}</td>
+        <td>{{animal.animalType.name}}</td>
+        <td>{{animal.birthDate | date:'fullDate'}}</td>
+        <td>
+          <i [ngClass]="{'fa' : true, 'fa-check text-success': animal.active,'fa-times text-danger': !animal.active}" aria-hidden="true"></i>
+        </td>
+        <td>{{animal.color.name}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <span *ngIf="!filteredItems?.length" class="text-secondary pl-3">
+      <i class="fa fa-info-circle text-danger"></i>
+      Tabela jest pusta
+    </span>
+    <div class="float-right mr-5">
+      <pagination-controls *ngIf="filteredItems" previousLabel="" nextLabel="" (pageChange)="p = $event"></pagination-controls>
+    </div>
+</div>

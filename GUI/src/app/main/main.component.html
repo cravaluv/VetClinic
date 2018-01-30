@@ -27,7 +27,13 @@
         <a class="nav-link" [routerLink]="['pets']">Zarezerwuj wizytę</a>
       </li>
       <li class="nav-item">
+        <a class="nav-link" [routerLink]="['my-pets']">Moje zwierzęta</a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" [routerLink]="['pets']">Informacje</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['pets']">Moje konto</a>
       </li>
 
       <div ngbDropdown class="d-inline-block" placement="bottom-right">
@@ -42,9 +48,6 @@
           <button class="btn btn-outline-dark btn-block" (click)="openDictionary('COLORS')">
             <span translate>Kolory</span>
           </button>
-          <!-- <button class="btn btn-outline-dark btn-block" (click)="openDictionary('DISEASTERS')">
-            <span translate>Choroby</span>
-          </button> -->
           <button class="btn btn-outline-dark btn-block" (click)="openDictionary('ANIMAL_TYPES')">
             <span translate>Typy zwierząt</span>
           </button>
@@ -53,10 +56,6 @@
           </button>
         </div>
       </div>
-
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
-      </li>
     </ul>
   </div>
 
@@ -68,10 +67,15 @@
 
     <div ngbDropdownMenu aria-labelledby="dropdown_mod" class="p-3">
       <h5>TEST</h5>
+      <a class="link" [routerLink]="['customer']">Moje konto</a>
       <div class="dropdown-divider"></div>
-      <button class="btn btn-dark btn-block">
+      <button class="btn btn-outline-dark btn-block" (click)="changePassword()">
+        <i class="fa fa-key" aria-hidden="true"></i>
+        <span>ZMIEŃ HASŁO</span>
+      </button>
+      <button class="btn btn-outline-dark btn-block" (click)="logout()">
         <i class="fa fa-sign-out" aria-hidden="true"></i>
-        <span translate>WYLOGUJ</span>
+        <span>WYLOGUJ</span>
       </button>
     </div>
   </div>

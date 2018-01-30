@@ -9,6 +9,8 @@ import { PersonnelComponent } from './personnel/personnel.component';
 import { ScheduleComponent } from './schedule/schedule.component';
 import { AuthGuardService as AuthGuard } from '../auth/auth-guard.service';
 import { RoleGuardService as RoleGuard } from '../auth/role-guard.service';
+import { CustomerComponent } from './customer/customer.component';
+import { OwnPetsComponent } from './own-animals/own-pets.component';
 
 const routes: Routes = [
 
@@ -61,7 +63,23 @@ const routes: Routes = [
         data: {
           expectedRole: 'employee'
         }
-      }
+      },
+      {
+        path: 'customer',
+        component: CustomerComponent,
+        canActivate: [AuthGuard],
+        data: {
+          expectedRole: 'customer'
+        }
+      },
+      {
+        path: 'my-pets',
+        component: OwnPetsComponent,
+        canActivate: [RoleGuard],
+        data: {
+          expectedRole: 'customer'
+        }
+      },
     ]
   }
 

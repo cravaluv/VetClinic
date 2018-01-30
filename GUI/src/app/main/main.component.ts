@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { CommonService } from '../core/services/common.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DictionaryComponent } from './dictionary/dictionary.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-main',
@@ -11,7 +13,7 @@ import { DictionaryComponent } from './dictionary/dictionary.component';
 export class MainComponent {
   title = 'app';
 
-  constructor(private commonService: CommonService, private modalService: NgbModal) {
+  constructor(private commonService: CommonService, private modalService: NgbModal, private authService: AuthService) {
 
   }
 
@@ -26,6 +28,18 @@ export class MainComponent {
     }, (reason) => {
     });
   // });
+  }
+
+  changePassword() {
+    const modal = this.modalService.open(ChangePasswordComponent, { size: 'lg' });
+    modal.result.then((result) => {
+    }, (reason) => {
+    });
+  // });
+  }
+
+  logout() {
+    this.authService.logout();
   }
 
 }

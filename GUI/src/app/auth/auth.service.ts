@@ -17,23 +17,17 @@ export class AuthService {
   constructor(private router: Router, private http: HttpClient) {
   }
 
-  logon(username, password): Observable<void> {
+  login(username, password): Observable<void> {
     const headers = new HttpHeaders().set('Authorization', 'Basic ' + btoa(username + ':' + password));
     const header2 = headers.set('Content-Type', 'application/x-www-form-urlencoded');
     // const body = 'username=' + username + '&password=' + password;
     const params = new HttpParams().set('username', username).set('password', password);
     return this.http.get(this.serviceUrl, { headers: header2, params: params}).map((result) => {
-      // sessionStorage.setItem('logon', 'true');
+      // sessionStorage.setItem('login', 'true');
       // let role;
       // !result.role ? role = result.role ? role = "customer";
       // sessionStorage.setItem('role', role);
     });
-    // .map((res: LogonData) => {
-    //   this.saveToken(res)
-    //   if (this.redirectUrl) { this.router.navigate([this.redirectUrl]) } else {
-    //     this.router.navigate([''])
-    //   }
-    // })
   }
 
   getAuthorizationHeader(): string {
@@ -41,13 +35,31 @@ export class AuthService {
   }
 
   isLoggedOn(): boolean {
-    const isLogged = sessionStorage.getItem('logon');
+    const isLogged = sessionStorage.getItem('login');
     return isLogged === 'true' ? true : false;
   }
 
   getRole(): string {
     const role = sessionStorage.getItem('role');
     return role;
+  }
+
+  logout() {
+    sessionStorage.clear();
+    this.router.navigate(['/login']);
+  }
+
+  changePassword(login: string, oldPassword: string, newPassword: string) {
+    const headers = new HttpHeaders().set('Authorization', 'Basic ');
+    const header2 = headers.set('Content-Type', 'application/x-www-form-urlencoded');
+    // const body = 'username=' + username + '&password=' + password;
+    const params = new HttpParams().set('login', login).set('oldPassword', oldPassword).set('newPassword', newPassword);
+    return this.http.get(this.serviceUrl, { headers: header2, params: params}).map((result) => {
+      // sessionStorage.setItem('login', 'true');
+      // let role;
+      // !result.role ? role = result.role ? role = "customer";
+      // sessionStorage.setItem('role', role);
+    });
   }
 
 }
