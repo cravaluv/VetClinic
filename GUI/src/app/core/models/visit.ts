@@ -14,33 +14,27 @@ export class Visit {
 }
 
 export class VisitMedicine {
-  idMedicine?: number;
-  idVisit?: number;
-  name: string;
+  medicine: Medicine;
   amount: number;
+  visit: Visit;
 
-  constructor(name: string, amount: number) {
-    this.name = name;
+  constructor(amount: number, medicine: Medicine, visit: Visit) {
+    this.medicine = medicine;
     this.amount = amount;
+    this.visit = visit;
   }
 }
 
-export class Disease {
-  idDisease: number;
-  name: string;
-  description: string;
-}
-
 export class Medicine {
-  idMedicine: number;
+  idMedicines: number;
   name: string;
   amount: number;
-  minAmount: number;
+  minNumber: number;
 
-  constructor(name, amount, minAmount) {
+  constructor(name, amount, minNumber) {
     this.name = name;
     this.amount = amount;
-    this.minAmount = minAmount;
+    this.minNumber = minNumber;
   }
 
 }

@@ -35,14 +35,15 @@ export class ChangePasswordComponent {
 
     this.busy = true;
     this.loginError = false;
-    // this.authService.changePassword(this.profile.login, this.oldPassword, this.newPassword)
-    //   .subscribe(
-    //   () => {
-    //     this.activeModal.close();
-    //   }, (error) => {
-    //     this.busy = false;
-    //     this.loginError = true;
-    //     this.errorMessage = 'Nieprawidłowe dane';
-    //   });
+    this.authService.changePassword(this.authService.profile.login, this.oldPassword, this.newPassword)
+      .subscribe(
+      () => {
+        this.busy = false;
+        this.activeModal.close();
+      }, (error) => {
+        this.busy = false;
+        this.loginError = true;
+        this.errorMessage = 'Nieprawidłowe dane';
+      });
   }
 }

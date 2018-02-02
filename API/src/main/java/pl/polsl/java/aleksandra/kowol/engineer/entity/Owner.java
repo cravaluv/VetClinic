@@ -32,8 +32,8 @@ public class Owner {
     @JsonIgnore
     private String password;
 
-    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Animal> animals;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(referencedColumnName = "idAddress")
@@ -139,6 +139,16 @@ public class Owner {
         result = 31 * result + (login != null ? login.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
         return result;
+    }
+
+    public void update(Owner owner) {
+        this.name = owner.name;
+        this.surname = owner.surname;
+        this.tel = owner.tel;
+        this.onlineReg = owner.onlineReg;
+        this.login = owner.login;
+        this.password = owner.password;
+        this.address = owner.address;
     }
 
 

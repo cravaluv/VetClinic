@@ -11,25 +11,36 @@ import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
-import pl.polsl.java.aleksandra.kowol.engineer.entity.Animal;
-import pl.polsl.java.aleksandra.kowol.engineer.entity.Owner;
-import pl.polsl.java.aleksandra.kowol.engineer.entity.Visit;
+import pl.polsl.java.aleksandra.kowol.engineer.entity.*;
 import pl.polsl.java.aleksandra.kowol.engineer.service.AnimalService;
+import pl.polsl.java.aleksandra.kowol.engineer.service.CommonService;
 import pl.polsl.java.aleksandra.kowol.engineer.service.VisitService;
 
 @RestController
-@CrossOrigin(origins = "*")
 @RequestMapping("/visits")
 public class VisitController  {
 
     private VisitService visitService;
+
+    private AnimalService animalService;
+
+    private CommonService commonService;
 
     @Autowired
     public void setVisitService(VisitService visitService) {
         this.visitService = visitService;
     }
 
-    // -------------------Get all visits---------------------------------------------
+    @Autowired
+    public void setAnimalService(AnimalService animalService) {
+        this.animalService = animalService;
+    }
+
+    @Autowired
+    public void setCommonService(CommonService commonService) {
+        this.commonService = commonService;
+    }
+
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public ResponseEntity<List<Visit>> listAllVisits() {
@@ -37,27 +48,82 @@ public class VisitController  {
         return new ResponseEntity<>(visits, HttpStatus.OK);
     }
 
-    // -------------------Create an visit-------------------------------------------
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public ResponseEntity<?> addVisit(@RequestBody Visit visit) {
-        visit.setDate(visit.getDate());
+    @RequestMapping(value = "/add/{animalId}", method = RequestMethod.POST)
+    public ResponseEntity<?> addVisit(@PathVariable("animalId") int animalId, @RequestBody Visit visit) {
+        Animal animal = animalService.findAnimalById(animalId);
+        visit.setAnimal(animal);
+        animal.getVisits().add(visit);
         visitService.saveVisit(visit);
         return new ResponseEntity<>(visit, HttpStatus.CREATED);
     }
 
-    // -------------------Get daily visits-------------------------------------------
     @RequestMapping(value = "/day/{date}", method = RequestMethod.GET)
-    public ResponseEntity<List<Visit>> listDayVisit(@PathVariable("date") Date date) {
+    public ResponseEntity<List<Visit>> listDayVisit(@PathVariable("date") String date) {
         List<Visit> visits = visitService.getVisitByDate(date);
         return new ResponseEntity<>(visits, HttpStatus.OK);
     }
 
-    // -------------------Get daily visits-------------------------------------------
-    @RequestMapping(value = "/animal/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}/animal", method = RequestMethod.GET)
     public ResponseEntity<Animal> listAnimalByVisitId(@PathVariable("id") int id) {
-        Animal animal = visitService.getAnimalByVisitId(id);
-        return new ResponseEntity<>(animal, HttpStatus.OK);
+        Visit visit = visitService.getVisitById(id);
+        return new ResponseEntity<>(visit.getAnimal(), HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/current_week", method = RequestMethod.GET)
+    public ResponseEntity<List<Visit>> listVisitsByCurrentWeek() {
+        List<Visit> visits = visitService.getVisitByCurrentWeek();
+        return new ResponseEntity<>(visits, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<?> updateVisit(@PathVariable("id") int id, @RequestBody Visit visit) {
+            Visit visitToUpdate = visitService.getVisitById(id);
+            if (visitToUpdate != null) {
+                visitToUpdate.update(visit);
+                visitService.saveVisit(visitToUpdate);
+            }
+            return new ResponseEntity<>(visit, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/{id}/medicines", method = RequestMethod.GET)
+    public ResponseEntity<?> listMedicinesByVisitId(@PathVariable("id") int id) {
+        Visit visit = visitService.getVisitById(id);
+        return new ResponseEntity<>(visit.getMedicines(), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/{idVisit}/add/medicine/{idMedicine}", method = RequestMethod.POST)
+    public ResponseEntity<?> addMedicineToVisit(@PathVariable("idVisit") int idVisit, @PathVariable("idMedicine") int idMedicine, @RequestBody int amount) {
+        Visit visit = visitService.getVisitById(idVisit);
+        Medicine medicine = commonService.findMedicineById(idMedicine);
+        VisitMedicine visitMedicine = new VisitMedicine();
+        visitMedicine.setVisit(visit);
+        visitMedicine.setMedicine(medicine);
+        visitMedicine.setAmount(amount);
+        medicine.setAmount(medicine.getAmount() - amount);
+        visit.getMedicines().add(visitMedicine);
+        visitService.saveVisit(visit);
+        commonService.saveMedicine(medicine);
+
+        return new ResponseEntity<>(visitMedicine, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/medicine/delete", method = RequestMethod.DELETE)
+    public ResponseEntity<?> deleteVisitMedicine(@RequestBody VisitMedicine visitMedicine) {
+        Visit visit = visitMedicine.getVisit();
+        Medicine medicine = visitMedicine.getMedicine();
+        medicine.setAmount(medicine.getAmount() + visitMedicine.getAmount());
+        visit.getMedicines().remove(visitMedicine);
+        commonService.saveMedicine(medicine);
+        return new ResponseEntity<>(visit, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/today", method = RequestMethod.GET)
+    public ResponseEntity<?> listTodayVisit() {
+        List<Visit> todayVisits = visitService.getTodayVisits();
+        return new ResponseEntity<>(todayVisits, HttpStatus.OK);
+    }
+
+
 
     //    // -------------------Get a User-------------------------------------------
 //    @RequestMapping(value = "/{id}", method = RequestMethod.GET)

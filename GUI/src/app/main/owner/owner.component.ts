@@ -4,11 +4,11 @@ import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { Owner } from '../../core/models/owner';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap/modal/modal';
 import { OwnerEditComponent } from './owner-edit.component';
+import { OwnerAnimalsComponent } from '../owner/owner-animals.component';
 
 @Component({
   selector: 'app-owner',
-  templateUrl: './owner.component.html',
-  styleUrls: ['./owner.component.scss']
+  templateUrl: './owner.component.html'
 })
 export class OwnerComponent implements OnInit {
 
@@ -20,8 +20,10 @@ export class OwnerComponent implements OnInit {
   // paging
   p = 1;
 
+  busy = false;
+
   // filter panel
-  open = true;
+  open = false;
 
   filterName: string;
   filterAddress: string;
@@ -36,10 +38,9 @@ export class OwnerComponent implements OnInit {
 
   add() {
     const modal = this.modalService.open(OwnerEditComponent, { size: 'lg' });
-    modal.componentInstance.editMode = false;
+    modal.componentInstance.mode = 'NEW';
 
-    modal.result.then((result) => {
-      this.ownerService.addOwner(result);
+    modal.result.then(() => {
       this.getOwners();
     }, (reason) => {
     });
@@ -53,8 +54,7 @@ export class OwnerComponent implements OnInit {
     const modal = this.modalService.open(OwnerEditComponent, { size: 'lg' });
     modal.componentInstance.model = owner;
 
-    modal.result.then((result) => {
-      this.ownerService.update(result);
+    modal.result.then(() => {
       this.getOwners();
     }, (reason) => {
     });
@@ -62,7 +62,7 @@ export class OwnerComponent implements OnInit {
 
   searchButtonClick() {
     if (this.filterName || this.filterAddress) {
-      this.owners.filter(owner => {
+      this.filteredItems = this.owners.filter(owner => {
         let nameKeys, addressKeys, name, address;
         if (this.filterName) {
           nameKeys = this.filterName.split(' ');
@@ -72,8 +72,8 @@ export class OwnerComponent implements OnInit {
           addressKeys = this.filterAddress.split(' ');
           address = owner.address.address + ' ' + owner.address.city;
         }
-        if ((addressKeys.length === 0 || addressKeys.some(element => address.includes(element))) &&
-          (nameKeys.length === 0 || nameKeys.some(element => name.includes(element)))) {
+        if ((!addressKeys || addressKeys.some(element => address.includes(element))) &&
+          (!nameKeys || nameKeys.some(element => name.includes(element)))) {
           return true;
         }
         return false;
@@ -88,12 +88,25 @@ export class OwnerComponent implements OnInit {
   }
 
   getOwners() {
+    this.busy = true;
     this.ownerService.getOwners().subscribe((data) => {
       this.owners = Object.keys(data).map((key) => data[key]);
       this.filteredItems = this.owners;
+      this.busy = false;
     },
       (error) => {
         console.log(error);
+        this.busy = false;
       });
+  }
+
+  showAnimals(owner: Owner) {
+    const modal = this.modalService.open(OwnerAnimalsComponent, { size: 'lg' });
+    modal.componentInstance.owner = owner;
+
+    modal.result.then(() => {
+      // this.getOwners();
+    }, (reason) => {
+    });
   }
 }

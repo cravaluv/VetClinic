@@ -5,9 +5,9 @@
   </button>
 </div>
 <div class="modal-body">
-  <ngb-tabset>
+  <!-- <ngb-tabset>
     <ngb-tab title="DANE">
-      <ng-template ngbTabContent>
+      <ng-template ngbTabContent> -->
         <form #petForm="ngForm" class="m-3">
           <div class="row">
             <div class="col-md-6 mb-3">
@@ -30,7 +30,7 @@
           <div class="row">
             <div class="col-md-2 mb-3">
               <label class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="active" [checked]="modelCopy.active" (change)="modelCopy.active = !modelCopy.active">
+                <input type="checkbox" class="custom-control-input" id="active" [disabled]="mode === 'EDIT' || mode === 'VIEW'" [checked]="modelCopy.active" (change)="modelCopy.active = !modelCopy.active">
                 <label class="custom-control-label" for="active">Aktywne</label>
               </label>
             </div>
@@ -48,9 +48,9 @@
             </div>
           </div>
         </form>
-      </ng-template>
+      <!-- </ng-template>
     </ngb-tab>
-    <ngb-tab title="WIZYTY">
+    <ngb-tab [disabled]="this.mode === 'NEW'" title="WIZYTY">
       <ng-template ngbTabContent>
         <div class="mt-2">
           <button class="btn btn-success" [hidden]="mode === 'VIEW'" (click)="addVisit()">Nowa</button>
@@ -65,7 +65,7 @@
             <tbody>
               <tr *ngFor="let visit of modelCopy.visits" (dblclick)="updateVisit(visit)">
                 <th>{{visit.date | date:'d-MM-y, HH:mm'}}</th>
-                <td>{{visit.visitType}}</td>
+                <td>{{visit.visitType.type}}</td>
                 <td>{{visit.description}}</td>
               </tr>
             </tbody>
@@ -73,7 +73,7 @@
         </div>
       </ng-template>
     </ngb-tab>
-  </ngb-tabset>
+  </ngb-tabset> -->
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-success" (click)="onSubmit()">Zatwierdź</button>

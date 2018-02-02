@@ -7,22 +7,17 @@ import org.springframework.data.repository.query.Param;
 import pl.polsl.java.aleksandra.kowol.engineer.entity.Animal;
 import pl.polsl.java.aleksandra.kowol.engineer.entity.Visit;
 
-import java.util.Date;
 import java.util.List;
 
 
 public interface VisitRepository extends JpaRepository<Visit, Integer> {
 
-    /**
-     * Finds persons by using the last name as a search criteria.
-     * @param lastName
-     * @return  A list of persons which last name is an exact match with the given last name.
-     *          If no persons is found, this method returns an empty list.
-     */
-    @Query("select v from Visit v where v.date like ?1")
+    @Query(value="SELECT * FROM veterinary_clinic.visit WHERE DATE(`date`) = ?1", nativeQuery=true)
     public List<Visit> findVisitByDate(String date);
 
-    @Query("select a from Visit v join v.animal a where v.idVisit = :id")
-    public Animal getAnimalByVisitId(@Param("id") int id);
+    @Query(value="SELECT * FROM veterinary_clinic.visit WHERE DATE(`date`) = CURDATE()", nativeQuery=true)
+    public List<Visit> findTodayVisit();
 
+    @Query(value="SELECT * FROM veterinary_clinic.visit WHERE YEARWEEK(`date`, 1) = YEARWEEK(CURDATE(), 1)", nativeQuery=true)
+    public List<Visit> getVisitsByCurrentWeek();
 }

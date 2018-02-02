@@ -11,6 +11,7 @@ import { AuthGuardService as AuthGuard } from '../auth/auth-guard.service';
 import { RoleGuardService as RoleGuard } from '../auth/role-guard.service';
 import { CustomerComponent } from './customer/customer.component';
 import { OwnPetsComponent } from './own-animals/own-pets.component';
+import { AddVisitComponent } from './add-visit/add-visit.component';
 
 const routes: Routes = [
 
@@ -53,7 +54,7 @@ const routes: Routes = [
         component: PersonnelComponent,
         canActivate: [RoleGuard],
         data: {
-          expectedRole: 'employee'
+          expectedRole: 'admin'
         }
       },
       {
@@ -79,7 +80,15 @@ const routes: Routes = [
         data: {
           expectedRole: 'customer'
         }
-      },
+      }
+      // {
+      //   path: 'reservation',
+      //   component: AddVisitComponent,
+      //   canActivate: [RoleGuard],
+      //   data: {
+      //     expectedRole: 'customer'
+      //   }
+      // }
     ]
   }
 

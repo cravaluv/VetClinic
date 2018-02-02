@@ -24,57 +24,76 @@
       <div class="row">
         <div class="col-md-3 mb-2 form-group">
           <select class="form-control mt-2" [(ngModel)]="filterType">
-            <option selected></option>
-            <option *ngFor="let type of visitTypes">{{type.name}}</option>
+            <option selected disabled [ngValue]="undefined">Wybierz typ wizyty...</option>
+            <option *ngFor="let type of visitTypes" [ngValue]="type">{{type.type}}</option>
           </select>
         </div>
-        <div class="col-md-2 mb-2 form-group">
-          <div class="input-group">
-            <input class="form-control mt-2" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="dateFrom" ngbDatepicker #dFrom="ngbDatepicker">
+        <div class="mb-2 form-group">
+          <div class="input-group mt-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text text-muted">Od</div>
+            </div>
+            <input class="form-control col-md-5" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="dateFrom" ngbDatepicker #dFrom="ngbDatepicker">
             <div class="input-group-append">
-              <button class="btn btn-outline-primary mt-2" (click)="dFrom.toggle()" type="button">
+              <button class="btn btn-outline-primary" (click)="dFrom.toggle()" type="button">
                 <i class="fa fa-calendar" aria-hidden="true"></i>
               </button>
             </div>
           </div>
         </div>
-        <div class="col-md-2 mb-2 form-group">
-            <div class="input-group">
-            <input class="form-control mt-2" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="dateTo" ngbDatepicker #dTo="ngbDatepicker">
+        <div class="mb-2 form-group">
+          <div class="input-group mt-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text text-muted">Do</div>
+            </div>
+            <input class="form-control col-md-5" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="dateTo" ngbDatepicker #dTo="ngbDatepicker">
             <div class="input-group-append">
-              <button class="btn btn-outline-primary mt-2" (click)="dTo.toggle()" type="button">
+              <button class="btn btn-outline-primary" (click)="dTo.toggle()" type="button">
                 <i class="fa fa-calendar" aria-hidden="true"></i>
               </button>
+            </div>
           </div>
         </div>
       </div>
-      </div>
     </div>
   </div>
+  <div class="float-right mr-5 row">
+    <button class="btn btn-outline-secondary btn-sm refresh-button" (click)="getData()" [disabled]="busy">
+      <i class="fa fa-spinner" [ngClass]="{'fa-pulse': busy}"></i>
+    </button>
+    <pagination-controls *ngIf="filteredItems" previousLabel="" nextLabel="" (pageChange)="p = $event"></pagination-controls>
+  </div>
   <table class="table mt-3 table-striped table-hover">
-    <thead>
+    <thead class="bg-dark text-light">
       <tr>
         <th scope="col">Data</th>
         <th scope="col">Typ</th>
         <th scope="col">Opis</th>
+        <th scope="col"></th>
         <th scope="col"></th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let visit of filteredItems | paginate: { itemsPerPage: 10, currentPage: p }" (dblclick)="update(visit)">
         <td>{{visit.date | date:'d-MM-y, HH:mm'}}</td>
-        <td>{{visit.visitType.name}}</td>
+        <td>{{visit.visitType.type}}</td>
         <td>
-          <button class="btn btn-outline-dark" #p="ngbPopover" style="border: 0;" [ngbPopover]="popContent" placement="auto" (click)="showPopover(visit.description)">...</button>
+          <button class="btn btn-outline-dark" placement="top" triggers="mouseenter:mouseleave" [ngbPopover]="visit.description">...</button>
         </td>
         <td>
-          <button class="btn btn-outline-dark" (document:click)="p.close()" (click)="showAnimal(visit.idVisit)">Zwierzę</button>
+          <button class="btn btn-outline-dark" (click)="showAnimal(visit.idVisit)">Zwierzę</button>
+        </td>
+        <td>
+          <button class="btn btn-outline-dark" (click)="showMedicines(visit)">Leki</button>
         </td>
       </tr>
     </tbody>
   </table>
+  <span *ngIf="!filteredItems?.length" class="text-secondary pl-3">
+    <i class="fa fa-info-circle text-danger"></i>
+    Tabela jest pusta
+  </span>
+  <div class="float-right mr-5">
+    <pagination-controls *ngIf="filteredItems" previousLabel="" nextLabel="" (pageChange)="p = $event"></pagination-controls>
+  </div>
 </div>
-
-<ng-template #popContent>
-  {{selectedDescription}}
-</ng-template>

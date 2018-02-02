@@ -14,6 +14,7 @@ export class Animal {
     constructor() {
         this.color = new Color();
         this.animalType = new AnimalType();
+        this.active = true;
     }
 }
 

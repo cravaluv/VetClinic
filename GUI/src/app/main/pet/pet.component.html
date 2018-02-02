@@ -28,26 +28,34 @@
         </div>
       </div>
   </div>
-  <!-- <button class="btn btn-success" (click)="add()">Dodaj</button> -->
+  <div class="float-right mr-5 row">
+      <button class="btn btn-outline-secondary btn-sm refresh-button" (click)="getAnimals()" [disabled]="busy"><i class="fa fa-spinner" [ngClass]="{'fa-pulse': busy}"></i></button>
+      <pagination-controls *ngIf="filteredItems" previousLabel="" nextLabel="" (pageChange)="p = $event"></pagination-controls>
+    </div>
+
   <table class="table mt-3 table-striped table-hover">
-    <thead class="thead-dark">
+    <thead class="bg-dark text-light">
       <tr>
         <th scope="col">Imię</th>
         <th scope="col">Typ</th>
+        <th scope="col">Kolor</th>
         <th scope="col">Data urodzenia</th>
         <th scope="col">Aktywne</th>
-        <th scope="col">Kolor</th>
+        <th scope="col"></th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let animal of filteredItems | paginate: { itemsPerPage: 10, currentPage: p }" [class.table-active]="selected === animal" (click)="selected = animal" (dblclick)="update(animal)">
         <td>{{animal.name}}</td>
-        <td>{{animal.animalType.name}}</td>
+        <td>{{animal.animalType.type}}</td>
+        <td>{{animal.color.color}}</td>
         <td>{{animal.birthDate | date:'fullDate'}}</td>
         <td>
           <i [ngClass]="{'fa' : true, 'fa-check text-success': animal.active,'fa-times text-danger': !animal.active}" aria-hidden="true"></i>
         </td>
-        <td>{{animal.color.name}}</td>
+        <td>
+          <button class="btn btn-outline-dark" (click)="showVisits(animal)">Wizyty</button>
+        </td>
       </tr>
     </tbody>
   </table>

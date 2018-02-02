@@ -29,6 +29,10 @@ import { CommonService } from '../core/services/common.service';
 import { CustomerComponent } from './customer/customer.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { OwnPetsComponent } from './own-animals/own-pets.component';
+import { OwnerAnimalsComponent } from './owner/owner-animals.component';
+import { PetVisitsComponent } from './pet/pet-visits.component';
+import { AnimalScheduleComponent } from './schedule/animal-schedule.component';
+import { AddVisitComponent } from './add-visit/add-visit.component';
 
 @NgModule({
     imports: [
@@ -58,11 +62,16 @@ import { OwnPetsComponent } from './own-animals/own-pets.component';
         DictionaryComponent,
         CustomerComponent,
         ChangePasswordComponent,
-        OwnPetsComponent
+        OwnPetsComponent,
+        OwnerAnimalsComponent,
+        PetVisitsComponent,
+        AnimalScheduleComponent,
+        AddVisitComponent
     ],
     providers: [OwnerService, AnimalService, VisitService, PersonnelService, CommonService,
      {provide: NgbDateAdapter, useClass: DatepickerAdapterService}],
     entryComponents: [OwnerEditComponent, PetEditComponent, VisitEditComponent, PersonnelEditComponent, DictionaryComponent,
-      ChangePasswordComponent]
+      ChangePasswordComponent, OwnerAnimalsComponent, PetVisitsComponent, MedicineListComponent, AnimalScheduleComponent, AddVisitComponent,
+      CustomerComponent]
 })
 export class MainModule { }

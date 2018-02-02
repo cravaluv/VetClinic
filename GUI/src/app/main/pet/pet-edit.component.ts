@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { OwnerService } from '../../core/services/owner.service';
 import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { Animal, AnimalType, Color } from '../../core/models/animal';
@@ -8,6 +8,8 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { VisitEditComponent } from '../visit/visit-edit.component';
 import { Visit } from '../../core/models/visit';
 import { CommonService } from '../../core/services/common.service';
+import { AnimalService } from '../../core/services/animal.service';
+import { Owner } from '../../core/models/owner';
 
 @Component({
   selector: 'app-pet-edit',
@@ -16,7 +18,12 @@ import { CommonService } from '../../core/services/common.service';
 export class PetEditComponent implements OnInit {
 
   @Input() model: Animal;
+  @Input() owner: Owner;
   @Input() mode: 'NEW' | 'EDIT' | 'VIEW';
+
+  @ViewChild('petForm') form: any;
+
+  submitted = false;
 
   modalTitle = {
     'NEW': 'DODAJ ZWIERZĘ',
@@ -30,7 +37,8 @@ export class PetEditComponent implements OnInit {
 
   colors: Color[] = [];
 
-  constructor(private activeModal: NgbActiveModal, private modalService: NgbModal, private commonService: CommonService) {
+  constructor(private activeModal: NgbActiveModal, private modalService: NgbModal, private animalService: AnimalService,
+    private commonService: CommonService) {
   }
 
   ngOnInit(): void {
@@ -39,9 +47,6 @@ export class PetEditComponent implements OnInit {
     } else {
       this.modelCopy = _.clone(this.model);
       this.modelCopy.birthDate = new Date(this.modelCopy.birthDate);
-      this.modelCopy.visits.forEach(visit => {
-        visit.date = new Date(visit.date);
-      });
     }
     this.commonService.getDictionary('ANIMAL_TYPES').subscribe(data => {
       this.animalTypes = Object.keys(data).map((key) => data[key] as AnimalType);
@@ -59,31 +64,32 @@ export class PetEditComponent implements OnInit {
   }
 
   onSubmit() {
-    this.activeModal.close(this.modelCopy);
+    this.submitted = true;
+    if (this.form.valid) {
+      if (this.mode === 'NEW') {
+        this.animalService.addAnimal(this.modelCopy, this.owner.idOwner).subscribe(
+          res => {
+            this.activeModal.close();
+          },
+          err => {
+            console.log("Error occured");
+          }
+        );
+      } else {
+        this.animalService.update(this.modelCopy).subscribe(
+          res => {
+            this.activeModal.close();
+          },
+          err => {
+            console.log("Error occured");
+          }
+        );
+      }
+    }
+    this.activeModal.close();
   }
 
   onDismiss() {
     this.activeModal.dismiss();
-  }
-
-  addVisit() {
-    const modal = this.modalService.open(VisitEditComponent, { size: 'lg' });
-    modal.componentInstance.editMode = false;
-
-    modal.result.then((result) => {
-      this.modelCopy.visits.push(result);
-    }, (reason) => {
-    });
-  }
-
-  updateVisit(visit: Visit) {
-    const modal = this.modalService.open(VisitEditComponent, { size: 'lg' });
-    modal.componentInstance.model = visit;
-
-    modal.result.then((result) => {
-      const index = this.modelCopy.visits.indexOf(visit);
-      this.modelCopy.visits[index] = result;
-    }, (reason) => {
-    });
   }
 }

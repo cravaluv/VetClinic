@@ -1,21 +1,97 @@
 <div class="mx-4 my-2">
-        <div class="mb-2 p-1 bg-dark rounded">
+    <div class="mb-2 p-1 bg-dark rounded">
+        <h1 class="text-light">WIZYTY</h1>
+        <form class="form-inline">
+            <button class="btn btn-sm btn-outline-light" (click)="showDayVisits(); view = 'day'" [disabled]="view === 'day'">Widok dnia</button>
+            <button class="btn btn-sm btn-outline-light ml-2" (click)="showWeekVisits(); view = 'week'" [disabled]="view === 'week'">Widok tygodnia</button>
+        </form>
+        <div class="card-header">
+            <button type="button" class="btn btn-link btn-sm" [hidden]="open" (click)="open = !open">
+                <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                POKAŻ FILTRY
+            </button>
+            <button type="button" class="btn btn-link btn-sm" [hidden]="!open" (click)="open = !open">
+                <i class="fa fa-chevron-up" aria-hidden="true"></i>
+                UKRYJ FILTRY
+            </button>
+            <button type="button" class="btn btn-primary btn-sm" [hidden]="!open" (click)="searchButtonClick()">
+                <i class="fa fa-search" aria-hidden="true"></i>
+                WYSZUKAJ
+            </button>
 
-        <h1 class="text-light">GRAFIK</h1>
+            <button type="button" class="btn btn-outline-secondary btn-sm" [hidden]="!open" (click)="clearFilter()">
+                <i class="fa fa-eraser" aria-hidden="true"></i>
+                WYCZYŚĆ
+            </button>
 
-            <form class="form-inline">
-                <button class="btn btn-sm btn-outline-light" (click)="view = 'day'; viewDate = today" [disabled]="view === 'day'">Widok dnia</button>
-                <button class="btn btn-sm btn-outline-light ml-2" (click)="view = 'week'; viewDate = today" [disabled]="view === 'week'">Widok tygodnia</button>
-            </form>
-
+        </div>
+        <div [hidden]="!open" class="card-header">
+            <div class="row">
+                <div class="col-md-3 mb-2 form-group">
+                    <select class="form-control mt-2" [(ngModel)]="filterType">
+                        <option selected ngValue=undefined>Wybierz typ wizyty...</option>
+                        <option *ngFor="let type of visitTypes" [ngValue]="type">{{type.type}}</option>
+                    </select>
+                </div>
+                <div class="col-md-2 mb-2 form-group">
+                    <div class="input-group">
+                        <input class="form-control mt-2" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="dateFrom" ngbDatepicker #dFrom="ngbDatepicker">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-primary mt-2" (click)="dFrom.toggle()" type="button">
+                                <i class="fa fa-calendar" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 mb-2 form-group">
+                    <div class="input-group">
+                        <input class="form-control mt-2" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="dateTo" ngbDatepicker #dTo="ngbDatepicker">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-primary mt-2" (click)="dTo.toggle()" type="button">
+                                <i class="fa fa-calendar" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div [ngSwitch]="view">
-        <mwl-calendar-week-view *ngSwitchCase="'week'" [viewDate]="viewDate" [events]="events">
-        </mwl-calendar-week-view>
-        <mwl-calendar-day-view *ngSwitchCase="'day'" [viewDate]="viewDate" [events]="events" [hourSegments]="4" [dayStartHour]="9"
-            [dayEndHour]="17" (hourSegmentClicked)="onSegmentClick($event)">
-        </mwl-calendar-day-view>
+    <div class="float-right mr-5 row">
+        <button class="btn btn-outline-secondary btn-sm refresh-button" (click)="getVisits()" [disabled]="busy"><i class="fa fa-spinner" [ngClass]="{'fa-pulse': busy}"></i></button>
+        <pagination-controls *ngIf="filteredItems" previousLabel="" nextLabel="" (pageChange)="p = $event"></pagination-controls>
     </div>
-    <!-- <mwl-calendar-day-view [viewDate]="viewDate" [events]="events" [hourSegments]="4" [dayStartHour]="9" [dayEndHour]="17" (hourSegmentClicked)="onSegmentClick($event)">
-    </mwl-calendar-day-view> -->
+    <table class="table mt-3 table-striped table-hover">
+        <thead class="bg-dark text-light">
+            <tr>
+                <th scope="col">Data</th>
+                <th scope="col">Typ</th>
+                <th scope="col">Opis</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let visit of filteredItems | paginate: { itemsPerPage: 10, currentPage: p }" (dblclick)="update(visit)">
+                <td>{{visit.date | date:'d-MM-y, HH:mm'}}</td>
+                <td>{{visit.visitType.type}}</td>
+                <td>
+                    <button class="btn btn-outline-dark" placement="top" triggers="mouseenter:mouseleave" [ngbPopover]="visit.description">...</button>
+                </td>
+                <td>
+                    <button class="btn btn-outline-dark" (click)="showAnimal(visit.idVisit)">Zwierzę</button>
+                </td>
+                <td>
+                    <button class="btn btn-outline-dark" (click)="showMedicines(visit)">Leki</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <span *ngIf="!filteredItems?.length" class="text-secondary pl-3">
+            <i class="fa fa-info-circle text-danger"></i>
+            Tabela jest pusta
+          </span>
+    <div class="float-right mr-5">
+        <pagination-controls *ngIf="filteredItems" previousLabel="" nextLabel="" (pageChange)="p = $event"></pagination-controls>
+    </div>
 </div>

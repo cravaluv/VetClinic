@@ -14,6 +14,4 @@ public interface OwnerService {
 
     void saveOwner(Owner owner);
 
-    Owner findOwnerByLogin(String login);
-
 }

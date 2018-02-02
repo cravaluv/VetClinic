@@ -8,7 +8,6 @@ export class Owner {
     tel: string;
     onlineReg: boolean;
     login?: string;
-    password?: string;
     address?: Address;
     animals: Animal[] = [];
 

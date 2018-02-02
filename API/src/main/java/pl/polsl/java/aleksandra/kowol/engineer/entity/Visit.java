@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -14,14 +15,14 @@ public class Visit {
     private int idVisit;
     @Basic
     @Column(name = "date", nullable = false)
-    private Timestamp date;
+    private Date date;
     @Basic
-    @Column(name = "description", nullable = false, length = 254)
+    @Column(name = "description")
     private String description;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "visit_medicine", joinColumns = @JoinColumn(name = "visit_id", referencedColumnName = "idVisit"), inverseJoinColumns = @JoinColumn(name = "medicine_id", referencedColumnName = "idMedicine"))
-    private List<Medicine> medicines;
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "id.visit", cascade = CascadeType.ALL)
+    private List<VisitMedicine> medicines;
 //
 //    @ManyToMany(cascade = CascadeType.ALL)
 //    @JoinTable(name = "visit_disease", joinColumns = @JoinColumn(name = "visit_id", referencedColumnName = "idVisit"), inverseJoinColumns = @JoinColumn(name = "disease_id", referencedColumnName = "idDisease"))
@@ -32,8 +33,8 @@ public class Visit {
     @JsonBackReference
     private Animal animal;
 
-    @ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(referencedColumnName = "idVisitType")
+    @ManyToOne(cascade=CascadeType.MERGE)
+    @JoinColumn(name = "idVisitType")
     private VisitType visitType;
 
     public int getIdVisit() {
@@ -45,7 +46,7 @@ public class Visit {
     }
 
 
-    public Timestamp getDate() {
+    public Date getDate() {
         return date;
     }
 
@@ -85,11 +86,16 @@ public class Visit {
         return result;
     }
 
-    public List<Medicine> getMedicines() {
+    public void update(Visit visit) {
+        this.date = visit.date;
+        this.description = visit.description;
+    }
+
+    public List<VisitMedicine> getMedicines() {
         return medicines;
     }
 
-    public void setMedicines(List<Medicine> medicines) {
+    public void setMedicines(List<VisitMedicine> medicines) {
         this.medicines = medicines;
     }
 //

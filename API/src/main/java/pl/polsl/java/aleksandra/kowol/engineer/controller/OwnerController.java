@@ -2,32 +2,34 @@ package pl.polsl.java.aleksandra.kowol.engineer.controller;
 
 import java.util.List;
 
-import org.mindrot.jbcrypt.BCrypt;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
-import pl.polsl.java.aleksandra.kowol.engineer.entity.Animal;
 import pl.polsl.java.aleksandra.kowol.engineer.entity.Owner;
+import pl.polsl.java.aleksandra.kowol.engineer.service.AuthService;
 import pl.polsl.java.aleksandra.kowol.engineer.service.OwnerService;
 
+@CrossOrigin
 @RestController
-@CrossOrigin(origins = "*")
 @RequestMapping("/owners")
 public class OwnerController  {
 
     private OwnerService ownerService;
+    private AuthService authService;
 
     @Autowired
     public void setOwnerService(OwnerService ownerService) {
         this.ownerService = ownerService;
     }
 
-    // -------------------Retrieve All Users---------------------------------------------
+    @Autowired
+    public void setPersonnelService(AuthService authService) {
+        this.authService = authService;
+    }
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public ResponseEntity<List<Owner>> listAllOwners() {
@@ -35,41 +37,49 @@ public class OwnerController  {
         return new ResponseEntity<>(owners, HttpStatus.OK);
     }
 
-    // -------------------Create a User-------------------------------------------
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public ResponseEntity<?> createUser(@RequestBody Owner owner) {
         if (owner.getOnlineReg()) {
-            String hashed = BCrypt.hashpw(owner.getPassword(), BCrypt.gensalt());
+            if (!this.authService.isUniqueLogin(owner.getLogin())) {
+                return new ResponseEntity<>("Change login.", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+            String password = owner.getName().substring(0, Math.min(owner.getName().length(), 3)) +
+                    owner.getSurname().substring(0, Math.min(owner.getName().length(), 3));
+            String hashed = DigestUtils.sha256Hex(password);
             owner.setPassword(hashed);
         }
         ownerService.saveOwner(owner);
         return new ResponseEntity<>(owner, HttpStatus.CREATED);
     }
 
-    // -------------------Get a User-------------------------------------------
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> getOwner(@PathVariable("id") int id) {
+    public ResponseEntity<?> getOwnerById(@PathVariable("id") int id) {
         Owner owner = ownerService.findOwnerById(id);
         return new ResponseEntity<>(owner, HttpStatus.OK);
     }
 
-    // UPDATE
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
-    public ResponseEntity<?> createAnimal(@PathVariable("id") int id, @RequestBody Owner owner, UriComponentsBuilder ucBuilder) {
-        if (ownerService.findOwnerById(id) != null ) {
-            ownerService.saveOwner(owner);
-
-            HttpHeaders headers = new HttpHeaders();
-            headers.setLocation(ucBuilder.path("/owners/{id}").buildAndExpand(owner.getIdOwner()).toUri());
-            return new ResponseEntity<String>(headers, HttpStatus.OK);
+    public ResponseEntity<?> createAnimal(@PathVariable("id") int id, @RequestBody Owner owner) {
+        Owner ownerToUpdate = ownerService.findOwnerById(id);
+        if (ownerToUpdate != null ) {
+            if (owner.getOnlineReg() && !ownerToUpdate.getOnlineReg()) {
+                if (!this.authService.isUniqueLogin(owner.getLogin())) {
+                    return new ResponseEntity<>("Change login.", HttpStatus.INTERNAL_SERVER_ERROR);
+                }
+                String password = owner.getName().substring(0, Math.min(owner.getName().length(), 3)) +
+                        owner.getSurname().substring(0, Math.min(owner.getName().length(), 3));
+                String hashed = DigestUtils.sha256Hex(password);
+                owner.setPassword(hashed);
+            }
+            ownerToUpdate.update(owner);
+            ownerService.saveOwner(ownerToUpdate);
+            return new ResponseEntity<>(ownerToUpdate, HttpStatus.OK);
         } else return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @RequestMapping(value = "/{id}/animals", method = RequestMethod.GET)
     public ResponseEntity<?> getOwnerAnimals(@PathVariable("id") int id) {
-//        logger.info("Fetching User with id {}", id);
         Owner owner = ownerService.findOwnerById(id);
-        List<Animal> animals = owner.getAnimals();
-        return new ResponseEntity<>(animals, HttpStatus.OK);
+        return new ResponseEntity<>(owner.getAnimals(), HttpStatus.OK);
     }
 }

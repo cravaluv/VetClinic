@@ -4,10 +4,11 @@ import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { Animal } from '../../core/models/animal';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap/modal/modal';
 import { PetEditComponent } from './pet-edit.component';
+import { PetVisitsComponent } from './pet-visits.component';
 
 @Component({
   selector: 'app-pet',
-  templateUrl: './pet.component.html',
+  templateUrl: './pet.component.html'
 })
 export class PetComponent implements OnInit {
 
@@ -15,11 +16,13 @@ export class PetComponent implements OnInit {
   filteredItems: Animal[] = [];
   selected: Animal;
 
+  busy = false;
+
   // paging
   p = 1;
 
   // filter panel
-  open = true;
+  open = false;
 
   filterName: string;
 
@@ -27,22 +30,12 @@ export class PetComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.animalService.getAnimals().subscribe((data) => {
-      this.animals = Object.keys(data).map((key) => {
-        // Formatowanie daty string => Date
-        data[key].birthDate = new Date(data[key].birthDate);
-        return data[key];
-      });
-      this.filteredItems = this.animals;
-    },
-      (error) => {
-        console.log(error);
-      });
+    this.getAnimals();
   }
 
   searchButtonClick() {
     if (this.filterName) {
-      this.animals.filter(animal => animal.name.includes(this.filterName));
+      this.filteredItems = this.animals.filter(animal => animal.name.toLowerCase().indexOf(this.filterName.toLowerCase()) !== -1);
     }
   }
 
@@ -60,5 +53,32 @@ export class PetComponent implements OnInit {
       this.animalService.update(result);
     }, (reason) => {
     });
+  }
+
+  showVisits(animal: Animal) {
+    const modal = this.modalService.open(PetVisitsComponent, { size: 'lg' });
+    modal.componentInstance.animal = animal;
+
+    modal.result.then(() => {
+      // this.getOwners();
+    }, (reason) => {
+    });
+  }
+
+  getAnimals() {
+    this.busy = true;
+    this.animalService.getAnimals().subscribe((data) => {
+      this.animals = Object.keys(data).map((key) => {
+        // Formatowanie daty string => Date
+        data[key].birthDate = new Date(data[key].birthDate);
+        return data[key];
+      });
+      this.filteredItems = this.animals;
+      this.busy = false;
+    },
+      (error) => {
+        console.log(error);
+        this.busy = false;
+      });
   }
 }

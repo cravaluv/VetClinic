@@ -8,26 +8,15 @@ export class Personnel {
   login: string;
   password: string;
   address: Address;
-  roles: Role[];
-  schedules: Schedule[];
-  visits: Visit[];
+  role: Role;
 
   constructor() {
     this.address = new Address();
-    this.roles = [];
-    this.schedules = [];
-    this.visits = [];
+    this.role = new Role();
   }
 }
 
 export class Role {
   idRole: number;
   name: string;
-  personnels: Personnel[];
-}
-
-export class Schedule {
-  idSchedule: number;
-  date: Date;
-  personnel: Personnel;
 }

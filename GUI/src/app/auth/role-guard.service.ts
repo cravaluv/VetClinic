@@ -8,13 +8,12 @@ export class RoleGuardService implements CanActivate {
   constructor(public auth: AuthService, public router: Router) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    // if (!this.auth.isLoggedOn() || route.data.expectedRole !== this.auth.getRole()) {
-    //   this.router.navigate(['login']);
-    //   return false;
-    // } else {
-    //   return false;
-    // }
-    return true;
+    if (!this.auth.isLoggedIn() || route.data.expectedRole !== this.auth.getUserRole()) {
+      this.router.navigate(['login']);
+      return false;
+    } else {
+      return true;
+    }
   }
 
 }

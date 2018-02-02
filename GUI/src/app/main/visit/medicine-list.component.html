@@ -1,53 +1,58 @@
-<div class="form-row align-items-center m-0">
-  <div class="row mt-2">
-    <div class="col-md-6">
-      <select class="form-control custom-select" id="inlineFormInput" (change)="select($event)" [value]="selectedName">
-        <option disabled selected [value]="null">Wybierz lek...</option>
-        <option *ngFor="let medicine of medicineList" [ngValue]="medicine">{{medicine.name}} | {{medicine.amount}}</option>
-      </select>
-    </div>
-    <div class="col-md-3">
-      <input type="number" class="form-control" [(ngModel)]="selectedAmount">
-    </div>
+<div class="modal-header">
+  <h4 class="modal-title">LEKI WIZYTY</h4>
+  <button type="button" class="close" (click)="onDismiss()" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div *ngIf="mode === 'EDIT'" class="form-row align-items-center mb-2">
+    <div class="row mt-2">
+      <div class="col-md-6">
+        <select class="form-control custom-select" id="inlineFormInput" [(ngModel)]="selectedMed">
+          <option disabled selected [value]="null">Wybierz lek...</option>
+          <option *ngFor="let medicine of medicineList" [ngValue]="medicine">{{medicine.name}} | {{medicine.amount}}</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <input type="number" class="form-control" min="0" [(ngModel)]="selectedAmount">
+      </div>
 
-    <div class="col-md-3">
-      <button type="submit" class="btn btn-outline-primary" [disabled]="!selectedMed || !selectedAmount" (click)="add()" translate>DODAJ
-      </button>
+      <div class="col-md-3">
+        <button type="submit" class="btn btn-outline-primary" [disabled]="!selectedMed || !selectedAmount || selectedAmount > selectedMed.amount"
+          (click)="add()">DODAJ
+        </button>
+      </div>
     </div>
   </div>
+
+  <table *ngIf="visitMedicines?.length > 0" class="table table-hover table-sm">
+
+    <thead>
+      <tr>
+        <th scope="col" translate>Nazwa</th>
+        <th scope="col" translate>Ilość</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let medicine of visitMedicines">
+        <td>{{medicine.medicine.name}}</td>
+        <td>{{medicine.amount}}</td>
+        <!-- <td>
+          <button type="button" class="btn btn-sm btn-outline-danger pt-0 pb-0" (click)="delete(medicine)">
+            <i class="fa fa-trash-o"></i>
+          </button>
+        </td> -->
+      </tr>
+    </tbody>
+  </table>
+
+  <span *ngIf="!visitMedicines?.length" class="text-secondary pl-3">
+    <i class="fa fa-info-circle text-primary"></i>
+    Tabela leków jest pusta
+  </span>
 </div>
-
-<span *ngIf="duplicate" class="text-secondary pl-3">
-  <i class="fa fa-exclamation-circle text-primary"></i>
-  Wybrany lek istnieje już na liście
-</span>
-
-<br />
-
-<table *ngIf="selectedMedicines.length" class="table table-hover table-sm">
-
-  <thead>
-    <tr>
-      <th scope="col" translate>Nazwa</th>
-      <th scope="col" translate>Ilość</th>
-      <th scope="col"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <tr *ngFor="let medicine of selectedMedicines">
-      <td>{{medicine.name}}</td>
-      <td>{{medicine.amount}}</td>
-      <td>
-        <button type="button" class="btn btn-sm btn-outline-danger pt-0 pb-0" (click)="delete(medicine)">
-          <i class="fa fa-trash-o"></i>
-        </button>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-<span *ngIf="selectedMedicines.length === 0" class="text-secondary pl-3">
-  <i class="fa fa-info-circle text-primary"></i>
-  Tabela leków jest pusta
-</span>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="onDismiss()">Zamknij</button>
+  </div>

@@ -8,7 +8,6 @@ export class RequestInterceptor implements HttpInterceptor {
   constructor(private injector: Injector) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (req.url.includes('auth/login')) { return next.handle(req); }
     const auth = this.injector.get(AuthService);
     const authReq = req.clone({
       headers: req.headers.set('Authorization', 'Basic ' + auth.getAuthorizationHeader())

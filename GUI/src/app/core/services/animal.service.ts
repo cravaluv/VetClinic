@@ -20,28 +20,20 @@ export class AnimalService {
         return this.http.get(this.animalUrl + endPoint);
     }
 
-    addAnimal(animal: Animal) {
-        const endPoint = 'add';
-        return this.http.post(this.animalUrl + endPoint, animal).subscribe(
-            res => {
-              console.log(res);
-            },
-            err => {
-              console.log("Error occured");
-            }
-          );
+    addAnimal(animal: Animal, idOwner: number) {
+        const endPoint = 'add/' + idOwner;
+        return this.http.post(this.animalUrl + endPoint, animal);
     }
 
     update(animal: Animal) {
         const endPoint = 'update/';
-        return this.http.post(this.animalUrl + endPoint + animal.idAnimal, animal).subscribe(
-            res => {
-              console.log(res);
-            },
-            err => {
-              console.log("Error occured");
-            }
-          );
+        return this.http.put(this.animalUrl + endPoint + animal.idAnimal, animal);
     }
+
+    getAnimalVisits(animalId: number) {
+      const endPoint = 'visits/' + animalId;
+      return this.http.get(this.animalUrl + endPoint);
+  }
+
 }
 

@@ -28,6 +28,14 @@ public class Address {
     @OneToMany(mappedBy = "address")
     private Set<Personnel> personnel;
 
+    public Address() {};
+
+    public Address(String address, String city, String postalCode) {
+        this.address = address;
+        this.city = city;
+        this.postalCode = postalCode;
+    }
+
 
     public int getIdAddress() {
         return idAddress;

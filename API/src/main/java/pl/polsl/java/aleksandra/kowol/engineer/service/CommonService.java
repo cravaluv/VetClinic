@@ -26,4 +26,5 @@ public interface CommonService {
     List<VisitType> findAllVisitType();
 
     void saveVisitType(VisitType visitType);
+
 }

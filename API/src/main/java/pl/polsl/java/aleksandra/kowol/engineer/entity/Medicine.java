@@ -1,5 +1,7 @@
 package pl.polsl.java.aleksandra.kowol.engineer.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -9,7 +11,7 @@ public class Medicine {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="idMedicine")
-    private int idMedicine;
+    private int idMedicines;
     @Basic
     @Column(name = "name", nullable = false, length = 45)
     private String name;
@@ -17,22 +19,27 @@ public class Medicine {
 //    @Column(name = "description", nullable = false, length = 254)
 //    private String description;
     @Basic
-    @Column(name = "amount", nullable = false)
+    @Column(nullable = false)
     private int amount;
-    @Basic
-    @Column(name = "minAmount", nullable = false)
-    private int minAmount;
 //
 //    @ManyToMany(mappedBy = "medicines")
 //    private List<Visit> visits;
 
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "id.medicine")
+    private List<VisitMedicine> visits;
+
+    @Basic
+    @Column(name = "min_amount")
+    private int minNumber;
+
 
     public int getIdMedicines() {
-        return idMedicine;
+        return idMedicines;
     }
 
     public void setIdMedicines(int idMedicines) {
-        this.idMedicine = idMedicines;
+        this.idMedicines = idMedicines;
     }
 
 
@@ -45,15 +52,6 @@ public class Medicine {
     }
 
 
-//    public String getDescription() {
-//        return description;
-//    }
-//
-//    public void setDescription(String description) {
-//        this.description = description;
-//    }
-
-
     public int getAmount() {
         return amount;
     }
@@ -62,12 +60,20 @@ public class Medicine {
         this.amount = amount;
     }
 
-    public int getMinAmount() {
-        return minAmount;
+    public int getMinNumber() {
+        return minNumber;
     }
 
-    public void setMinAmount(int minAmout) {
-        this.minAmount = minAmount;
+    public void setMinNumber(int minNumber) {
+        this.minNumber = minNumber;
+    }
+
+    public List<VisitMedicine> getVisits() {
+        return visits;
+    }
+
+    public void setVisits(List<VisitMedicine> visits) {
+        this.visits = visits;
     }
 
     @Override
@@ -77,19 +83,19 @@ public class Medicine {
 
         Medicine medicine = (Medicine) o;
 
-        if (idMedicine != medicine.idMedicine) return false;
+        if (idMedicines != medicine.idMedicines) return false;
         if (amount != medicine.amount) return false;
-        if (minAmount != medicine.minAmount) return false;
+        if (minNumber != medicine.minNumber) return false;
         if (name != null ? !name.equals(medicine.name) : medicine.name != null) return false;
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = idMedicine;
+        int result = idMedicines;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + amount;
-        result = 31 * result + minAmount;
+        result = 31 * result + minNumber;
         return result;
     }
 

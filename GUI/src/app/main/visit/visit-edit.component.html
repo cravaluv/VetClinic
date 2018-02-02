@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h4 class="modal-title">{{editMode ? 'EDYTUJ WIZYTĘ' : 'DODAJ WIZYTĘ'}}</h4>
+  <h4 class="modal-title">{{modalTitle[mode]}}</h4>
   <button type="button" class="close" aria-label="Close" (click)="onDismiss()">
     <span aria-hidden="true">&times;</span>
   </button>
@@ -11,10 +11,10 @@
         <form #ownerForm="ngForm" class="m-3">
           <div class="row">
             <div class="col-md-6 mb-3 form-group">
-                <label for="type">Typ</label>
-                <select class="form-control" id="type" [(ngModel)]="modelCopy.visitType" name="type" #type="ngModel">
-                  <option *ngFor="let type of visitTypes" [ngValue]="type" [selected]="type.type === modelCopy.visitType.type">{{type.type}}</option>
-                </select>
+              <label for="type">Typ</label>
+              <select class="form-control" id="type" [disabled]="mode === 'VIEW'" [(ngModel)]="modelCopy.visitType" name="type" #type="ngModel">
+                <option *ngFor="let type of visitTypes" [ngValue]="type" [selected]="type.type === modelCopy.visitType.type">{{type.type}}</option>
+              </select>
 
               <div *ngIf="type.invalid && (type.dirty || type.touched || submitted)" class="invalid-feedback">
                 <div *ngIf="type?.errors.required">
@@ -26,37 +26,33 @@
           </div>
           <div class="row">
             <div class="col-md-3 mb-3">
-              <label for="name">Data wizyty</label>
+              <label for="date">Data wizyty</label>
               <div class="input-group">
-                <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="modelCopy.date" (ngModelChange)="getAvailableHours($event)"
-                  ngbDatepicker #d="ngbDatepicker">
+                <input class="form-control" placeholder="yyyy-mm-dd" [disabled]="mode === 'VIEW'" id="dp" name="dp" required [(ngModel)]="modelCopy.date" (ngModelChange)="getAvailableHours($event)"
+                  ngbDatepicker #d="ngbDatepicker" #dp="ngModel">
                 <div class="input-group-append">
                   <button class="btn btn-outline-primary" (click)="d.toggle()" type="button">
                     <i class="fa fa-calendar" aria-hidden="true"></i>
                   </button>
                 </div>
               </div>
+              <div *ngIf="dp.invalid && (dp.dirty || dp.touched || submitted)" class="invalid-feedback">
+                <div *ngIf="dp?.errors.required">
+                  Data wizyty jest wymagana.
+                </div>
+              </div>
+              </div>
+              <div class="col-md-3 mb-3">
+                <label for="name">Godzina wizyty</label>
+                <select class="custom-select" [disabled]="mode === 'VIEW'" (change)="onChange($event)">
+                  <option *ngFor="let hour of availableHours" [ngValue]="hour">{{hour | date:'HH:mm'}}</option>
+                </select>
+              </div>
             </div>
-            <div class="col-md-3 mb-3">
-              <label for="name">Godzina wizyty</label>
-              <select class="custom-select" (change)="onChange($event)">  
-                <option *ngFor="let hour of availableHours" [ngValue]="hour">{{hour | date:'HH:mm'}}</option>
-              </select>
-            </div>
-          </div>
+          <textarea class="form-control mt-3" rows="5" [readOnly]="mode === 'VIEW'" [(ngModel)]="modelCopy.description"></textarea>
         </form>
       </ng-template>
     </ngb-tab>
-    <ngb-tab [disabled]="editMode" title="LEKI">
-      <ng-template ngbTabContent>
-        <app-medicine-list [model]="modelCopy.medicines" [medicines]="medicines"></app-medicine-list>
-      </ng-template>
-    </ngb-tab>
-    <ngb-tab [disabled]="editMode" title="OPIS">
-        <ng-template ngbTabContent>
-            <textarea class="form-control mt-3" rows="5" [(ngModel)]="modelCopy.description"></textarea>
-        </ng-template>
-      </ngb-tab>
   </ngb-tabset>
 </div>
 <div class="modal-footer">

@@ -16,7 +16,7 @@ import { PetEditComponent } from '../pet/pet-edit.component';
 export class OwnerEditComponent implements OnInit {
 
   @Input() model: Owner;
-  @Input() editMode = true;
+  @Input() mode: 'NEW' | 'EDIT' | 'VIEW';
 
   modelCopy: Owner;
   animals: Animal[] = [];
@@ -24,29 +24,53 @@ export class OwnerEditComponent implements OnInit {
   animalsFetched = false;
   busy = false;
 
+  hasAccount = false;
+
   @ViewChild('ownerForm') form: any;
 
   submitted = false;
+
+  loginDuplicateInfo = false;
 
   constructor(private activeModal: NgbActiveModal, private modalService: NgbModal, private ownerService: OwnerService) {
   }
 
   ngOnInit(): void {
-    this.editMode ? this.modelCopy = _.clone(this.model) : this.modelCopy = new Owner();
+    this.mode === 'NEW' ? this.modelCopy = new Owner() : this.modelCopy = _.clone(this.model);
+    if (this.modelCopy.onlineReg) {
+      this.hasAccount = true;
+    }
   }
 
   registerChange() {
     this.modelCopy.onlineReg = !this.modelCopy.onlineReg;
     this.form.controls['login'].setValidators(this.modelCopy.onlineReg ? Validators.required : null);
     this.form.controls['login'].updateValueAndValidity();
-    this.form.controls['password'].setValidators(this.modelCopy.onlineReg ? Validators.required : null);
-    this.form.controls['password'].updateValueAndValidity();
   }
 
   onSubmit() {
     this.submitted = true;
     if (this.form.valid) {
-      this.activeModal.close(this.modelCopy);
+      if (this.mode === 'NEW') {
+        this.ownerService.addOwner(this.modelCopy).subscribe(
+          res => {
+            this.activeModal.close();
+          },
+          err => {
+            this.loginDuplicateInfo = true;
+            console.log("Error occured");
+          }
+        );
+      } else {
+        this.ownerService.update(this.modelCopy).subscribe(
+          res => {
+            this.activeModal.close();
+          },
+          err => {
+            console.log("Error occured");
+          }
+        );
+      }
     }
   }
 
@@ -61,8 +85,8 @@ export class OwnerEditComponent implements OnInit {
     modal.componentInstance.model = animal;
 
     modal.result.then((result) => {
-      this.modelCopy.animals[this.modelCopy.animals.indexOf(previousAnimal)] = result;
-      // this.ownerService.update(result);
+      // this.modelCopy.animals[this.modelCopy.animals.indexOf(previousAnimal)] = result;
+      // // this.ownerService.update(result);
     }, (reason) => {
     });
   }
@@ -70,6 +94,7 @@ export class OwnerEditComponent implements OnInit {
   addAnimal() {
     const modal = this.modalService.open(PetEditComponent, { size: 'lg' });
     modal.componentInstance.mode = 'NEW';
+    modal.componentInstance.ownerId = this.modelCopy.idOwner;
 
     modal.result.then((result) => {
       this.modelCopy.animals.push(result);

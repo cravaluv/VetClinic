@@ -1,5 +1,7 @@
 package pl.polsl.java.aleksandra.kowol.engineer.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;
@@ -14,8 +16,18 @@ public class Role {
     @Column(name = "name", nullable = false, length = 45)
     private String name;
 
-    @ManyToMany(mappedBy = "roles")
+    @JsonIgnore
+    @OneToMany(mappedBy = "role")
     private List<Personnel> personnels;
+
+    public Role(){
+
+    }
+
+    public Role(String name) {
+        this.name = name;
+    }
+
 
 
     public int getIdRole() {

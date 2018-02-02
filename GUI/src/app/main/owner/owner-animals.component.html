@@ -1,0 +1,41 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{owner.name | uppercase}} {{owner.surname | uppercase}} - ZWIERZĘTA</h4>
+  <button type="button" class="close" aria-label="Close" (click)="onDismiss()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="mt-2">
+    <div class="mb-2 p-1 bg-dark rounded">
+      <button class="btn btn-success" (click)="add()">Dodaj</button>
+      <!-- <button class="btn btn-danger" (click)="deleteAnimal()" [disabled]="!selected">Usuń</button> -->
+    </div>
+    <table class="table mt-3 table-striped table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Imię</th>
+          <th scope="col">Typ</th>
+          <th scope="col">Data urodzenia</th>
+          <th scope="col">Aktywne</th>
+          <th scope="col">Kolor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let animal of animals" [class.table-active]="selected === animal" (click)="selected = animal" (dblclick)="update(animal)">
+          <td>{{animal.name}}</td>
+          <td>{{animal.animalType.type}}</td>
+          <td>{{animal.birthDate | date:'fullDate'}}</td>
+          <td>
+            <i [ngClass]="{'fa' : true, 'fa-check text-success': animal.active,'fa-times text-danger': !animal.active}" aria-hidden="true"></i>
+          </td>
+          <td>{{animal.color.color}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-success" (click)="onSubmit()">Zatwierdź</button>
+  <button type="button" class="btn btn-outline-dark" (click)="onDismiss()">Zamknij</button>
+</div>

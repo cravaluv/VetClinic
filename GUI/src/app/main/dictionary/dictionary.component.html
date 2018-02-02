@@ -18,16 +18,17 @@
 
         <div *ngIf="mode === 'MEDICINES'" class="col-md-2 mb-3">
           <label for="surname">Min. liczba</label>
-          <input type="number" class="form-control" [(ngModel)]="minAmount">
+          <input type="number" min="0" class="form-control" [(ngModel)]="minAmount">
         </div>
 
         <div *ngIf="mode === 'MEDICINES'" class="col-md-2 mb-3">
           <label for="surname">Liczba</label>
-          <input type="number" class="form-control" [(ngModel)]="amount">
+          <input type="number" min="0" class="form-control" [(ngModel)]="amount">
         </div>
 
         <div class="col-md-4 mb-3 mt-4">
-          <button type="submit" class="btn btn-primary" [disabled]="!newValue || (mode === 'MEDICINES' && amount === 0)" (click)="add()">DODAJ
+          <button type="submit" class="btn btn-primary" [disabled]="!newValue || (mode === 'MEDICINES' && amount === 0) || busy" (click)="add()">
+            <i [hidden]="!busy" class="fa fa-spinner fa-pulse"></i>DODAJ
           </button>
         </div>
       </div>
@@ -51,8 +52,8 @@
 
         <tbody>
           <tr *ngFor="let dictVal of dictionary" [ngClass]="{'table-danger': mode === 'MEDICINES' && dictVal.minAmount >= dictVal.amount }">
-            <td >{{dictVal[modes[mode].attr]}}</td>
-            <td *ngIf="mode === 'MEDICINES'">{{dictVal.minAmount}}</td>
+            <td>{{dictVal[modes[mode].attr]}}</td>
+            <td *ngIf="mode === 'MEDICINES'">{{dictVal.minNumber }}</td>
             <td *ngIf="mode === 'MEDICINES'">{{dictVal.amount}}</td>
           </tr>
         </tbody>

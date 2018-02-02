@@ -79,7 +79,7 @@
           <div class="row">
             <div class="col-md-6 mb-3">
               <label for="login">Login</label>
-              <input id="login" name="login" class="form-control" required [class.is-invalid]="login.invalid && (login.touched || submitted)"
+              <input id="login" name="login" class="form-control" required [disabled]="editMode" [class.is-invalid]="login.invalid && (login.touched || submitted)"
                 [class.is-valid]="login.valid && (login.touched || submitted)" [(ngModel)]="modelCopy.login" #login="ngModel">
 
               <div *ngIf="login.invalid && (login.dirty || login.touched || submitted)" class="invalid-feedback">
@@ -89,16 +89,17 @@
               </div>
             </div>
             <div class="col-md-6 mb-3">
-              <label for="password">Hasło</label>
-              <input id="password" name="password" class="form-control" required [class.is-invalid]="password.invalid && (password.touched || submitted)"
-                [class.is-valid]="password.valid && (password.touched || submitted)" [(ngModel)]="modelCopy.password" #password="ngModel">
-
-              <div *ngIf="password.invalid && (password.dirty || password.touched || submitted)" class="invalid-feedback">
-                <div *ngIf="password?.errors.required">
-                  Hasło jest wymagane.
+                <label for="role">Rola</label>
+                <select id="role" name="role" class="form-control" required [class.is-invalid]="role.invalid && (role.touched || submitted)"
+                  [class.is-valid]="role.valid && (role.touched || submitted)" [(ngModel)]="modelCopy.role" #role="ngModel">
+                  <option *ngFor="let role of roles" [ngValue]="role" [selected]="role.name === modelCopy.role.name">{{role.name}}</option>
+                  </select>
+                <div *ngIf="role.invalid && (role.dirty || role.touched || submitted)" class="invalid-feedback">
+                  <div *ngIf="role?.errors.required">
+                    Rola jest wymagana.
+                  </div>
                 </div>
               </div>
-            </div>
           </div>
         </form>
       </ng-template>

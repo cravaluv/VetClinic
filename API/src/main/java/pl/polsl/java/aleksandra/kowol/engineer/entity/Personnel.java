@@ -21,19 +21,32 @@ public class Personnel {
     @Column(name = "surname", nullable = false, length = 45)
     private String surname;
     @Basic
-    @Column(name = "login", nullable = true, length = 45)
+    @Column(name = "login", nullable = true)
     private String login;
     @JsonIgnore
     @Basic
-    @Column(name = "password", nullable = true, length = 45)
+    @Column(name = "password", nullable = true)
     private String password;
 
-    @ManyToOne
-    @JoinColumn(name = "id_address", referencedColumnName = "idAddress", nullable = false)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(referencedColumnName = "idAddress")
     private Address address;
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "personnel_role", joinColumns = @JoinColumn(name = "personnel_id", referencedColumnName = "idPersonnel"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "idRole"))
-    private List<Role> roles;
+
+    @ManyToOne(cascade=CascadeType.MERGE)
+    @JoinColumn(referencedColumnName = "idRole")
+    private Role role;
+
+    public Personnel() {};
+
+    public Personnel(String name, String surname, String login, String password, Address address, Role role) {
+
+        this.name = name;
+        this.surname = surname;
+        this.login = login;
+        this.password = password;
+        this.address = address;
+        this.role = role;
+    }
 
     public int getIdPersonnel() {
         return idPersonnel;
@@ -113,12 +126,12 @@ public class Personnel {
         this.address = address;
     }
 
-    public List<Role> getRoles() {
-        return roles;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
 }

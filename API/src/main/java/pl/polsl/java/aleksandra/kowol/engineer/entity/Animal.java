@@ -27,21 +27,18 @@ public class Animal {
     private boolean active;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     @JoinColumn(name="idOwner")
-    @JsonBackReference
 //    @JoinColumn(referencedColumnName = "idOwner")
 	private Owner owner;
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne(cascade=CascadeType.MERGE)
     @JoinColumn(referencedColumnName = "idAnimalType")
     private AnimalType animalType;
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne(cascade=CascadeType.MERGE)
     @JoinColumn(referencedColumnName = "idColor")
     private Color color;
-    @ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(referencedColumnName = "idAnimalRace")
-    private AnimalRace animalRace;
-    @OneToMany(mappedBy = "animal", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @OneToMany(mappedBy = "animal", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Visit> visits;
 
 //    public Animal(Animal animal) {
@@ -109,15 +106,6 @@ public class Animal {
     }
 
 
-    public AnimalRace getAnimalRace() {
-        return animalRace;
-    }
-
-    public void setAnimalRace(AnimalRace animalRace) {
-        this.animalRace = animalRace;
-    }
-
-
     public Owner getOwner() {
         return owner;
     }
@@ -137,12 +125,11 @@ public class Animal {
 
     public void update(Animal animal) {
         this.active = animal.active;
-        this.animalRace = animal.animalRace;
         this.animalType = animal.animalType;
         this.birthDate = animal.birthDate;
         this.color = animal.color;
         this.name = animal.name;
-        this.visits = animal.visits;
+//        this.visits = animal.visits;
     }
 
     @Override

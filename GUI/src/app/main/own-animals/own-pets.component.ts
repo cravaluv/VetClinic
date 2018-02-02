@@ -5,6 +5,8 @@ import { Animal } from '../../core/models/animal';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap/modal/modal';
 import { PetEditComponent } from '../pet/pet-edit.component';
 import { OwnerService } from '../../core/services/owner.service';
+import { AuthService } from '../../auth/auth.service';
+import { PetVisitsComponent } from '../pet/pet-visits.component';
 
 @Component({
   selector: 'app-own-pets',
@@ -19,45 +21,32 @@ export class OwnPetsComponent implements OnInit {
   // paging
   p = 1;
 
-  // filter panel
-  open = true;
+  busy = false;
 
-  filterName: string;
-
-  constructor(private ownerService: OwnerService, private modalService: NgbModal) {
+  constructor(private ownerService: OwnerService, private modalService: NgbModal, private authService: AuthService) {
   }
 
   ngOnInit(): void {
-    // this.animalService.getOwnerAnimals().subscribe((data) => {
-    //   this.animals = Object.keys(data).map((key) => {
-    //     // Formatowanie daty string => Date
-    //     data[key].birthDate = new Date(data[key].birthDate);
-    //     return data[key];
-    //   });
-    //   this.filteredItems = this.animals;
-    // },
-    //   (error) => {
-    //     console.log(error);
-    //   });
+    this.ownerService.getOwnerAnimals(this.authService.getUserId()).subscribe((data) => {
+      this.animals = Object.keys(data).map((key) => {
+        // Formatowanie daty string => Date
+        data[key].birthDate = new Date(data[key].birthDate);
+        return data[key];
+      });
+      this.filteredItems = this.animals;
+    },
+      (error) => {
+        console.log(error);
+      });
   }
 
-  newAnimal(animal: Animal) {
-    const modal = this.modalService.open(PetEditComponent, { size: 'lg' });
-    modal.componentInstance.model = animal;
-    modal.componentInstance.mode = 'VIEW';
+  showVisits(animal: Animal) {
+    const modal = this.modalService.open(PetVisitsComponent, { size: 'lg' });
+    modal.componentInstance.animal = animal;
+    modal.componentInstance.view = 'VIEW';
 
-    modal.result.then((result) => {
-      // this.ownerService.addAnimalToOwner(result);
-    }, (reason) => {
-    });
-  }
-
-  openAnimal(animal: Animal) {
-    const modal = this.modalService.open(PetEditComponent, { size: 'lg' });
-    modal.componentInstance.model = animal;
-    modal.componentInstance.mode = 'VIEW';
-
-    modal.result.then((result) => {
+    modal.result.then(() => {
+      // this.getOwners();
     }, (reason) => {
     });
   }

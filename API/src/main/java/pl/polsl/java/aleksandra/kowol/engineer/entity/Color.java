@@ -33,7 +33,7 @@ public class Color {
         return color;
     }
 
-    public void setColor(String name) {
+    public void setColor(String color) {
         this.color = color;
     }
 

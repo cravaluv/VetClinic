@@ -6,42 +6,40 @@ import {
 } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import { RequestOptions } from '@angular/http';
+import { Personnel } from '../core/models/personnel';
+import { Owner } from '../core/models/owner';
 
 @Injectable()
 export class AuthService {
 
   redirectUrl: string;
 
-  private serviceUrl;
+  profile: Owner | Personnel;
+
+  private serviceUrl = 'http://localhost:8080/auth/';
 
   constructor(private router: Router, private http: HttpClient) {
   }
 
-  login(username, password): Observable<void> {
-    const headers = new HttpHeaders().set('Authorization', 'Basic ' + btoa(username + ':' + password));
-    const header2 = headers.set('Content-Type', 'application/x-www-form-urlencoded');
-    // const body = 'username=' + username + '&password=' + password;
-    const params = new HttpParams().set('username', username).set('password', password);
-    return this.http.get(this.serviceUrl, { headers: header2, params: params}).map((result) => {
-      // sessionStorage.setItem('login', 'true');
-      // let role;
-      // !result.role ? role = result.role ? role = "customer";
-      // sessionStorage.setItem('role', role);
+  login(login, password): Observable<void> {
+    return this.http.post(this.serviceUrl + 'login', {'login': login, 'password': password}).map((result) => {
+      const profile = result as Owner | Personnel;
+      sessionStorage.setItem('login', 'true');
+      (profile as Personnel).role ? sessionStorage.setItem('role', (profile as Personnel).role.name) :
+        sessionStorage.setItem('role', 'customer');
+        this.setUserId(profile);
+        this.router.navigate(['']);
     });
   }
 
   getAuthorizationHeader(): string {
-    return '';
+    return btoa('veterinary' + ':' + 'clinic');
   }
 
-  isLoggedOn(): boolean {
+  isLoggedIn(): boolean {
     const isLogged = sessionStorage.getItem('login');
     return isLogged === 'true' ? true : false;
-  }
-
-  getRole(): string {
-    const role = sessionStorage.getItem('role');
-    return role;
   }
 
   logout() {
@@ -50,16 +48,37 @@ export class AuthService {
   }
 
   changePassword(login: string, oldPassword: string, newPassword: string) {
-    const headers = new HttpHeaders().set('Authorization', 'Basic ');
-    const header2 = headers.set('Content-Type', 'application/x-www-form-urlencoded');
-    // const body = 'username=' + username + '&password=' + password;
-    const params = new HttpParams().set('login', login).set('oldPassword', oldPassword).set('newPassword', newPassword);
-    return this.http.get(this.serviceUrl, { headers: header2, params: params}).map((result) => {
-      // sessionStorage.setItem('login', 'true');
-      // let role;
-      // !result.role ? role = result.role ? role = "customer";
-      // sessionStorage.setItem('role', role);
+    return this.http.post(this.serviceUrl + 'login',
+        {'login': login, 'password': oldPassword, 'newPassword': newPassword});
+  }
+
+  getProfileInformation() {
+    let url;
+    if (this.getUserRole() === 'customer') {
+      url = 'http://localhost:8080/owners/' + this.getUserId();
+    } else {
+      url = 'http://localhost:8080/personnel/' + this.getUserId();
+    }
+    return this.http.get(url).map((result) => {
+      this.profile = result as Owner | Personnel;
     });
+  }
+
+  setUserId(user: Owner | Personnel) {
+    sessionStorage.setItem('profileId', this.getUserRole() === 'customer' ? (user as Owner).idOwner.toString() :
+      (user as Personnel).idPersonnel.toString());
+  }
+
+  getUserId(): string {
+    return sessionStorage.getItem('profileId');
+  }
+
+  getUserRole(): string {
+    return sessionStorage.getItem('role');
+  }
+
+  getProfileLogin() {
+    return this.profile.login;
   }
 
 }

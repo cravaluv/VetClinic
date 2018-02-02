@@ -1,0 +1,39 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{animal.name | uppercase}} - WIZYTY</h4>
+  <button type="button" class="close" aria-label="Close" (click)="onDismiss()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="mt-2">
+    <div class="mb-2 p-1 bg-dark rounded">
+      <button *ngIf="view === 'EDIT'" class="btn btn-success" (click)="add()">Dodaj</button>
+    </div>
+    <table class="table mt-3 table-striped table-hover">
+      <thead class="bg-dark text-light">
+        <tr>
+          <th scope="col">Data</th>
+          <th scope="col">Typ</th>
+          <th scope="col">Opis</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let visit of visits | paginate: { itemsPerPage: 10, currentPage: p }" (dblclick)="update(visit)">
+          <td>{{visit.date | date:'d-MM-y, HH:mm'}}</td>
+          <td>{{visit.visitType.type}}</td>
+          <td>
+            <button class="btn btn-outline-dark" placement="top" triggers="mouseenter:mouseleave" [ngbPopover]="visit.description">...</button>
+          </td>
+          <td>
+              <button class="btn btn-outline-dark" (click)="showMedicines(visit)">Leki</button>
+            </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-dark" (click)="onDismiss()">Zamknij</button>
+</div>

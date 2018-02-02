@@ -1,9 +1,15 @@
 import { Component } from '@angular/core';
 import { OwnerService } from '../../core/services/owner.service';
 import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
-import { Visit } from '../../core/models/visit';
+import { Visit, VisitType } from '../../core/models/visit';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap/modal/modal';
 import { CalendarEvent } from 'angular-calendar';
+import { VisitService } from '../../core/services/visit.service';
+import { CommonService } from '../../core/services/common.service';
+import { MedicineListComponent } from '../visit/medicine-list.component';
+import { Animal } from '../../core/models/animal';
+import { AnimalScheduleComponent } from './animal-schedule.component';
+import { VisitEditComponent } from '../visit/visit-edit.component';
 // import { OwnerEditComponent } from './owner-edit.component';
 
 export const colors: any = {
@@ -40,80 +46,111 @@ export class ScheduleComponent implements OnInit {
     }
   ];
 
+  excludeDays: number[] = [0, 6];
+
   view = 'day';
 
 
   visits: Visit[] = [];
-  filter;
   selected: Visit;
 
-  filteredItems: Visit[];
-  p = 1;
-  pages = 4;
-  pageSize = 5;
-  pageNumber = 0;
-  currentIndex = 1;
-  items: Visit[];
-  pagesIndex: Array<number>;
-  pageStart = 1;
-  inputName = '';
+  filteredItems: Visit[] = [];
 
-  // Sortowanie
-  key: string;
-  reverse = false;
+  visitTypes: VisitType[] = [];
+  filterType: VisitType;
+  dateFrom: Date;
+  dateTo: Date;
+
+  busy = false;
+
+  p = 1;
 
   get today() {
     return new Date();
   }
 
-  constructor(private ownerService: OwnerService, private modalService: NgbModal) {
+  constructor(private visitService: VisitService, private commonService: CommonService, private modalService: NgbModal) {
   }
 
   ngOnInit(): void {
-
+    this.showDayVisits();
+    this.commonService.getDictionary('VISIT_TYPES').subscribe(data => {
+      this.visitTypes = Object.keys(data).map((key) => data[key] as VisitType);
+    },
+      (error) => {
+        console.log(error);
+      });
   }
 
-  onSegmentClick(event) {
-    const bbb = event;
+  showDayVisits() {
+    this.busy = true;
+    this.visitService.getTodayVisits().subscribe((data) => {
+      this.visits = Object.keys(data).map((key) => {
+        // Formatowanie daty string => Date
+        data[key].date = new Date(data[key].date);
+        return data[key];
+      });
+      this.filteredItems = this.visits.filter(visit => visit.date.getDate() === this.today.getDate());
+      this.busy = false;
+    },
+      (error) => {
+        console.log(error);
+        this.busy = false;
+      });
   }
 
-  // sort(key: string) {
-  //   this.key = key;
-  //   this.reverse = !this.reverse;
-  // }
+  showWeekVisits() {
+    this.busy = true;
+    this.visitService.getVisitsByCurrentWeek().subscribe((data) => {
+      this.visits = Object.keys(data).map((key) => {
+        // Formatowanie daty string => Date
+        data[key].date = new Date(data[key].date);
+        return data[key];
+      });
+      this.filteredItems = this.visits;
+      this.busy = false;
+    },
+      (error) => {
+        console.log(error);
+        this.busy = false;
+      });
+  }
 
-  // add() {
-  //   const modal = this.modalService.open(OwnerEditComponent, { size: 'lg' });
+  showMedicines(visit: Visit) {
+    const modal = this.modalService.open(MedicineListComponent, { size: 'lg' });
+    modal.componentInstance.mode = 'EDIT';
+    modal.componentInstance.visit = visit;
 
-  //   modal.result.then((result) => {
-  //     this.ownerService.addOwner(result);
-  //     this.getOwners();
-  //   }, (reason) => {
-  //   });
-  // }
+    modal.result.then((result) => {
+    }, (reason) => {
+    });
+  }
 
-  // onSelect(owner: Owner) {
-  //   this.selected = owner;
-  // }
+  update(visit: Visit) {
+    const modal = this.modalService.open(VisitEditComponent, { size: 'lg' });
+    modal.componentInstance.visit = visit;
+    modal.componentInstance.mode = 'EDIT';
 
-  // update(owner: Owner) {
-  //   const modal = this.modalService.open(OwnerEditComponent, { size: 'lg' });
-  //   modal.componentInstance.model = owner;
+    modal.result.then((result) => {
+      this.view === 'day' ? this.showDayVisits() : this.showWeekVisits();
+    }, (reason) => {
+    });
+  }
 
-  //   modal.result.then((result) => {
-  //     this.ownerService.update(result);
-  //     this.getOwners();
-  //   }, (reason) => {
-  //   });
-  // }
+  showAnimal(id: number) {
+    let animalToShow: Animal;
+    this.visitService.getAnimalByVisitId(id).subscribe((data) => {
+      animalToShow = data as Animal;
+      const modal = this.modalService.open(AnimalScheduleComponent, { size: 'lg' });
+      modal.componentInstance.animal = animalToShow;
+      modal.result.then((result) => {
+      }, (reason) => {
+      });
+    });
+  }
 
-  // getOwners() {
-  //   this.ownerService.getOwners().subscribe((data) => {
-  //     this.owners = Object.keys(data).map((key) => data[key]);
-  //     this.filteredItems = this.owners;
-  //   },
-  //     (error) => {
-  //       console.log(error);
-  //     });
-  // }
+  getVisits() {
+    this.view === 'day' ? this.showDayVisits() : this.showWeekVisits();
+  }
+
 }

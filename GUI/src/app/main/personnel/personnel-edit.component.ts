@@ -1,7 +1,7 @@
 import { Component, Input, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { OwnerService } from '../../core/services/owner.service';
 import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
-import { Personnel } from '../../core/models/personnel';
+import { Personnel, Role } from '../../core/models/personnel';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap/modal/modal';
 import * as _ from 'lodash';
 import { NgbActiveModal, NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
@@ -10,6 +10,8 @@ import { CalendarEvent } from 'angular-calendar';
 import { DatePipe } from '@angular/common';
 import { DatepickerAdapterService } from '../../ui/services/datepicker-adapter.service';
 import { VisitEditComponent } from '../visit/visit-edit.component';
+import { CommonService } from '../../core/services/common.service';
+import { PersonnelService } from '../../core/services/personnel.service';
 
 @Component({
   selector: 'app-personnel-edit',
@@ -20,6 +22,7 @@ export class PersonnelEditComponent implements OnInit {
 
   @Input() model: Personnel;
   @Input() editMode = true;
+  @Input() roles: Role[] = [];
 
   modelCopy: Personnel;
 
@@ -34,29 +37,19 @@ export class PersonnelEditComponent implements OnInit {
 
   submitted = false;
 
-  model2 = new Date();
-
   get today() {
     return new Date();
   }
 
-  constructor(private activeModal: NgbActiveModal, private modalService: NgbModal) {
+  constructor(private activeModal: NgbActiveModal, private modalService: NgbModal,
+    private commonService: CommonService, private personnelService: PersonnelService) {
   }
 
   ngOnInit(): void {
-    this.modelCopy = _.clone(this.model);
+    this.editMode ? this.modelCopy = _.clone(this.model) : this.modelCopy = new Personnel();
+
   }
 
-  selectToday() {
-    this.model2 = new Date();
-  }
-
-  onSegmentClick(event) {
-    // Wyszukaj wizytę z event.date
-    const ccc = event;
-    const modal = this.modalService.open(VisitEditComponent, { size: 'lg' });
-    modal.componentInstance.editMode = false;
-  }
 
   onSubmit() {
     this.submitted = true;
@@ -67,13 +60,5 @@ export class PersonnelEditComponent implements OnInit {
 
   onDismiss() {
     this.activeModal.dismiss();
-  }
-
-  addAnimal() {
-
-  }
-
-  deleteAnimal() {
-
   }
 }

@@ -64,6 +64,8 @@ export class DictionaryComponent implements OnInit {
       }
       this.dictionary.push(newObj);
       this.newValue = '';
+      this.minAmount = 0;
+      this.amount = 0;
     } else {
       this.duplicate = true;
     }

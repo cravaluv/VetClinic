@@ -3,26 +3,19 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap/modal/modal-ref';
 import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import * as _ from 'lodash';
-import { Medicine } from '../../core/models/visit';
+import { Medicine, Visit } from '../../core/models/visit';
 import { VisitMedicine } from '../../core/models/visit';
+import { CommonService } from '../../core/services/common.service';
+import { VisitService } from '../../core/services/visit.service';
 
 @Component({
   selector: 'app-medicine-list',
   templateUrl: './medicine-list.component.html',
 })
-export class MedicineListComponent {
-
-  @Input() model: VisitMedicine[];
-
-  _allMedicines: Medicine[];
-  @Input('medicines')
-  set medicines(value: Medicine[]) {
-    this._allMedicines = value;
-    if (this.model) {
-      this.selectedMedicines = _.clone(this.model);
-    }
-    this.getPropertyList();
-  }
+export class MedicineListComponent implements OnInit {
+  @Input() visit: Visit;
+  @Input() mode: 'EDIT' | 'VIEW' = 'EDIT';
+  visitMedicines: VisitMedicine[] = [];
 
   duplicate = false;
 
@@ -39,37 +32,63 @@ export class MedicineListComponent {
 
   form: FormGroup;
 
-  selectedMedicines: VisitMedicine[] = [];
+  medicines: Medicine[] = [];
+
+  constructor(private activeModal: NgbActiveModal, private commonService: CommonService, private visitService: VisitService) {
+  }
+
+  ngOnInit(): void {
+    this.refreshData();
+  }
 
   add() {
-    this.selectedMedicines.push(new VisitMedicine(this.selectedMed.name, this.selectedAmount));
-    const medToDelete = this.medicineList.find(m => m.name === this.selectedMed.name);
-    this.medicineList.splice(this.medicineList.indexOf(medToDelete), 1);
-    this.medicineList.length > 0 ? this.selectedMed = this.medicineList[0] : this.selectedMed = null;
+    const medToDelete = this.medicines.find(m => m.name === this.selectedMed.name);
+    this.visitService.addMedicineToVisit(this.visit.idVisit, medToDelete.idMedicines, this.selectedAmount).subscribe(
+      res => {
+        this.refreshData();
+        this.medicineList.length > 0 ? this.selectedMed = this.medicineList[0] : this.selectedMed = null;
+      },
+      err => {
+      }
+    );
   }
 
-  delete(medicine: VisitMedicine) {
-    this.selectedMedicines.splice(this.selectedMedicines.indexOf(medicine), 1);
-    const medToAdd = this._allMedicines.find(m => m.name === medicine.name);
-    this.medicineList.push(medToAdd);
-  }
+  // delete(medicine: VisitMedicine) {
+  //   // this.model.splice(this.model.indexOf(medicine), 1);
+  //   this.visitService.deleteMedicineInVisit(medicine).subscribe(
+  //     res => {
+  //       this.refreshData();
+  //       this.medicineList.length > 0 ? this.selectedMed = this.medicineList[0] : this.selectedMed = null;
+  //     },
+  //     err => {
+  //     }
+  //   );
+  // }
 
-  copyValues() {
-    this.model = this.selectedMedicines;
-  }
-
-  select(select) {
-    const selectedName = select.target.value.split(' | ');
-    this.selectedMed = this.medicineList.find(med => med.name === selectedName[0]);
-  }
 
   private getPropertyList() {
-    const modelMedicines = this.selectedMedicines;
-    this._allMedicines.forEach(v => {
-      if (!modelMedicines || !modelMedicines.find(p => p.name === v.name)) {
+    this.medicines.forEach(v => {
+      if (!this.visitMedicines || !this.visitMedicines.find(m => m.medicine.name === v.name)) {
         this.medicineList.push(v);
       }
     });
+  }
+
+  refreshData() {
+    this.visitService.getVisitMedicines(this.visit.idVisit).subscribe((data) => {
+      this.visitMedicines = data as VisitMedicine[];
+      this.commonService.getDictionary('MEDICINES').subscribe(dictionary => {
+        this.medicines = Object.keys(dictionary).map((key) => dictionary[key] as Medicine);
+        this.getPropertyList();
+      },
+        (error) => {
+          console.log(error);
+        });
+    });
+  }
+
+  onDismiss() {
+    this.activeModal.dismiss();
   }
 }
 

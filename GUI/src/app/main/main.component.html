@@ -8,35 +8,32 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
+      <li *ngIf="role === 'employee'" class="nav-item">
         <a class="nav-link" [routerLink]="['owners']">Właściciele</a>
       </li>
-      <li class="nav-item">
+      <li *ngIf="role === 'employee'" class="nav-item">
         <a class="nav-link" [routerLink]="['pets']">Zwierzęta</a>
       </li>
-      <li class="nav-item">
+      <li *ngIf="role === 'employee'" class="nav-item">
         <a class="nav-link" [routerLink]="['visits']">Wizyty</a>
       </li>
-      <li class="nav-item">
+      <li *ngIf="role === 'admin'" class="nav-item">
         <a class="nav-link" [routerLink]="['personnel']">Pracownicy</a>
       </li>
-      <li class="nav-item">
+      <li *ngIf="role === 'employee'" class="nav-item">
         <a class="nav-link" [routerLink]="['schedule']">Grafik</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['pets']">Zarezerwuj wizytę</a>
-      </li>
-      <li class="nav-item">
+      <li *ngIf="role === 'Klient'" class="nav-item">
         <a class="nav-link" [routerLink]="['my-pets']">Moje zwierzęta</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['pets']">Informacje</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['pets']">Moje konto</a>
-      </li>
+      <button *ngIf="role === 'Klient'" class="btn btn-link nav-link" (click)="makeReservation()">
+        Zarezerwuj wizytę
+      </button>
+      <button *ngIf="role === 'Klient'" class="btn btn-link nav-link" (click)="myData()">
+        Moje dane
+      </button>
 
-      <div ngbDropdown class="d-inline-block" placement="bottom-right">
+      <div *ngIf="role === 'employee'" ngbDropdown class="d-inline-block" placement="bottom-right">
         <button class="btn btn-link nav-link" id="dropdownBasic1" ngbDropdownToggle>
           Słowniki
         </button>
@@ -62,12 +59,11 @@
   <div ngbDropdown class="d-inline-block" placement="bottom-right">
     <button class="btn btn-link text-dark" id="dropdownBasic1" ngbDropdownToggle>
       <i class="fa fa-user" aria-hidden="true"></i>
-      TEST
+      {{profile?.login}}
     </button>
 
     <div ngbDropdownMenu aria-labelledby="dropdown_mod" class="p-3">
-      <h5>TEST</h5>
-      <a class="link" [routerLink]="['customer']">Moje konto</a>
+      <h5>{{role}}</h5>
       <div class="dropdown-divider"></div>
       <button class="btn btn-outline-dark btn-block" (click)="changePassword()">
         <i class="fa fa-key" aria-hidden="true"></i>

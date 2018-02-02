@@ -21,31 +21,22 @@ export class OwnerService {
 
     addOwner(owner: Owner) {
         const endPoint = 'add';
-        return this.http.post(this.ownerUrl + endPoint, owner).subscribe(
-            res => {
-              console.log(res);
-            },
-            err => {
-              console.log("Error occured");
-            }
-          );
+        return this.http.post(this.ownerUrl + endPoint, owner);
     }
 
     update(owner: Owner) {
         const endPoint = 'update/';
-        return this.http.post(this.ownerUrl + endPoint + owner.idOwner, owner).subscribe(
-            res => {
-              console.log(res);
-            },
-            err => {
-              console.log("Error occured");
-            }
-          );
+        return this.http.post(this.ownerUrl + endPoint + owner.idOwner, owner);
     }
-    
-    getOwnerAnimals(ownerId: number) {
+
+    getOwnerAnimals(ownerId: number | string) {
       const endPoint = `/${ownerId}/animals`;
         return this.http.get(this.ownerUrl + endPoint);
     }
+
+    getOwnerById(ownerId: number | string) {
+        const endPoint = `/${ownerId}`;
+          return this.http.get(this.ownerUrl + endPoint);
+      }
 }
 
