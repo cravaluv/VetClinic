@@ -14,4 +14,6 @@ public interface OwnerService {
 
     void saveOwner(Owner owner);
 
+    void deleteOwner(int id);
+
 }

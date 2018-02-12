@@ -2,7 +2,7 @@
   <div class="mb-2 p-1 bg-dark rounded">
     <h1 class="text-light">PRACOWNICY</h1>
     <button class="btn btn-outline-success" (click)="add()">Dodaj</button>
-    <button class="btn btn-outline-danger" (click)="add()">Usuń</button>
+    <button class="btn btn-outline-danger" [disabled]="!selected" (click)="delete()">Usuń</button>
   </div>
   <div class="float-right mr-5 row">
     <button class="btn btn-outline-secondary btn-sm refresh-button" (click)="getPersonnel()" [disabled]="busy"><i class="fa fa-spinner" [ngClass]="{'fa-pulse': busy}"></i></button>
@@ -22,7 +22,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let person of personnel | paginate: { itemsPerPage: 10, currentPage: p }" (dblclick)="update(person)">
+      <tr *ngFor="let person of personnel | paginate: { itemsPerPage: 10, currentPage: p }" [class.table-active]="selected === person" (click)="selected = person" (dblclick)="update(person)">
         <td>{{person.name}}</td>
         <td>{{person.surname}}</td>
         <td>{{person.login}}</td>

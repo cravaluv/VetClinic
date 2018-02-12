@@ -19,6 +19,8 @@ export class DictionaryComponent implements OnInit {
   amount = 0;
   minAmount = 0;
 
+  busy = false;
+
   duplicate = false;
 
   public dictionary: any[] = [];
@@ -45,13 +47,7 @@ export class DictionaryComponent implements OnInit {
   constructor(public activeModal: NgbActiveModal, private commonService: CommonService) { }
 
   ngOnInit(): void {
-    // załaduj słownik
-    this.commonService.getDictionary(this.mode).subscribe(data => {
-      this.dictionary = Object.keys(data).map((key) => data[key]);
-    },
-      (error) => {
-        console.log(error);
-      });
+    this.refreshDictionary();
   }
 
   add() {
@@ -62,7 +58,14 @@ export class DictionaryComponent implements OnInit {
       } else {
         newObj = { [this.modes[this.mode].attr]: this.newValue };
       }
-      this.dictionary.push(newObj);
+      this.busy = true;
+      this.commonService.saveDictionary(this.mode, newObj).subscribe(
+        res => {
+          this.refreshDictionary();
+        },
+        err => {
+          console.log("Error occured");
+        });
       this.newValue = '';
       this.minAmount = 0;
       this.amount = 0;
@@ -75,13 +78,16 @@ export class DictionaryComponent implements OnInit {
     if (this.duplicate) { this.duplicate = false; }
   }
 
-  save() {
-    this.commonService.saveDictionary(this.mode, this.dictionary).subscribe(
-      res => {
-        this.activeModal.close();
-      },
-      err => {
-        console.log("Error occured");
+  refreshDictionary() {
+    // załaduj słownik
+    this.busy = true;
+    this.commonService.getDictionary(this.mode).subscribe(data => {
+      this.dictionary = Object.keys(data).map((key) => data[key]);
+      this.busy = false;
+    },
+      (error) => {
+        this.busy = false;
       });
   }
+
 }

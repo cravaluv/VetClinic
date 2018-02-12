@@ -89,6 +89,7 @@ public class Visit {
     public void update(Visit visit) {
         this.date = visit.date;
         this.description = visit.description;
+        this.visitType = visit.visitType;
     }
 
     public List<VisitMedicine> getMedicines() {

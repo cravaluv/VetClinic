@@ -51,7 +51,7 @@
         </thead>
 
         <tbody>
-          <tr *ngFor="let dictVal of dictionary" [ngClass]="{'table-danger': mode === 'MEDICINES' && dictVal.minAmount >= dictVal.amount }">
+          <tr *ngFor="let dictVal of dictionary" [ngClass]="{'table-danger': mode === 'MEDICINES' && dictVal.minNumber >= dictVal.amount }">
             <td>{{dictVal[modes[mode].attr]}}</td>
             <td *ngIf="mode === 'MEDICINES'">{{dictVal.minNumber }}</td>
             <td *ngIf="mode === 'MEDICINES'">{{dictVal.amount}}</td>
@@ -62,9 +62,6 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-primary" (click)="save()">
-      ZAPISZ
-    </button>
-    <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss('cancel')">ANULUJ</button>
+    <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss('cancel')">Zamknij</button>
   </div>
 </div>

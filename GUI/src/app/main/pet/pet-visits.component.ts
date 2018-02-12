@@ -23,6 +23,8 @@ export class PetVisitsComponent implements OnInit {
 
   visits: Visit[] = [];
 
+  p = 1;
+
   constructor(private activeModal: NgbActiveModal, private visitService: VisitService,
       private animalService: AnimalService, private modalService: NgbModal) {
   }

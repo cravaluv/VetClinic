@@ -28,8 +28,8 @@
             <div class="col-md-3 mb-3">
               <label for="date">Data wizyty</label>
               <div class="input-group">
-                <input class="form-control" placeholder="yyyy-mm-dd" [disabled]="mode === 'VIEW'" id="dp" name="dp" required [(ngModel)]="modelCopy.date" (ngModelChange)="getAvailableHours($event)"
-                  ngbDatepicker #d="ngbDatepicker" #dp="ngModel">
+                <input class="form-control" placeholder="yyyy-mm-dd" [disabled]="mode === 'VIEW'" id="dp" name="dp" required [(ngModel)]="modelCopy.date"
+                  (ngModelChange)="getAvailableHours($event)" ngbDatepicker #d="ngbDatepicker" #dp="ngModel">
                 <div class="input-group-append">
                   <button class="btn btn-outline-primary" (click)="d.toggle()" type="button">
                     <i class="fa fa-calendar" aria-hidden="true"></i>
@@ -41,15 +41,16 @@
                   Data wizyty jest wymagana.
                 </div>
               </div>
-              </div>
-              <div class="col-md-3 mb-3">
-                <label for="name">Godzina wizyty</label>
-                <select class="custom-select" [disabled]="mode === 'VIEW'" (change)="onChange($event)">
-                  <option *ngFor="let hour of availableHours" [ngValue]="hour">{{hour | date:'HH:mm'}}</option>
-                </select>
-              </div>
             </div>
-          <textarea class="form-control mt-3" rows="5" [readOnly]="mode === 'VIEW'" [(ngModel)]="modelCopy.description"></textarea>
+            <div class="col-md-3 mb-3">
+              <label for="name">Godzina wizyty</label>
+              <select class="custom-select" [disabled]="mode === 'VIEW'" (change)="onChange($event)">
+                <option *ngFor="let hour of availableHours" [ngValue]="hour">{{hour | date:'HH:mm'}}</option>
+              </select>
+            </div>
+          </div>
+          <label for="description">Opis wizyty</label>
+          <textarea class="form-control mt-3" rows="5" name="description" [readOnly]="mode === 'VIEW'" [(ngModel)]="modelCopy.description"></textarea>
         </form>
       </ng-template>
     </ngb-tab>

@@ -5,10 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.polsl.java.aleksandra.kowol.engineer.entity.Owner;
 import pl.polsl.java.aleksandra.kowol.engineer.entity.Personnel;
 import pl.polsl.java.aleksandra.kowol.engineer.service.AuthService;
-import pl.polsl.java.aleksandra.kowol.engineer.service.OwnerService;
+import pl.polsl.java.aleksandra.kowol.engineer.service.CommonService;
 import pl.polsl.java.aleksandra.kowol.engineer.service.PersonnelService;
 
 import java.util.List;
@@ -19,6 +18,7 @@ public class PersonnelController {
 
     private PersonnelService personnelService;
     private AuthService authService;
+    private CommonService commonService;
 
     @Autowired
     public void setPersonnelService(PersonnelService personnelService) {
@@ -27,6 +27,10 @@ public class PersonnelController {
     @Autowired
     public void setAuthService(AuthService authService) {
         this.authService = authService;
+    }
+    @Autowired
+    public void setCommonService(CommonService commonService) {
+        this.commonService = commonService;
     }
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
@@ -53,4 +57,21 @@ public class PersonnelController {
         Personnel personnel = personnelService.findPersonById(id);
         return new ResponseEntity<>(personnel, HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<?> updatePersonnel(@PathVariable("id") int id, @RequestBody Personnel personnel) {
+        personnelService.savePerson(personnel);
+        return new ResponseEntity<>(personnel, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<?> deletePersonnel(@PathVariable("id") int id) {
+        Personnel person = personnelService.findPersonById(id);
+        if (person.getAddress().getOwners().size() + person.getAddress().getPersonnel().size() == 1)
+            commonService.deleteAddress(person.getAddress().getIdAddress());
+        personnelService.deletePerson(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
 }

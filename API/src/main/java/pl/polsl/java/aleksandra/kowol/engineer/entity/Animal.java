@@ -129,7 +129,6 @@ public class Animal {
         this.birthDate = animal.birthDate;
         this.color = animal.color;
         this.name = animal.name;
-//        this.visits = animal.visits;
     }
 
     @Override

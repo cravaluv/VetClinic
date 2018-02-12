@@ -47,14 +47,32 @@ export class PersonnelEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.editMode ? this.modelCopy = _.clone(this.model) : this.modelCopy = new Personnel();
-
+    const ccc = this.modelCopy;
   }
 
 
   onSubmit() {
     this.submitted = true;
     if (this.form.valid) {
-      this.activeModal.close(this.modelCopy);
+      if (this.editMode) {
+        this.personnelService.update(this.modelCopy).subscribe(
+          res => {
+            this.activeModal.close(this.modelCopy);
+          },
+          err => {
+            console.log("Error occured");
+          }
+        );
+      } else {
+        this.personnelService.addPersonnel(this.modelCopy).subscribe(
+          res => {
+            this.activeModal.close(this.modelCopy);
+          },
+          err => {
+            console.log("Error occured");
+          }
+        );
+      }
     }
   }
 

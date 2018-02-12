@@ -4,21 +4,25 @@
       <div class="mx-auto col-xl-4 col-lg-5 col-md-8 col-sm-10 p-0 drop-shadow logon-form">
         <div class="h-25 p-3 header">
           <span class="h3 text-dark align-middle p-0">
-            <h2>Veterinary Clinic App</h2>
+            <h2><i class="fa fa-paw fa-fw" aria-hidden="true"></i>Przychodnia weterynaryjna</h2>
           </span>
         </div>
         <form class="mx-4 mt-4 p-2">
           <div class="form-group">
             <label>Nazwa użytkownika</label>
-            <input type="text" class="form-control" name="login" [(ngModel)]="login">
+            <input type="text" class="form-control" name="login" [(ngModel)]="login" (ngModelChange)="errorMessage = false">
           </div>
           <div class="form-group">
             <label>Hasło</label>
-            <input type="password" class="form-control" name="password" [(ngModel)]="password">
+            <input type="password" class="form-control" name="password" [(ngModel)]="password" (ngModelChange)="errorMessage = false">
           </div>
+          <span *ngIf="errorMessage" class="text-muted text-center mb-2">
+            <i class="fa fa-info-circle text-danger"></i>
+            {{message}}
+          </span>
           <div class="form-group">
-            <button type="button" class="btn btn-default btn-lg btn-block" [disabled]="busy || !login || !password"
-              (click)="logIn()"><i [ngClass]="{'fa fa-spinner fa-pulse': busy}"></i>ZALOGUJ</button>
+            <button type="button" class="btn btn-default btn-lg btn-block" [disabled]="busy || !login || !password" (click)="logIn()">
+              <i [ngClass]="{'fa fa-spinner fa-pulse': busy}"></i>ZALOGUJ</button>
           </div>
         </form>
       </div>

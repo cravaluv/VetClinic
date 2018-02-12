@@ -27,4 +27,6 @@ public interface CommonService {
 
     void saveVisitType(VisitType visitType);
 
+    void deleteAddress(int id);
+
 }

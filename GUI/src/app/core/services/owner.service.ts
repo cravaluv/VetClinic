@@ -30,13 +30,18 @@ export class OwnerService {
     }
 
     getOwnerAnimals(ownerId: number | string) {
-      const endPoint = `/${ownerId}/animals`;
+        const endPoint = `/${ownerId}/animals`;
         return this.http.get(this.ownerUrl + endPoint);
     }
 
     getOwnerById(ownerId: number | string) {
         const endPoint = `/${ownerId}`;
-          return this.http.get(this.ownerUrl + endPoint);
+        return this.http.get(this.ownerUrl + endPoint);
+    }
+
+    delete(ownerId: number) {
+        const endPoint = `delete/${ownerId}`;
+        return this.http.delete(this.ownerUrl + endPoint);
       }
 }
 

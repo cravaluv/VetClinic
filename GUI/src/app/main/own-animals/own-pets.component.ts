@@ -27,17 +27,7 @@ export class OwnPetsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.ownerService.getOwnerAnimals(this.authService.getUserId()).subscribe((data) => {
-      this.animals = Object.keys(data).map((key) => {
-        // Formatowanie daty string => Date
-        data[key].birthDate = new Date(data[key].birthDate);
-        return data[key];
-      });
-      this.filteredItems = this.animals;
-    },
-      (error) => {
-        console.log(error);
-      });
+    this.getAnimals();
   }
 
   showVisits(animal: Animal) {
@@ -49,5 +39,19 @@ export class OwnPetsComponent implements OnInit {
       // this.getOwners();
     }, (reason) => {
     });
+  }
+
+  getAnimals() {
+    this.ownerService.getOwnerAnimals(this.authService.getUserId()).subscribe((data) => {
+      this.animals = Object.keys(data).map((key) => {
+        // Formatowanie daty string => Date
+        data[key].birthDate = new Date(data[key].birthDate);
+        return data[key];
+      });
+      this.filteredItems = this.animals;
+    },
+      (error) => {
+        console.log(error);
+      });
   }
 }

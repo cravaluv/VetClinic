@@ -21,6 +21,7 @@ export class PersonnelComponent implements OnInit {
   open = false;
 
   busy = true;
+  selected: Personnel;
 
   filterName: string;
   filterAddress: string;
@@ -41,7 +42,6 @@ export class PersonnelComponent implements OnInit {
       modal.componentInstance.editMode = false;
 
       modal.result.then((result) => {
-        this.personnelService.addPersonnel(result);
         this.getPersonnel();
       }, (reason) => {
       });
@@ -67,6 +67,13 @@ export class PersonnelComponent implements OnInit {
       (error) => {
         console.log(error);
       });
+  }
+
+  delete() {
+    this.personnelService.delete(this.selected.idPersonnel).subscribe(() => {
+      this.getPersonnel();
+      this.selected = undefined;
+    });
   }
 
   getPersonnel() {

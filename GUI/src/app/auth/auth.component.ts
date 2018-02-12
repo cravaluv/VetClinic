@@ -12,6 +12,8 @@ export class AuthComponent {
   login: string;
   password: string;
   busy = false;
+  errorMessage = false;
+  message = 'Błędne dane logowania';
 
   constructor(private authService: AuthService) {
 
@@ -24,9 +26,14 @@ export class AuthComponent {
         this.busy = false;
       },
       error => {
+        this.errorMessage = true;
         this.busy = false;
+        if (error.status === 403) {
+          this.message = 'Błędne dane logowania.';
+        } else {
+          this.message = 'Wystąpił błąd po stronie serwera, spróbuj później.';
+        }
       });
-}
   }
-
 }
+

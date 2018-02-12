@@ -25,6 +25,11 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
+    public void deleteOwner(int id) {
+        ownerRepository.delete(id);
+    }
+
+    @Override
     public List<Owner> findAllOwners() {
         return ownerRepository.findAll();
     }

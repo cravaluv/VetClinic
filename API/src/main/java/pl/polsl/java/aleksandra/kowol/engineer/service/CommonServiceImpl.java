@@ -15,6 +15,7 @@ public class CommonServiceImpl implements CommonService {
     private MedicineRepository medicineRepository;
     private RoleRepository roleRepository;
     private VisitTypeRepository visitTypeRepository;
+    private AddressRepository addressRepository;
 
     @Autowired
     public void setAnimalRepository(AnimalTypeRepository animalTypeRepository) {
@@ -39,6 +40,11 @@ public class CommonServiceImpl implements CommonService {
     @Autowired
     public void setVisitTypeRepository(VisitTypeRepository visitTypeRepository) {
         this.visitTypeRepository = visitTypeRepository;
+    }
+
+    @Autowired
+    public void setAddressRepository(AddressRepository addressRepository) {
+        this.addressRepository = addressRepository;
     }
 
 
@@ -91,4 +97,11 @@ public class CommonServiceImpl implements CommonService {
     public void saveVisitType(VisitType visitType) {
         visitTypeRepository.save(visitType);
     }
+
+    @Override
+    public void deleteAddress(int id) {
+        addressRepository.delete(id);
+    }
+
+
 }

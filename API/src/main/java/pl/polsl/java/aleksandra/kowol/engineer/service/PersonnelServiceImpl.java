@@ -36,5 +36,10 @@ public class PersonnelServiceImpl implements PersonnelService {
         personnelRepository.save(personnel);
     }
 
+    @Override
+    public void deletePerson(int id) {
+        personnelRepository.delete(id);
+    }
+
 
 }

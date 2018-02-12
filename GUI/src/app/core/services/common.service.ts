@@ -23,7 +23,7 @@ export class CommonService {
     }
 
     saveDictionary(mode: 'MEDICINES' | 'COLORS' | 'DISEASTERS' | 'ANIMAL_TYPES' | 'VISIT_TYPES', dictionary) {
-        const endPoint = mode.toLowerCase() + '/update';
+        const endPoint = mode.toLowerCase() + '/add';
         return this.http.post(this.url + endPoint, dictionary);
     }
 

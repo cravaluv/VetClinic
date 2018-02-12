@@ -15,4 +15,6 @@ public interface PersonnelService {
 
     void savePerson(Personnel personnel);
 
+    void deletePerson(int id);
+
 }

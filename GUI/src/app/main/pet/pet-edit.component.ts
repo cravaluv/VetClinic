@@ -86,7 +86,6 @@ export class PetEditComponent implements OnInit {
         );
       }
     }
-    this.activeModal.close();
   }
 
   onDismiss() {

@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.polsl.java.aleksandra.kowol.engineer.entity.Owner;
 import pl.polsl.java.aleksandra.kowol.engineer.service.AuthService;
+import pl.polsl.java.aleksandra.kowol.engineer.service.CommonService;
 import pl.polsl.java.aleksandra.kowol.engineer.service.OwnerService;
 
 @CrossOrigin
@@ -20,6 +21,7 @@ public class OwnerController  {
 
     private OwnerService ownerService;
     private AuthService authService;
+    private CommonService commonService;
 
     @Autowired
     public void setOwnerService(OwnerService ownerService) {
@@ -29,6 +31,11 @@ public class OwnerController  {
     @Autowired
     public void setPersonnelService(AuthService authService) {
         this.authService = authService;
+    }
+
+    @Autowired
+    public void setCommonService(CommonService commonService) {
+        this.commonService = commonService;
     }
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
@@ -58,8 +65,8 @@ public class OwnerController  {
         return new ResponseEntity<>(owner, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
-    public ResponseEntity<?> createAnimal(@PathVariable("id") int id, @RequestBody Owner owner) {
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<?> updateOwner(@PathVariable("id") int id, @RequestBody Owner owner) {
         Owner ownerToUpdate = ownerService.findOwnerById(id);
         if (ownerToUpdate != null ) {
             if (owner.getOnlineReg() && !ownerToUpdate.getOnlineReg()) {
@@ -81,5 +88,14 @@ public class OwnerController  {
     public ResponseEntity<?> getOwnerAnimals(@PathVariable("id") int id) {
         Owner owner = ownerService.findOwnerById(id);
         return new ResponseEntity<>(owner.getAnimals(), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<?> deleteOwner(@PathVariable("id") int id) {
+        Owner owner = ownerService.findOwnerById(id);
+        if (owner.getAddress().getOwners().size() + owner.getAddress().getPersonnel().size() == 1)
+            commonService.deleteAddress(owner.getAddress().getIdAddress());
+        ownerService.deleteOwner(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

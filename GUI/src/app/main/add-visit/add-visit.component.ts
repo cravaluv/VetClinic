@@ -123,10 +123,6 @@ getAvailableHours(selectedDate: Date) {
           this.availableHours.push(dateToAdd);
         }
       }
-      if (this.visit && this.visit.date.getDate() === selectedDate.getDate() &&
-        this.visit.date.getMonth() === selectedDate.getMonth() && this.visit.date.getFullYear() === selectedDate.getFullYear()) {
-        this.availableHours.unshift(visitsOfTheDay.find(visit => visit.idVisit === this.modelCopy.idVisit).date);
-      }
       this.availableHours.length > 0 ? this.selectedVisitDate = this.availableHours[0] : this.selectedVisitDate = undefined;
     });
 }

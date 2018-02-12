@@ -21,10 +21,10 @@
     </thead>
     <tbody>
       <tr *ngFor="let animal of filteredItems | paginate: { itemsPerPage: 10, currentPage: p }" [class.table-active]="selected === animal"
-        (click)="selected = animal" (dblclick)="update(animal)">
+        (click)="selected = animal">
         <td>{{animal.name}}</td>
-        <td>{{animal.animalType.name}}</td>
-        <td>{{animal.color.name}}</td>
+        <td>{{animal.animalType.type}}</td>
+        <td>{{animal.color.color}}</td>
         <td>{{animal.birthDate | date:'fullDate'}}</td>
         <td>
           <i [ngClass]="{'fa' : true, 'fa-check text-success': animal.active,'fa-times text-danger': !animal.active}" aria-hidden="true"></i>

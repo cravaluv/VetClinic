@@ -60,6 +60,13 @@ export class OwnerComponent implements OnInit {
     });
   }
 
+  delete() {
+    this.ownerService.delete(this.selected.idOwner).subscribe(() => {
+      this.getOwners();
+      this.selected = undefined;
+    });
+  }
+
   searchButtonClick() {
     if (this.filterName || this.filterAddress) {
       this.filteredItems = this.owners.filter(owner => {

@@ -1,6 +1,8 @@
 package pl.polsl.java.aleksandra.kowol.engineer.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -23,6 +25,7 @@ public class Address {
 
     @JsonIgnore
     @OneToMany(mappedBy = "address")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<Owner> owners;
     @JsonIgnore
     @OneToMany(mappedBy = "address")

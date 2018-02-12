@@ -103,7 +103,6 @@ export class VisitEditComponent implements OnInit {
         }
       );
     }
-    this.activeModal.close();
   }
 
   onChange(select) {

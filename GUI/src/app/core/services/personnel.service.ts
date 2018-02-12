@@ -21,26 +21,17 @@ export class PersonnelService {
 
     addPersonnel(personnel: Personnel) {
         const endPoint = 'add';
-        return this.http.post(this.personnelUrl + endPoint, personnel).subscribe(
-            res => {
-              console.log(res);
-            },
-            err => {
-              console.log("Error occured");
-            }
-          );
+        return this.http.post(this.personnelUrl + endPoint, personnel);
     }
 
     update(personnel: Personnel) {
         const endPoint = 'update/';
-        return this.http.post(this.personnelUrl + endPoint + personnel.idPersonnel, personnel).subscribe(
-            res => {
-              console.log(res);
-            },
-            err => {
-              console.log("Error occured");
-            }
-          );
+        return this.http.put(this.personnelUrl + endPoint + personnel.idPersonnel, personnel);
+    }
+
+    delete(personnelId: number) {
+      const endPoint = `delete/${personnelId}`;
+      return this.http.delete(this.personnelUrl + endPoint);
     }
 }
 
