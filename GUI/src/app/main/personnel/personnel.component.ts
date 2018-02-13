@@ -52,20 +52,13 @@ export class PersonnelComponent implements OnInit {
   }
 
   update(personnel: Personnel) {
-    this.commonService.getDictionary('ROLES').subscribe(data => {
-      const roles = Object.keys(data).map((key) => data[key]);
       const modal = this.modalService.open(PersonnelEditComponent, { size: 'lg' });
-      modal.componentInstance.roles = roles;
       modal.componentInstance.model = personnel;
 
       modal.result.then((result) => {
         this.personnelService.update(result);
         this.getPersonnel();
       }, (reason) => {
-      });
-    },
-      (error) => {
-        console.log(error);
       });
   }
 

@@ -9,6 +9,7 @@ import { Personnel } from '../core/models/personnel';
 import { AddVisitComponent } from './add-visit/add-visit.component';
 import { CustomerComponent } from './customer/customer.component';
 import { OwnerService } from '../core/services/owner.service';
+import { VisitEditComponent } from './visit/visit-edit.component';
 
 @Component({
   selector: 'app-main',
@@ -59,15 +60,16 @@ export class MainComponent implements OnInit {
   makeReservation() {
     this.ownerSevice.getOwnerAnimals(this.authService.getUserId()).subscribe(data => {
       const animals = Object.keys(data).map((key) => {
-        // Formatowanie daty string => Date
         data[key].birthDate = new Date(data[key].birthDate);
         return data[key];
       });
-      const modal = this.modalService.open(AddVisitComponent, { size: 'lg' });
-      modal.componentInstance.animals = animals;
-      modal.result.then((result) => {
-      }, (reason) => {
-      });
+        const modal = this.modalService.open(VisitEditComponent, { size: 'lg' });
+        modal.componentInstance.mode = 'NEW';
+        modal.componentInstance.animals = animals;
+
+        modal.result.then((result) => {
+        }, (reason) => {
+        });
     });
   }
 

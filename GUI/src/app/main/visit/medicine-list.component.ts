@@ -53,20 +53,9 @@ export class MedicineListComponent implements OnInit {
     );
   }
 
-  // delete(medicine: VisitMedicine) {
-  //   // this.model.splice(this.model.indexOf(medicine), 1);
-  //   this.visitService.deleteMedicineInVisit(medicine).subscribe(
-  //     res => {
-  //       this.refreshData();
-  //       this.medicineList.length > 0 ? this.selectedMed = this.medicineList[0] : this.selectedMed = null;
-  //     },
-  //     err => {
-  //     }
-  //   );
-  // }
-
 
   private getPropertyList() {
+    this.medicineList = [];
     this.medicines.forEach(v => {
       if (!this.visitMedicines || !this.visitMedicines.find(m => m.medicine.name === v.name)) {
         this.medicineList.push(v);

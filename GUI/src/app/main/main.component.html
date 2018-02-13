@@ -63,7 +63,7 @@
     </button>
 
     <div ngbDropdownMenu aria-labelledby="dropdown_mod" class="p-3">
-      <h5>{{role}}</h5>
+      <h5>{{role | uppercase}}</h5>
       <div class="dropdown-divider"></div>
       <button class="btn btn-outline-dark btn-block" (click)="changePassword()">
         <i class="fa fa-key" aria-hidden="true"></i>

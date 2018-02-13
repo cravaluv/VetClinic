@@ -19,4 +19,9 @@ export class Personnel {
 export class Role {
   idRole: number;
   name: string;
+
+  constructor() {
+    this.idRole = 1;
+    this.name = 'employee';
+  }
 }

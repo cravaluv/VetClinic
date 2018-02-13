@@ -5,9 +5,6 @@
   </button>
 </div>
 <div class="modal-body">
-  <ngb-tabset>
-    <ngb-tab title="DANE">
-      <ng-template ngbTabContent>
         <form #ownerForm="ngForm" class="m-3">
           <div class="row">
             <div class="col-md-6 mb-3 form-group">
@@ -76,7 +73,7 @@
               </div>
             </div>
           </div>
-          <div class="row">
+          <div *ngIf="!editMode" class="row">
             <div class="col-md-6 mb-3">
               <label for="login">Login</label>
               <input id="login" name="login" class="form-control" required [disabled]="editMode" [class.is-invalid]="login.invalid && (login.touched || submitted)"
@@ -88,27 +85,8 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-6 mb-3">
-              <label for="role">Rola</label>
-              <select class="form-control" id="role" [(ngModel)]="modelCopy.role" name="role">
-                <option *ngFor="let role of roles" [ngValue]="role" [selected]="role.idRole === modelCopy.role.idRole">{{role.name}}</option>
-              </select>
-              <!-- <input id="role" name="role" class="form-control" required [class.is-invalid]="role.invalid && (role.touched || submitted)"
-              [class.is-valid]="role.valid && (role.touched || submitted)" [(ngModel)]="modelCopy.role" #role="ngModel"> -->
-              <!-- <select class="form-control" [(ngModel)]="modelCopy.role">
-                <option *ngFor="let test of roles" [ngValue]="test">{{test.name}}</option>
-              </select> -->
-              <!-- <div *ngIf="role.invalid && (role.dirty || role.touched || submitted)" class="invalid-feedback">
-                <div *ngIf="role?.errors.required">
-                  Rola jest wymagana.
-                </div>
-              </div> -->
-            </div>
           </div>
         </form>
-      </ng-template>
-    </ngb-tab>
-  </ngb-tabset>
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-success" (click)="onSubmit()">Zatwierdź</button>

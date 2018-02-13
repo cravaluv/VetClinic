@@ -19,9 +19,9 @@ export class VisitEditComponent implements OnInit {
   @Input() visit: Visit;
   @Input() mode: 'NEW' | 'EDIT' | 'VIEW';
   @Input() animal: Animal;
+  @Input() animals: Animal[];
 
-
-  // @ViewChild(MedicineListComponent) medicineList: MedicineListComponent;
+  @ViewChild('visitForm') form: any;
 
   modalTitle = {
     'NEW': 'NOWA WIZYTA',
@@ -60,33 +60,38 @@ export class VisitEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.commonService.getDictionary('VISIT_TYPES').subscribe(data => {
-      this.visitTypes = Object.keys(data).map((key) => data[key] as VisitType);
-    },
-      (error) => {
-        console.log(error);
-      });
     if (this.mode === 'NEW') {
       this.modelCopy = new Visit();
+      this.commonService.getDictionary('VISIT_TYPES').subscribe(data => {
+        this.visitTypes = Object.keys(data).map((key) => data[key] as VisitType);
+      },
+        (error) => {
+          console.log(error);
+        });
     } else {
       this.modelCopy = _.clone(this.visit);
       if (this.mode === 'EDIT') {
         this.getAvailableHours(this.modelCopy.date);
-
-        this.commonService.getDictionary('MEDICINES').subscribe(data => {
-          this.medicines = Object.keys(data).map((key) => data[key] as Medicine);
-        },
-          (error) => {
-            console.log(error);
-          });
       }
     }
   }
 
   onSubmit() {
-    this.modelCopy.date = this.selectedVisitDate;
-    // this.commonService.saveDictionary('MEDICINES', this.medicines).subscribe();
-    if (this.mode === 'EDIT') {
+    this.submitted = true;
+    if (this.form.valid) {
+      this.modelCopy.date = this.selectedVisitDate;
+      if (!this.modelCopy.visitType.type) {
+        this.modelCopy.visitType = this.visitTypes[this.visitTypes.length - 1];
+      }
+    if (this.animals) {
+      this.visitService.addVisit(this.modelCopy, this.animal.idAnimal).subscribe(
+        res => {
+          this.activeModal.close();
+        },
+        err => {
+        }
+      );
+    } else if (this.mode === 'EDIT') {
       this.visitService.update(this.modelCopy).subscribe(
         res => {
           this.activeModal.close();
@@ -102,6 +107,7 @@ export class VisitEditComponent implements OnInit {
         err => {
         }
       );
+    }
     }
   }
 

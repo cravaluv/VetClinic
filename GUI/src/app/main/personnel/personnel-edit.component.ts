@@ -37,23 +37,21 @@ export class PersonnelEditComponent implements OnInit {
 
   submitted = false;
 
-  get today() {
-    return new Date();
-  }
-
   constructor(private activeModal: NgbActiveModal, private modalService: NgbModal,
     private commonService: CommonService, private personnelService: PersonnelService) {
   }
 
   ngOnInit(): void {
     this.editMode ? this.modelCopy = _.clone(this.model) : this.modelCopy = new Personnel();
-    const ccc = this.modelCopy;
   }
 
 
   onSubmit() {
     this.submitted = true;
     if (this.form.valid) {
+      if (!this.modelCopy.role.name) {
+        this.modelCopy.role = this.roles[this.roles.length - 1];
+      }
       if (this.editMode) {
         this.personnelService.update(this.modelCopy).subscribe(
           res => {

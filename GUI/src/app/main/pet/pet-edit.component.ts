@@ -44,28 +44,34 @@ export class PetEditComponent implements OnInit {
   ngOnInit(): void {
     if (this.mode === 'NEW') {
       this.modelCopy = new Animal();
+      this.commonService.getDictionary('ANIMAL_TYPES').subscribe(data => {
+        this.animalTypes = Object.keys(data).map((key) => data[key] as AnimalType);
+      },
+        (error) => {
+          console.log(error);
+        });
+  
+      this.commonService.getDictionary('COLORS').subscribe(data => {
+        this.colors = Object.keys(data).map((key) => data[key] as Color);
+      },
+        (error) => {
+          console.log(error);
+        });
     } else {
       this.modelCopy = _.clone(this.model);
       this.modelCopy.birthDate = new Date(this.modelCopy.birthDate);
     }
-    this.commonService.getDictionary('ANIMAL_TYPES').subscribe(data => {
-      this.animalTypes = Object.keys(data).map((key) => data[key] as AnimalType);
-    },
-      (error) => {
-        console.log(error);
-      });
-
-    this.commonService.getDictionary('COLORS').subscribe(data => {
-      this.colors = Object.keys(data).map((key) => data[key] as Color);
-    },
-      (error) => {
-        console.log(error);
-      });
   }
 
   onSubmit() {
     this.submitted = true;
     if (this.form.valid) {
+      if (!this.modelCopy.animalType.type) {
+        this.modelCopy.animalType = this.animalTypes[this.animalTypes.length - 1];
+      }
+      if (!this.modelCopy.color.color) {
+        this.modelCopy.color = this.colors[this.colors.length - 1];
+      }
       if (this.mode === 'NEW') {
         this.animalService.addAnimal(this.modelCopy, this.owner.idOwner).subscribe(
           res => {

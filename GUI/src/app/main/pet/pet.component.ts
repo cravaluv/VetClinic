@@ -50,7 +50,7 @@ export class PetComponent implements OnInit {
     modal.componentInstance.mode = 'EDIT';
 
     modal.result.then((result) => {
-      this.animalService.update(result);
+      this.getAnimals();
     }, (reason) => {
     });
   }

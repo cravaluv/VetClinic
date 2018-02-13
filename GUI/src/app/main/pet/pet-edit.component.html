@@ -5,75 +5,79 @@
   </button>
 </div>
 <div class="modal-body">
-  <!-- <ngb-tabset>
-    <ngb-tab title="DANE">
-      <ng-template ngbTabContent> -->
-        <form #petForm="ngForm" class="m-3">
-          <div class="row">
-            <div class="col-md-6 mb-3">
-              <label for="name">Imię</label>
-              <input type="text" class="form-control" id="name" required [disabled]="mode === 'VIEW'" [(ngModel)]="modelCopy.name" name="name" #name="ngModel">
-            </div>
-            <div class="col-md-6 mb-3">
-              <label for="name">Data urodzenia</label>
-              <div class="input-group">
-                <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [disabled]="mode === 'VIEW'" [(ngModel)]="modelCopy.birthDate" ngbDatepicker #d="ngbDatepicker">
-                <div class="input-group-append" [hidden]="mode === 'VIEW'">
-                  <button class="btn btn-outline-primary" (click)="d.toggle()" type="button">
-                    <i class="fa fa-calendar" aria-hidden="true"></i>
-                  </button>
-                </div>
-              </div>
+  <form #petForm="ngForm" class="m-3">
+    <div class="row">
+      <div class="col-md-6 mb-3 form-group">
+        <label for="name">Imię</label>
+        <input id="name" name="name" class="form-control" [disabled]="mode === 'VIEW'" [class.is-invalid]="name.invalid && (name.touched || submitted)"
+          [class.is-valid]="name.valid && (name.touched || submitted)" [(ngModel)]="modelCopy.name" #name="ngModel" required>
 
-            </div>
+        <div *ngIf="name.invalid && (name.dirty || name.touched || submitted)" class="invalid-feedback">
+          <div *ngIf="name?.errors.required">
+            Imię jest wymagane.
           </div>
-          <div class="row">
-            <div class="col-md-2 mb-3">
-              <label class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="active" [disabled]="mode === 'EDIT' || mode === 'VIEW'" [checked]="modelCopy.active" (change)="modelCopy.active = !modelCopy.active">
-                <label class="custom-control-label" for="active">Aktywne</label>
-              </label>
-            </div>
-            <div class="col-md-3 mb-3">
-              <label for="type">Typ</label>
-              <select class="form-control" [disabled]="mode === 'VIEW'" id="type" [(ngModel)]="modelCopy.animalType" name="type">
-                <option *ngFor="let type of animalTypes" [ngValue]="type" [selected]="type.type === modelCopy.animalType.type">{{type.type}}</option>
-              </select>
-            </div>
-            <div class="col-md-3 mb-3">
-              <label for="color">Kolor</label>
-              <select class="form-control" [disabled]="mode === 'VIEW'" id="color" [(ngModel)]="modelCopy.color" name="color">
-                <option *ngFor="let color of colors" [ngValue]="color" [selected]="color.color === modelCopy.color.color">{{color.color}}</option>
-              </select>
-            </div>
-          </div>
-        </form>
-      <!-- </ng-template>
-    </ngb-tab>
-    <ngb-tab [disabled]="this.mode === 'NEW'" title="WIZYTY">
-      <ng-template ngbTabContent>
-        <div class="mt-2">
-          <button class="btn btn-success" [hidden]="mode === 'VIEW'" (click)="addVisit()">Nowa</button>
-          <table class="table mt-3 table-striped table-hover">
-            <thead>
-              <tr>
-                <th scope="col">Data</th>
-                <th scope="col">Typ</th>
-                <th scope="col">Opis</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let visit of modelCopy.visits" (dblclick)="updateVisit(visit)">
-                <th>{{visit.date | date:'d-MM-y, HH:mm'}}</th>
-                <td>{{visit.visitType.type}}</td>
-                <td>{{visit.description}}</td>
-              </tr>
-            </tbody>
-          </table>
+
         </div>
-      </ng-template>
-    </ngb-tab>
-  </ngb-tabset> -->
+      </div>
+      <div class="col-md-6 mb-3">
+        <label for="name">Data urodzenia</label>
+        <div class="input-group">
+          <input class="form-control" placeholder="yyyy-mm-dd" id="dp" name="dp" [class.is-invalid]="dp.invalid && (dp.touched || submitted)"
+            [class.is-valid]="dp.valid && (dp.touched || submitted)" [(ngModel)]="modelCopy.birthDate" #dp="ngModel" required
+            ngbDatepicker #d="ngbDatepicker">
+          <div class="input-group-append" [hidden]="mode === 'VIEW'">
+            <button class="btn btn-outline-primary" (click)="d.toggle()" type="button">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+            </button>
+          </div>
+          <div *ngIf="dp.invalid && (dp.dirty || dp.touched || submitted)" class="invalid-feedback">
+            <div *ngIf="dp?.errors.required">
+              Data urodzenia jest wymagana.
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2 mb-3">
+        <label class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="active" [disabled]="mode === 'EDIT' || mode === 'VIEW'" [checked]="modelCopy.active"
+            (change)="modelCopy.active = !modelCopy.active">
+          <label class="custom-control-label" for="active">Aktywne</label>
+        </label>
+      </div>
+      <div *ngIf="mode === 'NEW'" class="col-md-3 mb-3">
+        <label for="type">Typ</label>
+        <select class="form-control" [disabled]="mode === 'VIEW'" id="type" name="type" [(ngModel)]="modelCopy.animalType" required
+          #type="ngModel" [class.is-invalid]="type.invalid && (type.touched || submitted)" [class.is-valid]="type.valid && (type.touched || submitted)">
+          <option *ngFor="let type of animalTypes" [ngValue]="type" [selected]="type.type === modelCopy.animalType.type || !modelCopy.animalType.type">{{type.type}}</option>
+        </select>
+
+        <div *ngIf="type.invalid && (type.dirty || type.touched || submitted)" class="invalid-feedback">
+          <div *ngIf="type?.errors.required">
+            Typ jest wymagany.
+          </div>
+
+        </div>
+      </div>
+      <div *ngIf="mode === 'NEW'" class="col-md-3 mb-3">
+        <label for="color">Kolor</label>
+        <select class="form-control" [disabled]="mode === 'VIEW'" id="color" [(ngModel)]="modelCopy.color" name="color" required
+          #color="ngModel" [class.is-invalid]="color.invalid && (color.touched || submitted)" [class.is-valid]="color.valid && (color.touched || submitted)">
+          <option *ngFor="let color of colors" [ngValue]="color" [selected]="color.color === modelCopy.color.color || !modelCopy.color.color">{{color.color}}</option>
+        </select>
+
+        <div *ngIf="color.invalid && (color.dirty || color.touched || submitted)" class="invalid-feedback">
+          <div *ngIf="color?.errors.required">
+            Kolor jest wymagany.
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </form>
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-success" (click)="onSubmit()">Zatwierdź</button>

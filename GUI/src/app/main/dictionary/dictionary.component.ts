@@ -31,7 +31,7 @@ export class DictionaryComponent implements OnInit {
       attr: 'name'
     },
     'ANIMAL_TYPES': {
-      title: 'Typy zwierząt',
+      title: 'Gatunki zwierząt',
       attr: 'type'
     },
     'COLORS': {
