@@ -14,6 +14,8 @@ import pl.polsl.java.aleksandra.kowol.engineer.service.AuthService;
 import pl.polsl.java.aleksandra.kowol.engineer.service.CommonService;
 import pl.polsl.java.aleksandra.kowol.engineer.service.OwnerService;
 
+import javax.validation.Valid;
+
 @CrossOrigin
 @RestController
 @RequestMapping("/owners")
@@ -45,7 +47,7 @@ public class OwnerController  {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public ResponseEntity<?> createUser(@RequestBody Owner owner) {
+    public ResponseEntity<?> createUser(@RequestBody @Valid Owner owner) {
         if (owner.getOnlineReg()) {
             if (!this.authService.isUniqueLogin(owner.getLogin())) {
                 return new ResponseEntity<>("Change login.", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -66,7 +68,7 @@ public class OwnerController  {
     }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<?> updateOwner(@PathVariable("id") int id, @RequestBody Owner owner) {
+    public ResponseEntity<?> updateOwner(@PathVariable("id") int id, @RequestBody @Valid Owner owner) {
         Owner ownerToUpdate = ownerService.findOwnerById(id);
         if (ownerToUpdate != null ) {
             if (owner.getOnlineReg() && !ownerToUpdate.getOnlineReg()) {

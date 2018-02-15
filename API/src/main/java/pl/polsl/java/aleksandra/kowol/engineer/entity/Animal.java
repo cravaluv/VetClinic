@@ -3,12 +3,14 @@ package pl.polsl.java.aleksandra.kowol.engineer.entity;
 import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Klasa zwierząt
+ */
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Animal {
@@ -17,12 +19,15 @@ public class Animal {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idAnimal;
     @Basic
+    @NotNull
     @Column(name = "name", nullable = false, length = 45)
     private String name;
     @Basic
+    @NotNull
     @Column(name = "birthDate", nullable = true)
     private Date birthDate;
     @Basic
+    @NotNull
     @Column(name = "active", nullable = false)
     private boolean active;
 
@@ -33,9 +38,11 @@ public class Animal {
 	private Owner owner;
     @ManyToOne(cascade=CascadeType.MERGE)
     @JoinColumn(referencedColumnName = "idAnimalType")
+    @NotNull
     private AnimalType animalType;
     @ManyToOne(cascade=CascadeType.MERGE)
     @JoinColumn(referencedColumnName = "idColor")
+    @NotNull
     private Color color;
     @OneToMany(mappedBy = "animal", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore

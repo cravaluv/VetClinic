@@ -10,6 +10,7 @@ import pl.polsl.java.aleksandra.kowol.engineer.service.AuthService;
 import pl.polsl.java.aleksandra.kowol.engineer.service.CommonService;
 import pl.polsl.java.aleksandra.kowol.engineer.service.PersonnelService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -40,7 +41,7 @@ public class PersonnelController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public ResponseEntity<?> createUser(@RequestBody Personnel personnel) {
+    public ResponseEntity<?> createUser(@RequestBody @Valid Personnel personnel) {
             if (!this.authService.isUniqueLogin(personnel.getLogin())) {
                 return new ResponseEntity<>("Change login.", HttpStatus.INTERNAL_SERVER_ERROR);
             }
@@ -59,7 +60,7 @@ public class PersonnelController {
     }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<?> updatePersonnel(@PathVariable("id") int id, @RequestBody Personnel personnel) {
+    public ResponseEntity<?> updatePersonnel(@PathVariable("id") int id, @RequestBody @Valid Personnel personnel) {
         personnelService.savePerson(personnel);
         return new ResponseEntity<>(personnel, HttpStatus.OK);
     }

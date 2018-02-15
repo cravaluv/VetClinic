@@ -16,6 +16,8 @@ import pl.polsl.java.aleksandra.kowol.engineer.service.AnimalService;
 import pl.polsl.java.aleksandra.kowol.engineer.service.CommonService;
 import pl.polsl.java.aleksandra.kowol.engineer.service.VisitService;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/visits")
 public class VisitController  {
@@ -49,7 +51,7 @@ public class VisitController  {
     }
 
     @RequestMapping(value = "/add/{animalId}", method = RequestMethod.POST)
-    public ResponseEntity<?> addVisit(@PathVariable("animalId") int animalId, @RequestBody Visit visit) {
+    public ResponseEntity<?> addVisit(@PathVariable("animalId") int animalId, @RequestBody @Valid Visit visit) {
         Animal animal = animalService.findAnimalById(animalId);
         visit.setAnimal(animal);
         animal.getVisits().add(visit);
@@ -76,7 +78,7 @@ public class VisitController  {
     }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<?> updateVisit(@PathVariable("id") int id, @RequestBody Visit visit) {
+    public ResponseEntity<?> updateVisit(@PathVariable("id") int id, @RequestBody @Valid Visit visit) {
             Visit visitToUpdate = visitService.getVisitById(id);
             if (visitToUpdate != null) {
                 visitToUpdate.update(visit);

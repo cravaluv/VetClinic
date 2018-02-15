@@ -3,6 +3,7 @@ package pl.polsl.java.aleksandra.kowol.engineer.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Collection;
 import java.util.List;
 
@@ -13,6 +14,7 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idRole;
     @Basic
+    @NotNull
     @Column(name = "name", nullable = false, length = 45)
     private String name;
 

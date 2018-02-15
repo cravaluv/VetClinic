@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.List;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Personnel {
@@ -17,12 +18,15 @@ public class Personnel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idPersonnel;
     @Basic
+    @NotNull
     @Column(name = "name", nullable = false, length = 45)
     private String name;
     @Basic
+    @NotNull
     @Column(name = "surname", nullable = false, length = 45)
     private String surname;
     @Basic
+    @NotNull
     @Column(name = "login", nullable = true)
     private String login;
     @JsonIgnore

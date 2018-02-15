@@ -3,6 +3,7 @@ package pl.polsl.java.aleksandra.kowol.engineer.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
@@ -13,6 +14,7 @@ public class VisitType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idVisitType;
     @Basic
+    @NotNull
     @Column(name = "type", nullable = false, length = 45)
     private String type;
 
@@ -37,15 +39,6 @@ public class VisitType {
     public void setType(String type) {
         this.type = type;
     }
-
-//
-//    public List<Visit> getVisits() {
-//        return visits;
-//    }
-//
-//    public void setVisits(List<Visit> visits) {
-//        this.visits = visits;
-//    }
 
     @Override
     public boolean equals(Object o) {

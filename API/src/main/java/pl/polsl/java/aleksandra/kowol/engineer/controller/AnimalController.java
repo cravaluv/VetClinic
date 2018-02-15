@@ -16,6 +16,7 @@ import pl.polsl.java.aleksandra.kowol.engineer.service.AnimalService;
 import pl.polsl.java.aleksandra.kowol.engineer.service.OwnerService;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/animals")
@@ -40,7 +41,7 @@ public class AnimalController  {
     }
 
     @RequestMapping(value = "/add/{idOwner}", method = RequestMethod.POST)
-    public ResponseEntity<?> addAnimal(@PathVariable("idOwner") int idOwner, @RequestBody Animal animal) {
+    public ResponseEntity<?> addAnimal(@PathVariable("idOwner") int idOwner, @RequestBody @Valid Animal animal) {
         Owner owner = ownerService.findOwnerById(idOwner);
         animal.setOwner(owner);
         owner.getAnimals().add(animal);
@@ -55,7 +56,7 @@ public class AnimalController  {
     }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<?> updateAnimal(@PathVariable("id") int id, @RequestBody Animal animal) {
+    public ResponseEntity<?> updateAnimal(@PathVariable("id") int id, @RequestBody @Valid Animal animal) {
         Animal animalToUpdate = animalService.findAnimalById(id);
         if (animalToUpdate != null ) {
             animalToUpdate.update(animal);

@@ -3,6 +3,8 @@ package pl.polsl.java.aleksandra.kowol.engineer.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
@@ -17,43 +19,11 @@ public class VisitMedicine {
     @EmbeddedId
     private VisitMedicinePK id = new VisitMedicinePK();
 
-//    @Id
-//    @ManyToOne
-//    @JoinColumn(name = "medicine_id")
-//    private Medicine medicine;
-//
-//    @Id
-//    @ManyToOne
-//    @JoinColumn(name = "visit_id")
-//    private Visit visit;
-//
-//    public VisitMedicine() {}
-//
-//    public VisitMedicine(Visit visit, Medicine medicine, int amount) {
-//        this.visit = visit;
-//        this.medicine = medicine;
-//        this.amount = amount;
-//    }
-
     @Basic
+    @NotNull
+    @Min(0)
     @Column(name = "amount")
     private int amount;
-
-//    public Medicine getMedicine() {
-//        return medicine;
-//    }
-//
-//    public void setMedicine(Medicine medicine) {
-//        this.medicine = medicine;
-//    }
-//
-//    public Visit getVisit() {
-//        return visit;
-//    }
-//
-//    public void setVisit(Visit visit) {
-//        this.visit = visit;
-   // }
 
     public int getAmount() {
         return amount;

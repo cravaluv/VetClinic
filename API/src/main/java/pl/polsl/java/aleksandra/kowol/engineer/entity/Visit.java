@@ -3,6 +3,7 @@ package pl.polsl.java.aleksandra.kowol.engineer.entity;
 import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -14,19 +15,17 @@ public class Visit {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idVisit;
     @Basic
+    @NotNull
     @Column(name = "date", nullable = false)
     private Date date;
     @Basic
+    @NotNull
     @Column(name = "description")
     private String description;
 
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "id.visit", cascade = CascadeType.ALL)
     private List<VisitMedicine> medicines;
-//
-//    @ManyToMany(cascade = CascadeType.ALL)
-//    @JoinTable(name = "visit_disease", joinColumns = @JoinColumn(name = "visit_id", referencedColumnName = "idVisit"), inverseJoinColumns = @JoinColumn(name = "disease_id", referencedColumnName = "idDisease"))
-//    private List<Disease> diseases;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="idAnimal")

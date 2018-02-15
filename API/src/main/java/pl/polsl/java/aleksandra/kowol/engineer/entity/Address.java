@@ -5,6 +5,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 @Entity
@@ -14,12 +15,15 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idAddress;
     @Basic
+    @NotNull
     @Column(name = "address", nullable = false, length = 45)
     private String address;
     @Basic
+    @NotNull
     @Column(name = "city", nullable = false, length = 45)
     private String city;
     @Basic
+    @NotNull
     @Column(name = "postalCode", nullable = false, length = 45)
     private String postalCode;
 

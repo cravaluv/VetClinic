@@ -14,6 +14,8 @@ import pl.polsl.java.aleksandra.kowol.engineer.entity.*;
 import pl.polsl.java.aleksandra.kowol.engineer.service.CommonService;
 import pl.polsl.java.aleksandra.kowol.engineer.service.VisitService;
 
+import javax.validation.Valid;
+
 @RestController
 public class CommonController  {
 
@@ -62,26 +64,26 @@ public class CommonController  {
     }
 
     @RequestMapping(value = "/medicines/add", method = RequestMethod.POST)
-    public ResponseEntity<?> addMedicine(@RequestBody Medicine medicine) {
+    public ResponseEntity<?> addMedicine(@RequestBody @Valid Medicine medicine) {
         commonService.saveMedicine(medicine);
         return new ResponseEntity<>(medicine, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/colors/add", method = RequestMethod.POST)
-    public ResponseEntity<?> addColor(@RequestBody Color color) {
+    public ResponseEntity<?> addColor(@RequestBody @Valid Color color) {
         commonService.saveColor(color);
         return new ResponseEntity<>(color, HttpStatus.OK);
     }
 
 
     @RequestMapping(value = "/visit_types/add", method = RequestMethod.POST)
-    public ResponseEntity<?> addVisitType(@RequestBody VisitType visitType) {
+    public ResponseEntity<?> addVisitType(@RequestBody @Valid VisitType visitType) {
         commonService.saveVisitType(visitType);
         return new ResponseEntity<>(visitType, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/animal_types/add", method = RequestMethod.POST)
-    public ResponseEntity<?> addAnimalType(@RequestBody AnimalType animalType) {
+    public ResponseEntity<?> addAnimalType(@RequestBody @Valid AnimalType animalType) {
         commonService.saveAnimalType(animalType);
         return new ResponseEntity<>(animalType, HttpStatus.OK);
     }

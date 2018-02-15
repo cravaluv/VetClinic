@@ -3,6 +3,8 @@ package pl.polsl.java.aleksandra.kowol.engineer.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
@@ -13,23 +15,22 @@ public class Medicine {
     @Column(name="idMedicine")
     private int idMedicines;
     @Basic
+    @NotNull
     @Column(name = "name", nullable = false, length = 45)
     private String name;
-//    @Basic
-//    @Column(name = "description", nullable = false, length = 254)
-//    private String description;
     @Basic
+    @NotNull
+    @Min(0)
     @Column(nullable = false)
     private int amount;
-//
-//    @ManyToMany(mappedBy = "medicines")
-//    private List<Visit> visits;
 
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "id.medicine")
     private List<VisitMedicine> visits;
 
     @Basic
+    @NotNull
+    @Min(0)
     @Column(name = "min_amount")
     private int minNumber;
 

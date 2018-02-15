@@ -21,7 +21,7 @@ export class Role {
   name: string;
 
   constructor() {
-    this.idRole = 1;
+    this.idRole = 2;
     this.name = 'employee';
   }
 }

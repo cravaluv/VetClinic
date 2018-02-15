@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Owner {
@@ -15,15 +16,19 @@ public class Owner {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idOwner;
     @Basic
+    @NotNull
     @Column(name = "name", nullable = false, length = 45)
     private String name;
     @Basic
+    @NotNull
     @Column(name = "surname", nullable = false, length = 45)
     private String surname;
     @Basic
+    @NotNull
     @Column(name = "tel", nullable = false, length = 45)
     private String tel;
     @Basic
+    @NotNull
     @Column(name = "onlineReg")
     private boolean onlineReg;
     @Basic

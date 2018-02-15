@@ -3,6 +3,7 @@ package pl.polsl.java.aleksandra.kowol.engineer.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
@@ -12,6 +13,7 @@ public class AnimalType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idAnimalType;
     @Basic
+    @NotNull
     @Column(name = "type", nullable = false, length = 45)
     private String type;
 
